@@ -35,10 +35,11 @@ export const Item = styled.li`
   display: flex;
   align-items: center;
   font-size: 0.875em;
-  font-family: 'lato';
+  font-family: 'Lato';
   text-transform: uppercase;
   text-decoration: none;
   margin: 0 1.5vw;
+  z-index: 1000;
   height: 122px;
   align-content: center;
   text-align: center;

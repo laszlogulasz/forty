@@ -2,6 +2,7 @@ import { graphql, useStaticQuery } from 'gatsby'
 import BackgroundImage from 'gatsby-background-image'
 import React from 'react'
 import styled from 'styled-components'
+import ContactDetails from './contactDetails'
 import Nav from './nav'
 import Slider from './slider'
 
@@ -26,6 +27,7 @@ const Header: React.FC = () => {
     <BackgroundImage Tag="header" fluid={imageData}>
       <Nav />
       <Slider />
+      <ContactDetails />
     </BackgroundImage>
   )
 }
@@ -33,10 +35,11 @@ const Header: React.FC = () => {
 const HeaderWrapper = styled(Header)`
   display: flex;
   max-width: 50vw;
-  min-height: 50em;
   padding-bottom: 50em;
   background-size: 100% auto;
   position: relative;
+  height: 100vh;
+  align-self: stretch;
 `
 
 export default HeaderWrapper
