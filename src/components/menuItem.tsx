@@ -10,7 +10,6 @@ interface MenuItemProps {
   data?:
     | { link: string; name: string; submenu: { link: string; name: string }[] }
     | { link: string; name: string; submenu?: undefined }
-  rest?: boolean
 }
 
 const SubItems = styled.ul`
@@ -31,7 +30,7 @@ const SubItems = styled.ul`
   );
 `
 
-const Item = styled.li`
+export const Item = styled.li`
   position: relative;
   display: flex;
   align-items: center;
@@ -39,7 +38,7 @@ const Item = styled.li`
   font-family: 'lato';
   text-transform: uppercase;
   text-decoration: none;
-  margin: 0 2.5vw;
+  margin: 0 1.5vw;
   height: 122px;
   align-content: center;
   text-align: center;
@@ -91,7 +90,7 @@ const activeStyles = {
   color: '#ff4e00',
 }
 
-const MenuItem: React.FC<MenuItemProps> = ({ data, rest, children }) => {
+const MenuItem: React.FC<MenuItemProps> = ({ data, children }) => {
   const [visible, setVisible] = useState(false)
   const subMenuItems = data?.submenu?.map(
     (item: { link: any; name: React.ReactNode }, i: React.ReactText) => {
@@ -103,12 +102,13 @@ const MenuItem: React.FC<MenuItemProps> = ({ data, rest, children }) => {
     }
   )
 
-  return rest ? (
+  return children ? (
     <Item>{children}</Item>
   ) : (
     <Item
       onFocus={() => setVisible(true)}
       onBlur={e => {
+        // @ts-ignore
         if (!e.currentTarget.contains(e.relatedTarget)) {
           setVisible(false)
         }

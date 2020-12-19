@@ -14,7 +14,7 @@ const Logo: React.FC = () => {
       }
     }
   `)
-
+  console.log('logo ', data)
   return (
     <Img
       fixed={data.file.childImageSharp.fixed}
