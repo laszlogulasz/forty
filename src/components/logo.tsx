@@ -5,7 +5,7 @@ import React from 'react'
 const Logo: React.FC = () => {
   const data = useStaticQuery(graphql`
     query {
-      file(relativePath: { eq: "logo.png" }) {
+      file(relativePath: { eq: "logo_light.png" }) {
         childImageSharp {
           fixed(width: 217, height: 81) {
             ...GatsbyImageSharpFixed
@@ -15,7 +15,13 @@ const Logo: React.FC = () => {
     }
   `)
 
-  return <Img fixed={data.file.childImageSharp.fixed} alt="logo firmy Forty" />
+  return (
+    <Img
+      fixed={data.file.childImageSharp.fixed}
+      alt="logo firmy Forty"
+      fadeIn={false}
+    />
+  )
 }
 
 export default Logo

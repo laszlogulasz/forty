@@ -48,12 +48,15 @@ const IndexPage: React.FC = () => (
         <li>
           <Link to="/teaching-staff/">Teaching staff</Link>
         </li>
+        <li>
+          <Link to="/teaching-staff/">Teaching staff</Link>
+        </li>
       </ul>
     </section>
     <section>
       <h2>More</h2>
       <ul>
-        <li>
+        <li id="dupa">
           <Link to="/open-hours/">Open hours</Link>
         </li>
         <li>

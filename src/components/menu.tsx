@@ -1,27 +1,61 @@
 import React from 'react'
 import styled from 'styled-components'
+import MenuItem from './menuItem'
 
-const MenuItems = styled.ul`
+export const MenuItems = styled.ul`
   list-style: none;
-  display: inline;
+  display: flex;
+  flex-direction: row;
+  margin: 0;
+  padding: 0;
 `
-const MenuItem = styled.li`
-  font-size: 0.875em;
-  font-family: 'lato';
-  color: white;
-  text-transform: uppercase;
-`
-const MenuItemsList: [string, string][] = [
-  ['/', 'strona główna'],
-  ['/offer', 'oferta'],
-  ['/technology', 'technologia'],
-  ['#contact', 'kontakt'],
+
+const menuItemsList = [
+  {
+    link: '/',
+    name: 'strona główna',
+
+    submenu: [
+      { link: '/', name: 'dla jakich branz pracujemy' },
+      { link: '/', name: 'zaufali nam' },
+    ],
+  },
+  ,
+  {
+    link: '/offer',
+    name: 'oferta',
+    submenu: [
+      { link: '/#dupa', name: 'jak pracujemy' },
+      { link: '/#dupa', name: 'produkcja na zlecenie' },
+      { link: '/#dupa', name: 'usługi pakowania' },
+      { link: '/#dupa', name: 'produkty własne' },
+    ],
+  },
+  { link: '/technology', name: 'technologia' },
+  { link: '/about-us', name: 'o nas' },
 ]
+
 const Menu = () => {
+  const menuItems = menuItemsList.map((item, i) => {
+    return <MenuItem key={i} data={item} />
+  })
+
+  const hostname: string = 'www.adressklepu.pl'
+
   return (
-    <MenuItems>
-      <MenuItem></MenuItem>
-    </MenuItems>
+    <>
+      <MenuItems>
+        {menuItems}
+        <MenuItem rest>
+          <a href="#dupa">kontakt</a>
+        </MenuItem>
+        <MenuItem rest>
+          <a href={`https://${hostname}`} target="_blank" rel="norefferer">
+            sklep
+          </a>
+        </MenuItem>
+      </MenuItems>
+    </>
   )
 }
 export default Menu

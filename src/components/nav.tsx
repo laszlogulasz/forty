@@ -5,18 +5,22 @@ import Logo from './logo'
 import Menu from './menu'
 
 const StyledNav = styled.nav`
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 13px 60px 25px 60px;
+  margin: 0 60px;
+`
+const StyledLink = styled(Link)`
+  margin-top: -8px;
 `
 
 const Nav: React.FC = () => {
   return (
     <StyledNav>
-      <Link to="/">
+      <StyledLink to="/">
         <Logo />
-      </Link>
+      </StyledLink>
       <Menu />
     </StyledNav>
   )
