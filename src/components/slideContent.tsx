@@ -1,6 +1,8 @@
+import { navigate } from '@reach/router'
 import React from 'react'
 import styled from 'styled-components'
-import { TransparentButton } from './transparentButton'
+import { TransparentButton } from './TransparentButton'
+import { MainHeader, Motto, Welcome } from './typography'
 
 const SlideContentWrapper = styled.div`
   display: flex;
@@ -10,39 +12,28 @@ const SlideContentWrapper = styled.div`
   margin: 50px 100px;
   padding-left: 80px;
   padding-right: 80px;
-  height: calc(100% - 100px);
+  height: calc(100% - 130px);
   align-self: stretch;
   border-radius: 60px;
 `
-const TopHeader = styled.h4`
-  margin: 0;
-  font-weight: thin;
-  font: 300 2em 'Lato';
-  color: white;
-`
-const MainHeader = styled.h1`
-  margin: 20px 0 0 0;
-  font: 400 5em 'source-serif-pro';
-  color: white;
-  span {
-    color: #ff4e00;
-  }
-`
-const BottomHeader = styled.h2`
-  margin: 20px 0 0 0;
-  font: 400 2.4em 'source-serif-pro';
-  color: white;
-`
-
 const SlideContent: React.FC = () => {
   return (
     <SlideContentWrapper>
-      <TopHeader>Witamy w Forty</TopHeader>
+      <Welcome>Witamy w Forty</Welcome>
       <MainHeader>
-        Od 1995 roku <span>termoforujemy</span> tworzywa sztuczne
+        Od 1995 roku <span>termoformujemy</span>
+        <br /> tworzywa sztuczne
       </MainHeader>
-      <BottomHeader>Tworzymy rozwiązania czyte na miarę.</BottomHeader>
-      <TransparentButton>Kontakt</TransparentButton>
+      <Motto>Tworzymy rozwiązania czyte na miarę.</Motto>
+      <TransparentButton
+        onClick={e => {
+          navigate('#dupa')
+          // @ts-ignore
+          e.currentTarget.blur()
+        }}
+      >
+        Kontakt
+      </TransparentButton>
     </SlideContentWrapper>
   )
 }

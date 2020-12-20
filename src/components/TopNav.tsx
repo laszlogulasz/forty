@@ -1,8 +1,8 @@
 import { Link } from 'gatsby'
 import React from 'react'
 import styled from 'styled-components'
-import Logo from './logo'
-import Menu from './menu'
+import Logo from './Logo'
+import Menu from './Menu'
 
 const StyledNav = styled.nav`
   position: relative;
@@ -15,7 +15,7 @@ const StyledLink = styled(Link)`
   margin-top: -8px;
 `
 
-const Nav: React.FC = () => {
+const TopNav: React.FC = () => {
   return (
     <StyledNav>
       <StyledLink to="/">
@@ -26,4 +26,4 @@ const Nav: React.FC = () => {
   )
 }
 
-export default Nav
+export default TopNav

@@ -1,7 +1,8 @@
 import { graphql, useStaticQuery } from 'gatsby'
 import React from 'react'
 import styled from 'styled-components'
-import Header from './header'
+import Footer from './Footer'
+import Header from './Header'
 
 const Container = styled.div`
   display: flex;
@@ -34,14 +35,15 @@ const Layout: React.FC<Props> = ({ isHomePage, children }) => {
       <Header />
 
       <main>{children}</main>
-
+      <Footer />
+      {/*
       <footer>
         © {new Date().getFullYear()}, Built with
         {` `}
         <a href="https://www.gatsbyjs.com">Gatsby</a>
         {` `}
         And <a href="https://wordpress.org/">WordPress</a>
-      </footer>
+      </footer> */}
     </Container>
   )
 }

@@ -3,7 +3,7 @@ import { AnchorLink } from 'gatsby-plugin-anchor-links'
 import React, { useState } from 'react'
 import styled from 'styled-components'
 
-interface Props {
+interface SubItemsProps {
   visible: boolean
 }
 interface MenuItemProps {
@@ -13,10 +13,22 @@ interface MenuItemProps {
 }
 
 const SubItems = styled.ul`
+  @keyframes toggleIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  position: absolute;
+  top: 69px;
+  animation: toggleIn 0.5s 1;
   list-style: none;
   margin: 0;
   padding: 0;
-  display: ${(props: Props) => (props.visible ? `flex` : `none`)};
+  display: ${(props: SubItemsProps) => (props.visible ? `flex` : `none`)};
+  opacity: ${(props: SubItemsProps) => (props.visible ? `1` : `0`)};
   position: absolute;
   margin-top: 53px;
   left: 50%;
@@ -46,10 +58,11 @@ export const Item = styled.li`
   a {
     text-decoration: none;
     color: white;
+    transition: color 0.2s ease;
     &:hover,
     &:active,
     &:focus {
-      color: red;
+      color: #ff4e00;
     }
   }
 `
@@ -74,7 +87,7 @@ const SubItem = styled(Item)`
     &:hover,
     &:active,
     &:focus {
-      color: red;
+      color: #ff4e00;
     }
   }
 
@@ -83,7 +96,7 @@ const SubItem = styled(Item)`
   }
 `
 const Line = styled.hr`
-  border: 1px solid red;
+  border: 1px solid #ff4e00;
   width: 30px;
   margin-top: 0;
 `
@@ -119,13 +132,13 @@ const MenuItem: React.FC<MenuItemProps> = ({ data, children }) => {
     >
       <Link to={data.link} title={data.name} activeStyle={activeStyles}>
         {data.name}
-        {subMenuItems && (
-          <SubItems visible={visible}>
-            <Line />
-            {subMenuItems}
-          </SubItems>
-        )}
       </Link>
+      {subMenuItems && (
+        <SubItems visible={visible}>
+          <Line />
+          {subMenuItems}
+        </SubItems>
+      )}
     </Item>
   )
 }

@@ -1,18 +1,15 @@
-import { Link } from 'gatsby'
 import React from 'react'
 import styled from 'styled-components'
-import Layout from '../components/layout'
+import Layout from '../components/Layout'
 // import Image from "../components/image"
-import SEO from '../components/seo'
+import SEO from '../components/Seo'
 
 const MainSection = styled.section`
   display: flex;
 `
-
 const MainTextWrapper = styled.div`
   width: 55%;
 `
-
 const ImageWrapper = styled.div`
   width: 45%;
   max-width: 300px;
@@ -24,43 +21,30 @@ const IndexPage: React.FC = () => (
     <SEO title="Home" />
     <MainSection>
       <MainTextWrapper>
-        <h1>Choose school you want to learn in</h1>
+        <h1>Przykładowy tekst</h1>
         <p>
-          Example school is blazingly modern school, which helps students to
-          succeed in their high aspiration tasks. Have you encountered any
-          school problem? Don't worry, we are going to help you in everything.
+          W warunkach rzeczywistości przedwrześniowej na tle ogólnego regresu
+          tak ekonomicznego jak i społeczno-politycznego i to zarówno w warstwie
+          pryncypiów merytorycznych jak i w głęboko zacofanej warstwie
+          sanacyjnej infrastruktury szczególną nieudolnością i brakiem koncepcji
+          rysował się ogólny bilans białka, który to bilans, jak powszechnie
+          wiadomo, wyznacza tak kompetentność czynników odpowiadających na
+          ekonomikę w każdym społeczeństwie jak i świadczy w sposób najbardziej
+          widoczny, jak sprawy te są zabezpieczone (..)
         </p>
-        <p>
-          <Link to="/about/">Learn more</Link>
-        </p>
+        <p></p>
       </MainTextWrapper>
       <ImageWrapper>{/* <Image /> */}</ImageWrapper>
     </MainSection>
-    <section>
-      <h2>Overview</h2>
-      <ul>
-        <li>
-          <Link to="/blog-post-archive/">News</Link>
-        </li>
-        <li>
-          <Link to="/education-offer/">Education offer</Link>
-        </li>
-        <li>
-          <Link to="/teaching-staff/">Teaching staff</Link>
-        </li>
-        <li>
-          <Link to="/teaching-staff/">Teaching staff</Link>
-        </li>
-      </ul>
-    </section>
+    <section></section>
     <section>
       <h2>More</h2>
       <ul>
         <li id="dupa">
-          <Link to="/open-hours/">Open hours</Link>
+          {/* <Link to="/open-hours/">Open hours</Link>
         </li>
         <li>
-          <Link to="/contact/">Contact</Link>
+          <Link to="/contact/">Contact</Link> */}
         </li>
       </ul>
     </section>

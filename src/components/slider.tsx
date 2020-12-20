@@ -1,27 +1,29 @@
 import React from 'react'
 import styled from 'styled-components'
 import SwiperCore, { A11y, Navigation, Pagination, Scrollbar } from 'swiper'
-import 'swiper/components/navigation/navigation.scss'
-import 'swiper/components/pagination/pagination.scss'
+import navigation from 'swiper/components/navigation/navigation.scss'
+import pagination from 'swiper/components/pagination/pagination.scss'
 import 'swiper/components/scrollbar/scrollbar.scss'
 import { Swiper, SwiperSlide } from 'swiper/react'
-// Import Swiper styles
 import 'swiper/swiper.scss'
-import SlideContent from './slideContent'
+import SlideContent from './SlideContent'
+
+console.log({ navigation, pagination })
 
 const StyledSlider = styled.section`
   display: flex;
   width: 100%;
-  height: calc(100vh - 162px);
+  height: calc(100vh - 200px);
   border-top: 0.5px solid #737576;
 `
 
-// install Swiper components
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y])
+
 const Slider = () => {
   return (
     <StyledSlider>
       <Swiper
+        id={'swiper-header'}
         spaceBetween={50}
         slidesPerView={1}
         navigation
@@ -30,11 +32,17 @@ const Slider = () => {
         onSlideChange={() => console.log('slide change')}
       >
         <SwiperSlide>
-          <SlideContent>Dupa</SlideContent>
+          <SlideContent />
         </SwiperSlide>
-        <SwiperSlide>Slide 2</SwiperSlide>
-        <SwiperSlide>Slide 3</SwiperSlide>
-        <SwiperSlide>Slide 4</SwiperSlide>
+        <SwiperSlide>
+          <SlideContent />
+        </SwiperSlide>
+        <SwiperSlide>
+          <SlideContent />
+        </SwiperSlide>
+        <SwiperSlide>
+          <SlideContent />
+        </SwiperSlide>
       </Swiper>
     </StyledSlider>
   )

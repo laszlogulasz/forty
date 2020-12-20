@@ -2,7 +2,7 @@ import { graphql, useStaticQuery } from 'gatsby'
 import Img from 'gatsby-image'
 import React from 'react'
 import styled from 'styled-components'
-import MenuItem, { Item } from './menuItem'
+import MenuItem, { Item } from './MenuItem'
 
 interface Props {
   flag: string
@@ -76,15 +76,15 @@ const Menu = () => {
     <>
       <MenuItems>
         {menuItems}
-        <MenuItem rest>
+        <MenuItem>
           <a href="#dupa">kontakt</a>
         </MenuItem>
-        <MenuItem rest>
+        <MenuItem>
           <a href={`https://${hostname}`} target="_blank" rel="norefferer">
             sklep
           </a>
         </MenuItem>
-        <LangItem rest flag={'gb'}>
+        <LangItem>
           <Img
             fixed={data.de.childImageSharp.fixed}
             alt="logo firmy Forty"
@@ -92,7 +92,7 @@ const Menu = () => {
           />
           <a href={`#`}>en</a>
         </LangItem>
-        <LangItem rest flag={'de'}>
+        <LangItem>
           <Img
             fixed={data.gb.childImageSharp.fixed}
             alt="logo firmy Forty"
