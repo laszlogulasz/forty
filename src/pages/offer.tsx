@@ -18,7 +18,7 @@ const ImageWrapper = styled.div`
 
 const Offer: React.FC = () => (
   <Layout>
-    <SEO title="Home" />
+    <SEO title="Oferta" />
   </Layout>
 )
 

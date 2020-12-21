@@ -1,8 +1,7 @@
 import { navigate } from '@reach/router'
 import React from 'react'
 import styled from 'styled-components'
-import { TransparentButton } from './TransparentButton'
-import { MainHeader, Motto, Welcome } from './typography'
+import { MainHeader, Motto, TransparentButton, Welcome } from './shared'
 
 const SlideContentWrapper = styled.div`
   display: flex;
@@ -15,6 +14,8 @@ const SlideContentWrapper = styled.div`
   height: calc(100% - 130px);
   align-self: stretch;
   border-radius: 60px;
+  /* backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px); */
 `
 const SlideContent: React.FC = () => {
   return (

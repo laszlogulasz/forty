@@ -18,7 +18,7 @@ const ImageWrapper = styled.div`
 
 const AboutUs: React.FC = () => (
   <Layout>
-    <SEO title="Home" />
+    <SEO title="O nas" />
   </Layout>
 )
 

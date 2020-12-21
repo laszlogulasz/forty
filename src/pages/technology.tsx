@@ -18,7 +18,7 @@ const ImageWrapper = styled.div`
 
 const Technology: React.FC = () => (
   <Layout isHomePage>
-    <SEO title="Home" />
+    <SEO title="Technologia" />
   </Layout>
 )
 

@@ -2,6 +2,7 @@ import { Link } from 'gatsby'
 import { AnchorLink } from 'gatsby-plugin-anchor-links'
 import React, { useState } from 'react'
 import styled from 'styled-components'
+import { colors } from './shared'
 
 interface SubItemsProps {
   visible: boolean
@@ -62,7 +63,7 @@ export const Item = styled.li`
     &:hover,
     &:active,
     &:focus {
-      color: #ff4e00;
+      color: ${colors.primaryRed};
     }
   }
 `
@@ -83,11 +84,11 @@ const SubItem = styled(Item)`
   text-align: center;
   a {
     text-decoration: none;
-    color: white;
+    color: ${colors.primaryLightGray};
     &:hover,
     &:active,
     &:focus {
-      color: #ff4e00;
+      color: ${colors.primaryRed};
     }
   }
 
@@ -96,12 +97,12 @@ const SubItem = styled(Item)`
   }
 `
 const Line = styled.hr`
-  border: 1px solid #ff4e00;
+  border: 1px solid ${colors.primaryRed};
   width: 30px;
   margin-top: 0;
 `
 const activeStyles = {
-  color: '#ff4e00',
+  color: colors.primaryRed,
 }
 
 const MenuItem: React.FC<MenuItemProps> = ({ data, children }) => {

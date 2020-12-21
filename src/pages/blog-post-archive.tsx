@@ -1,9 +1,9 @@
-import { graphql, Link } from "gatsby"
-import parse from "html-react-parser"
-import React from "react"
-import Bio from "../components/bio"
-import Layout from "../components/layout"
-import SEO from "../components/seo"
+import { graphql, Link } from 'gatsby'
+import parse from 'html-react-parser'
+import React from 'react'
+import Bio from '../components/Bio'
+import Layout from '../components/Layout'
+import SEO from '../components/seo'
 
 const BlogIndex = ({
   data,
