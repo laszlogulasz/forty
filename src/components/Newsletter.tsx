@@ -31,6 +31,13 @@ const AdditionalLegend = styled.p`
 `
 const InputWrapper = styled(FlexWrapper)`
   margin: 85px 30px 0 0;
+  input {
+    &:active,
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 10px ${colors.primaryLightGray};
+    }
+  }
 `
 
 const Newsletter = () => {
@@ -43,6 +50,7 @@ const Newsletter = () => {
       </AdditionalLegend>
       <InputWrapper direction={'row'}>
         <input
+          type={'email'}
           name={'email'}
           aria-label={'Podaj adres email'}
           placeholder={'Twój adres email'}

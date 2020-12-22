@@ -1,13 +1,11 @@
 import { graphql, useStaticQuery } from 'gatsby'
 import Img from 'gatsby-image'
+import { AnchorLink } from 'gatsby-plugin-anchor-links'
 import React from 'react'
 import styled from 'styled-components'
+import { hostname, menuItemsList } from '../data'
 import MenuItem, { Item } from './MenuItem'
 
-interface Props {
-  flag: string
-  rest: string
-}
 export const MenuItems = styled.ul`
   list-style: none;
   display: flex;
@@ -21,31 +19,6 @@ const LangItem = styled(Item)`
     margin-left: 5px;
   }
 `
-
-const menuItemsList = [
-  {
-    link: '/',
-    name: 'strona główna',
-
-    submenu: [
-      { link: '/', name: 'dla jakich branz pracujemy' },
-      { link: '/', name: 'zaufali nam' },
-    ],
-  },
-  ,
-  {
-    link: '/offer',
-    name: 'oferta',
-    submenu: [
-      { link: '/#dupa', name: 'jak pracujemy' },
-      { link: '/#dupa', name: 'produkcja na zlecenie' },
-      { link: '/#dupa', name: 'usługi pakowania' },
-      { link: '/#dupa', name: 'produkty własne' },
-    ],
-  },
-  { link: '/technology', name: 'technologia' },
-  { link: '/about-us', name: 'o nas' },
-]
 
 const Menu = () => {
   const data = useStaticQuery(graphql`
@@ -70,14 +43,13 @@ const Menu = () => {
     return <MenuItem key={i} data={item} />
   })
 
-  const hostname: string = 'www.adressklepu.pl'
   console.log('data: ', data)
   return (
     <>
       <MenuItems>
         {menuItems}
         <MenuItem>
-          <a href="#dupa">kontakt</a>
+          <AnchorLink to={'#contact'}>kontakt</AnchorLink>
         </MenuItem>
         <MenuItem>
           <a href={`https://${hostname}`} target="_blank" rel="norefferer">

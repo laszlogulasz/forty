@@ -1,13 +1,13 @@
 import React from 'react'
 import BottomNav from './BottomNav'
 import Contact from './Contact'
-import Form from './Form'
+import FormAndMap from './FormAndMap'
 
 const Footer = () => {
   return (
     <>
       <Contact />
-      <Form />
+      <FormAndMap />
       <BottomNav />
     </>
   )

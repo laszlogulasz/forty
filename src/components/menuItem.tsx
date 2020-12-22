@@ -11,6 +11,7 @@ interface MenuItemProps {
   data?:
     | { link: string; name: string; submenu: { link: string; name: string }[] }
     | { link: string; name: string; submenu?: undefined }
+  dark?: boolean
 }
 
 const SubItems = styled.ul`
@@ -58,7 +59,8 @@ export const Item = styled.li`
   text-align: center;
   a {
     text-decoration: none;
-    color: white;
+    color: ${(props: MenuItemProps) =>
+      props.dark ? `${colors.secondaryGray}` : `white`};
     transition: color 0.2s ease;
     &:hover,
     &:active,
@@ -105,7 +107,7 @@ const activeStyles = {
   color: colors.primaryRed,
 }
 
-const MenuItem: React.FC<MenuItemProps> = ({ data, children }) => {
+const MenuItem: React.FC<MenuItemProps> = ({ dark, data, children }) => {
   const [visible, setVisible] = useState(false)
   const subMenuItems = data?.submenu?.map(
     (item: { link: any; name: React.ReactNode }, i: React.ReactText) => {
@@ -118,9 +120,10 @@ const MenuItem: React.FC<MenuItemProps> = ({ data, children }) => {
   )
 
   return children ? (
-    <Item>{children}</Item>
+    <Item dark={dark}>{children}</Item>
   ) : (
     <Item
+      dark={dark}
       onFocus={() => setVisible(true)}
       onBlur={e => {
         // @ts-ignore

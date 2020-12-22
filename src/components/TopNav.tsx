@@ -19,7 +19,7 @@ const TopNav: React.FC = () => {
   return (
     <StyledNav>
       <StyledLink to="/">
-        <Logo />
+        <Logo theme={'light'} />
       </StyledLink>
       <Menu />
     </StyledNav>

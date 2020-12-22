@@ -57,7 +57,6 @@ const SocialIkon = styled.a`
   }
   svg {
     color: ${colors.primaryLightGray};
-    }
   }
 `
 

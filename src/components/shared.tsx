@@ -5,9 +5,12 @@ interface FlexWrapperProps {
 }
 export const colors = {
   primaryLightGray: '#c8c8c8',
+  secondaryLightGray: '#f1f8fc',
   primaryGray: '#9fa4af',
   secondaryGray: '#555555',
-  primaryDarkGray: '#171717',
+  primaryDarkGray: 'rgb(23, 23, 23)',
+  primaryDarkGrayOpacity: 'rgba(23, 23, 23, .2)',
+  primaryDarkGrayOpacity2: 'rgba(23, 23, 23, .4)',
   primaryRed: '#ff4e00',
   secondaryOrange: '#fe6d20',
 }
