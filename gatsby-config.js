@@ -15,6 +15,12 @@ module.exports = {
    */
   plugins: [
     {
+      resolve: `gatsby-plugin-styled-components`,
+      options: {
+        // Add any options here
+      },
+    },
+    {
       /**
        * First up is the WordPress source plugin that connects Gatsby
        * to your WordPress site.

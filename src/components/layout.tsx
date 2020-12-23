@@ -33,7 +33,6 @@ const Layout: React.FC<Props> = ({ isHomePage, children }) => {
   return (
     <Container data-is-root-path={isHomePage}>
       <Header />
-
       <main>{children}</main>
       <Footer />
       {/*

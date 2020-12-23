@@ -54,3 +54,16 @@
   opacity: 1;
   background-color: #ff4e00;
 }
+#swiper-industry .swiper-pagination-bullet {
+  width: 6px;
+  height: 6px;
+  margin: 0 10px 0 0;
+  display: inline-block;
+  border-radius: 100%;
+  background: #fff;
+  opacity: 1;
+}
+#swiper-industry .swiper-pagination-bullet-active {
+  opacity: 1;
+  background-color: #ff4e00;
+}

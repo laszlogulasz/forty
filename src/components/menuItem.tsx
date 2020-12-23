@@ -113,7 +113,7 @@ const MenuItem: React.FC<MenuItemProps> = ({ dark, data, children }) => {
     (item: { link: any; name: React.ReactNode }, i: React.ReactText) => {
       return (
         <SubItem key={i}>
-          <AnchorLink to={`${item.link}#dupa`}>{item.name}</AnchorLink>
+          <AnchorLink to={`${item.link}`}>{item.name}</AnchorLink>
         </SubItem>
       )
     }

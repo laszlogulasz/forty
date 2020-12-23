@@ -3,6 +3,9 @@ import styled, { css } from 'styled-components'
 interface FlexWrapperProps {
   direction: string
 }
+interface SmallHeaderProps {
+  invert?: string
+}
 export const colors = {
   primaryLightGray: '#c8c8c8',
   secondaryLightGray: '#f1f8fc',
@@ -16,10 +19,25 @@ export const colors = {
 }
 export const SectionHeader = styled.h2`
   width: 100%;
-  margin: 20px 0 0 0;
-  font: 400 3.125em 'Lato';
+  margin: 30px 0 0 0;
+  font: 400 2em 'Lato';
   color: ${colors.primaryRed};
   text-transform: uppercase;
+`
+export const SmallHeader = styled.h3`
+  width: 100%;
+  margin: 0;
+  font: 400 1.6em 'Lato';
+  color: ${(props: SmallHeaderProps) =>
+    props.invert === 'row-reverse' ? 'white' : colors.primaryRed};
+  text-transform: uppercase;
+`
+export const Description = styled.p`
+  width: 100%;
+  margin: 5px 0 0 0;
+  font: 100 1.125em 'Lato';
+  color: ${(props: SmallHeaderProps) =>
+    props.invert === 'row-reverse' ? 'white' : colors.primaryGray};
 `
 export const Welcome = styled.strong`
   margin: 0;
@@ -29,7 +47,7 @@ export const Welcome = styled.strong`
 `
 export const MainHeader = styled.h1`
   margin: 20px 0 0 0;
-  font: 400 5em 'source-serif-pro';
+  font: 400 4em 'source-serif-pro';
   color: white;
   span {
     color: ${colors.primaryRed};
@@ -37,7 +55,7 @@ export const MainHeader = styled.h1`
 `
 const SerifSlogan = css`
   margin: 20px 0 0 0;
-  font: 400 2.4em 'source-serif-pro';
+  font: 400 2em 'source-serif-pro';
   color: white;
 `
 export const Motto = styled.strong`
@@ -85,7 +103,7 @@ export const GradientButton = styled(TransparentButton)`
   box-shadow: none;
   margin: 0;
   border: none;
-  color: ${colors.primaryDarkGray};
+  color: white;
   &:hover,
   &:focus {
     border: none;

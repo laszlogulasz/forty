@@ -3,7 +3,7 @@ import Img from 'gatsby-image'
 import { AnchorLink } from 'gatsby-plugin-anchor-links'
 import React from 'react'
 import styled from 'styled-components'
-import { hostname, menuItemsList } from '../data'
+import { menuItemsList } from '../data'
 import MenuItem, { Item } from './MenuItem'
 
 export const MenuItems = styled.ul`
@@ -43,6 +43,7 @@ const Menu = () => {
     return <MenuItem key={i} data={item} />
   })
 
+  const hostname: string = 'www.adressklepu.pl'
   console.log('data: ', data)
   return (
     <>

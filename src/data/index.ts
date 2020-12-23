@@ -4,8 +4,8 @@ export const menuItemsList = [
     name: 'strona główna',
 
     submenu: [
-      { link: '/', name: 'dla jakich branz pracujemy' },
-      { link: '/', name: 'zaufali nam' },
+      { link: '/#industries', name: 'dla jakich branż pracujemy' },
+      { link: '/#brands', name: 'zaufali nam' },
     ],
   },
   ,
@@ -13,10 +13,10 @@ export const menuItemsList = [
     link: '/offer',
     name: 'oferta',
     submenu: [
-      { link: '/#dupa', name: 'jak pracujemy' },
-      { link: '/#dupa', name: 'produkcja na zlecenie' },
-      { link: '/#dupa', name: 'usługi pakowania' },
-      { link: '/#dupa', name: 'produkty własne' },
+      { link: '/', name: 'jak pracujemy' },
+      { link: '/', name: 'produkcja na zlecenie' },
+      { link: '/', name: 'usługi pakowania' },
+      { link: '/', name: 'produkty własne' },
     ],
   },
   { link: '/technology', name: 'technologia' },

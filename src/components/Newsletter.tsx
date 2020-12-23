@@ -11,12 +11,12 @@ const NewsletterForm = styled.form`
     border: none;
     width: 490px;
     margin: 0 35px 0 0;
-    font: 0.935em 'Lato';
+    font: 200 0.935em 'Lato';
     &::placeholder,
     &::-webkit-input-placeholder {
-      color: ${colors.primaryDarkGray};
+      color: white;
     }
-    color: ${colors.primaryDarkGray};
+    color: white;
     padding-left: 20px;
     background: linear-gradient(
       90deg,

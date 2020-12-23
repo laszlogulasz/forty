@@ -18,6 +18,7 @@ const ContactFormWrapper = styled(FlexWrapper)`
 `
 const ContactFormHeader = styled(SectionHeader)`
   font-size: 0.75em;
+  margin-top: 0px;
 `
 const ContactMotto = styled(Motto)`
   color: ${colors.primaryDarkGray};
@@ -134,14 +135,10 @@ const ContactForm = () => {
   useEffect(() => {
     const labelVal = ContactFileLabelRef?.current.innerHTML
     ContactFileInputRef?.current.addEventListener('change', e => {
-      var fileName = ''
+      let fileName = ''
       fileName = e.target.value.split('\\').pop()
 
-      if (fileName && ContactFileLabelRef) {
-        console.log(
-          '🚀 ~ file: ContactForm.tsx ~ line 150 ~ ContactForm ~ ContactFileLabelRef',
-          ContactFileLabelRef
-        )
+      if (fileName) {
         ContactFileLabelRef.current.innerHTML = fileName
       } else {
         ContactFileLabelRef.current = labelVal
@@ -152,7 +149,10 @@ const ContactForm = () => {
   return (
     <ContactFormWrapper direction={'column'}>
       <ContactFormHeader>zapytaj</ContactFormHeader>
-      <ContactMotto>Zawsze odpowiemy na Twoje pytania!</ContactMotto>
+      <ContactMotto>
+        Zawsze odpowiemy
+        {'\n'}na Twoje pytania!
+      </ContactMotto>
       <form>
         <Fieldset>
           <ContactLegend>Chcę zapytać o:</ContactLegend>

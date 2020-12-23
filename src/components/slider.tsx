@@ -1,16 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import SwiperCore, { A11y, Navigation, Pagination, Scrollbar } from 'swiper'
-// @ts-ignore
-import navigation from 'swiper/components/navigation/navigation.scss'
-// @ts-ignore
-import pagination from 'swiper/components/pagination/pagination.scss'
-import 'swiper/components/scrollbar/scrollbar.scss'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import 'swiper/swiper.scss'
 import SlideContent from './SlideContent'
-
-console.log({ navigation, pagination })
 
 const StyledSlider = styled.section`
   display: flex;

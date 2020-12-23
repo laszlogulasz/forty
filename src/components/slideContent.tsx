@@ -28,7 +28,7 @@ const SlideContent: React.FC = () => {
       <Motto>Tworzymy rozwiązania czyte na miarę.</Motto>
       <TransparentButton
         onClick={e => {
-          navigate('#dupa')
+          navigate('#kontakt')
           // @ts-ignore
           e.currentTarget.blur()
         }}
