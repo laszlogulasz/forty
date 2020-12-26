@@ -5,18 +5,12 @@ import SwiperCore, { A11y, Pagination } from 'swiper'
 // @ts-ignore
 // @ts-ignore
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { colors, Description, FlexWrapper, SmallHeader } from './shared'
+import { BoxWrapper, Description, FlexWrapper, SmallHeader } from './shared'
 
 interface Props {
   invert: string
 }
-const IndustryWrapper = styled(FlexWrapper)`
-  max-width: 1170px;
-  border-radius: 20px;
-  box-shadow: 0 0 20px ${colors.primaryDarkGrayOpacity};
-  margin: 20px 0;
-  overflow: hidden;
-`
+
 const IndustrySliderWrapper = styled.div`
   display: flex;
   width: 100%;
@@ -57,7 +51,7 @@ const Industry = ({ name, desc, images, direction }) => {
       })
     : null
   return (
-    <IndustryWrapper direction={direction}>
+    <BoxWrapper direction={direction} wide>
       <IndustrySliderWrapper>
         <Swiper
           id={'swiper-industry'}
@@ -72,7 +66,7 @@ const Industry = ({ name, desc, images, direction }) => {
         <SmallHeader invert={direction}>{name}</SmallHeader>
         <Description invert={direction}>{desc}</Description>
       </IndustryDescription>
-    </IndustryWrapper>
+    </BoxWrapper>
   )
 }
 

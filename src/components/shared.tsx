@@ -1,10 +1,14 @@
 import styled, { css } from 'styled-components'
 
 interface FlexWrapperProps {
-  direction: string
+  direction?: string
 }
 interface SmallHeaderProps {
   invert?: string
+}
+interface BoxWrapperProps {
+  flat?: boolean
+  wide?: boolean
 }
 export const colors = {
   primaryLightGray: '#c8c8c8',
@@ -23,6 +27,9 @@ export const SectionHeader = styled.h2`
   font: 400 2em 'Lato';
   color: ${colors.primaryRed};
   text-transform: uppercase;
+`
+export const PageSectionHeader = styled(SectionHeader)`
+  margin: 100px 0 20px 0;
 `
 export const SmallHeader = styled.h3`
   width: 100%;
@@ -133,4 +140,15 @@ export const SectionWrapper = styled.section`
     max-width: 1170px;
     align-self: center;
   }
+`
+export const BoxWrapper = styled(FlexWrapper)`
+  width: ${(props: BoxWrapperProps) => (props.wide ? '1170px' : '860px')};
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  box-shadow: 0 0 20px
+    ${(props: BoxWrapperProps) =>
+      props.flat ? 'transparent' : colors.primaryDarkGrayOpacity};
+  margin: 20px 0;
+  overflow: hidden;
 `

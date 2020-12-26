@@ -22,11 +22,9 @@ const Background = styled.div`
 const IndexPage: React.FC = () => (
   <Layout isHomePage>
     <SEO title="Home" />
-    <main>
-      <Background />
-      <Industries />
-      <Brands />
-    </main>
+    <Background />
+    <Industries />
+    <Brands />
   </Layout>
 )
 

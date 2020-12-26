@@ -4,8 +4,7 @@ import React from 'react'
 import styled from 'styled-components'
 import SwiperCore, { A11y } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { IndexPageHeader } from './Industries'
-import { colors, SectionWrapper } from './shared'
+import { colors, PageSectionHeader, SectionWrapper } from './shared'
 
 const BrandsSliderWrapper = styled.div`
   padding-top: 10px;
@@ -52,7 +51,7 @@ const Brands = () => {
     : null
   return (
     <SectionWrapper id="brands">
-      <IndexPageHeader>Zaufali nam:</IndexPageHeader>
+      <PageSectionHeader>Zaufali nam:</PageSectionHeader>
       <BrandsSliderWrapper>
         <Swiper
           id={'swiper-header'}

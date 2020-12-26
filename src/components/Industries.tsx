@@ -1,12 +1,7 @@
 import { graphql, useStaticQuery } from 'gatsby'
 import React from 'react'
-import styled from 'styled-components'
 import Industry from './Industry'
-import { SectionHeader, SectionWrapper } from './shared'
-
-export const IndexPageHeader = styled(SectionHeader)`
-  margin: 100px 0 20px 0;
-`
+import { PageSectionHeader, SectionWrapper } from './shared'
 
 const Industries = () => {
   const data = useStaticQuery(graphql`
@@ -188,20 +183,18 @@ const Industries = () => {
   ]
 
   const industries = sliderData.map(
-    (industry: { name: string; desc: string; images: object }, i) => {
-      return (
-        <Industry
-          name={industry.name}
-          desc={industry.desc}
-          images={industry.images}
-          direction={i % 2 > 0 ? 'row-reverse' : 'row'}
-        />
-      )
-    }
+    (industry: { name: string; desc: string; images: object }, i) => (
+      <Industry
+        name={industry.name}
+        desc={industry.desc}
+        images={industry.images}
+        direction={i % 2 > 0 ? 'row-reverse' : 'row'}
+      />
+    )
   )
   return (
     <SectionWrapper id="industries">
-      <IndexPageHeader>Branże dla których pracujemy</IndexPageHeader>
+      <PageSectionHeader>Branże dla których pracujemy</PageSectionHeader>
       {industries}
     </SectionWrapper>
   )
