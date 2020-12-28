@@ -45,7 +45,7 @@ const TransparentButtonWrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
-  margin: -50px 20px 0 0;
+  margin: -50px 50px 0 0;
 `
 const ProductInfoWrapper = styled.div`
   display: flex;
@@ -89,6 +89,7 @@ const OwnProducts = () => {
         <ProductBox>
           <ProductImgWrapper>
             <ProductImg
+              // @ts-ignore
               fixed={data.helmet.childImageSharp.fixed}
               alt="logo firmy Forty"
               fadeIn={false}
@@ -118,6 +119,7 @@ const OwnProducts = () => {
         <ProductBox>
           <ProductImgWrapper>
             <ProductImg
+              // @ts-ignore
               fixed={data.blistry.childImageSharp.fixed}
               alt="logo firmy Forty"
               fadeIn={false}

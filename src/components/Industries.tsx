@@ -1,7 +1,7 @@
 import { graphql, useStaticQuery } from 'gatsby'
 import React from 'react'
-import Industry from './Industry'
 import { PageSectionHeader, SectionWrapper } from './shared'
+import SliderBox from './SliderBox'
 
 const Industries = () => {
   const data = useStaticQuery(graphql`
@@ -184,7 +184,7 @@ const Industries = () => {
 
   const industries = sliderData.map(
     (industry: { name: string; desc: string; images: object }, i) => (
-      <Industry
+      <SliderBox
         key={i}
         name={industry.name}
         desc={industry.desc}

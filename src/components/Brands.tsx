@@ -43,7 +43,6 @@ const Brands = () => {
               fixed={el.node.childImageSharp.fixed}
               alt="logo marki"
               fadeIn={false}
-              loop={true}
             />
           </SwiperSlide>
         )

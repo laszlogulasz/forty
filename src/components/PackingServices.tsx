@@ -2,25 +2,17 @@ import { graphql, useStaticQuery } from 'gatsby'
 import BackgroundImage from 'gatsby-background-image'
 import React from 'react'
 import styled from 'styled-components'
-import Industry from './Industry'
 import {
   colors,
   Description,
+  GradientSectionWrapper,
   PageSectionHeader,
   SectionWrapper,
 } from './shared'
+import SliderBox from './SliderBox'
 interface WokflowProps {
   invert: 'row' | 'row-reverse'
 }
-
-const PackingServicesSectionWrapper = styled(SectionWrapper)`
-  background: linear-gradient(
-    90deg,
-    rgba(252, 192, 117, 1) 0%,
-    rgba(254, 96, 20, 1) 100%
-  );
-  box-shadow: 0 0 10px ${colors.primaryGray};
-`
 
 const ContractList = styled.ul`
   list-style: none;
@@ -30,6 +22,7 @@ const ContractList = styled.ul`
   flex-wrap: wrap;
   align-items: stretch;
   margin-top: -240px;
+  margin-bottom: 40px;
   padding: 0;
   box-shadow: 0 0 30px ${colors.primaryGray};
 `
@@ -99,7 +92,6 @@ const PackingServices = () => {
   `)
 
   const packing = {
-    name: '',
     desc: (
       <span>
         Usługi pakowania realizujemy na życzenie klienta, który ma produkt,
@@ -129,7 +121,7 @@ const PackingServices = () => {
 
   return (
     <>
-      <PackingServicesSectionWrapper>
+      <GradientSectionWrapper>
         <ContractList>{services}</ContractList>
         <PageSectionHeader invert id="packing-services">
           usługi pakowania
@@ -142,10 +134,9 @@ const PackingServices = () => {
           przez Klienta. Proponujemy pakowanie typu skin-blister, zgrzewane na
           maszynach HSP oraz pełny blister zgrzewane na maszynach GEAF.
         </Description>
-      </PackingServicesSectionWrapper>
+      </GradientSectionWrapper>
       <PackingBoxSectionWrapper>
-        <Industry
-          name={packing.name}
+        <SliderBox
           desc={packing.desc}
           images={packing.images}
           direction={'row'}

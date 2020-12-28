@@ -2,8 +2,6 @@ import Img from 'gatsby-image'
 import React from 'react'
 import styled from 'styled-components'
 import SwiperCore, { A11y, Pagination } from 'swiper'
-// @ts-ignore
-// @ts-ignore
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { BoxWrapper, Description, FlexWrapper, SmallHeader } from './shared'
 
@@ -12,19 +10,18 @@ interface Props {
   tall?: boolean
 }
 
-const IndustrySliderWrapper = styled.div`
+const SliderBoxSliderWrapper = styled.div`
   display: flex;
   width: 100%;
   max-width: 585px;
   max-height: ${(props: Props) => (props.tall ? '585px' : '290px')};
   background-color: white;
 `
-const IndustryDescription = styled(FlexWrapper)`
+const SliderBoxDescription = styled(FlexWrapper)`
   width: 100%;
-  height: ${(props: Props) => (props.tall ? '585px' : '290px')};
   padding: 0 1.5em 0 1.5em;
   justify-content: center;
-
+  align-self: stretch;
   background: ${(props: Props) =>
     props.invert === 'row-reverse'
       ? `linear-gradient(
@@ -36,11 +33,11 @@ const IndustryDescription = styled(FlexWrapper)`
 `
 SwiperCore.use([Pagination, A11y])
 
-const Industry = ({ name, desc, images, direction, tall }) => {
+const SliderBox = ({ name, desc, images, direction, tall }) => {
   const imgs = images.edges
-    ? images.edges.map(el => {
+    ? images.edges.map((el: any, i) => {
         return (
-          <SwiperSlide>
+          <SwiperSlide key={i}>
             <Img
               fixed={el.node.childImageSharp.fixed}
               alt="produkt firmy"
@@ -52,7 +49,7 @@ const Industry = ({ name, desc, images, direction, tall }) => {
     : null
   return (
     <BoxWrapper direction={direction} wide tall>
-      <IndustrySliderWrapper tall={tall}>
+      <SliderBoxSliderWrapper tall={tall}>
         <Swiper
           id={'swiper-industry'}
           spaceBetween={0}
@@ -61,13 +58,13 @@ const Industry = ({ name, desc, images, direction, tall }) => {
         >
           {imgs}
         </Swiper>
-      </IndustrySliderWrapper>
-      <IndustryDescription direction={'column'} invert={direction} tall={tall}>
-        <SmallHeader invert={direction}>{name}</SmallHeader>
+      </SliderBoxSliderWrapper>
+      <SliderBoxDescription direction={'column'} invert={direction} tall={tall}>
+        {name && <SmallHeader invert={direction}>{name}</SmallHeader>}
         <Description invert={direction}>{desc}</Description>
-      </IndustryDescription>
+      </SliderBoxDescription>
     </BoxWrapper>
   )
 }
 
-export default Industry
+export default SliderBox

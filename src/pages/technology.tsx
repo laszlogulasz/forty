@@ -1,24 +1,21 @@
 import React from 'react'
-import styled from 'styled-components'
+import Blister from '../components/Blister'
 import Layout from '../components/Layout'
+import MachinePark from '../components/MachinePark'
+import Plastics from '../components/Plastics'
 // import Image from "../components/image"
 import SEO from '../components/Seo'
-
-const MainSection = styled.section`
-  display: flex;
-`
-const MainTextWrapper = styled.div`
-  width: 55%;
-`
-const ImageWrapper = styled.div`
-  width: 45%;
-  max-width: 300px;
-  margin-bottom: 1.45rem;
-`
+import Speciality from '../components/Speciality'
+import Thermoforming from '../components/Thermoforming'
 
 const Technology: React.FC = () => (
   <Layout isHomePage>
     <SEO title="Technologia" />
+    <Thermoforming />
+    <Blister />
+    <Speciality />
+    <MachinePark />
+    <Plastics />
   </Layout>
 )
 

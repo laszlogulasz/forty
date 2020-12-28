@@ -154,6 +154,14 @@ export const SectionWrapper = styled.section`
     align-self: center;
   }
 `
+export const GradientSectionWrapper = styled(SectionWrapper)`
+  background: linear-gradient(
+    90deg,
+    rgba(252, 192, 117, 1) 0%,
+    rgba(254, 96, 20, 1) 100%
+  );
+  box-shadow: 0 0 10px ${colors.primaryGray};
+`
 export const BoxWrapper = styled(FlexWrapper)`
   width: ${(props: BoxWrapperProps) => (props.wide ? '1170px' : '860px')};
   align-items: center;
