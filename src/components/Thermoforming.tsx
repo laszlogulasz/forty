@@ -6,22 +6,11 @@ import SliderBox from './SliderBox'
 const Thermoforming = () => {
   const data = useStaticQuery(graphql`
     query {
-      contracts: allFile(filter: { dir: { regex: "/contract/" } }) {
+      thermoforming: allFile(filter: { dir: { regex: "/thermoforming/" } }) {
         edges {
           node {
             childImageSharp {
-              fixed(width: 390, height: 240, cropFocus: CENTER) {
-                ...GatsbyImageSharpFixed
-              }
-            }
-          }
-        }
-      }
-      packing: allFile(filter: { dir: { regex: "/packing/" } }) {
-        edges {
-          node {
-            childImageSharp {
-              fixed(width: 585, height: 585, cropFocus: CENTER) {
+              fixed(width: 585, height: 420, cropFocus: CENTER) {
                 ...GatsbyImageSharpFixed
               }
             }
@@ -47,7 +36,7 @@ const Thermoforming = () => {
         wyprodukowane w technologii termoformowania.{' '}
       </span>
     ),
-    images: data.packing,
+    images: data.thermoforming,
   }
 
   return (

@@ -1,5 +1,5 @@
 import Img from 'gatsby-image'
-import React from 'react'
+import React, { ReactNode } from 'react'
 import styled from 'styled-components'
 import SwiperCore, { A11y, Pagination } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -9,12 +9,19 @@ interface Props {
   invert?: string
   tall?: boolean
 }
+interface SliderBoxProps {
+  name?: string
+  desc: string | ReactNode
+  images: any
+  direction: string
+  tall?: boolean
+}
 
 const SliderBoxSliderWrapper = styled.div`
   display: flex;
   width: 100%;
   max-width: 585px;
-  max-height: ${(props: Props) => (props.tall ? '585px' : '290px')};
+  max-height: ${(props: Props) => (props.tall ? '420px' : '290px')};
   background-color: white;
 `
 const SliderBoxDescription = styled(FlexWrapper)`
@@ -33,9 +40,15 @@ const SliderBoxDescription = styled(FlexWrapper)`
 `
 SwiperCore.use([Pagination, A11y])
 
-const SliderBox = ({ name, desc, images, direction, tall }) => {
+const SliderBox: React.FC<SliderBoxProps> = ({
+  name,
+  desc,
+  images,
+  direction,
+  tall,
+}) => {
   const imgs = images.edges
-    ? images.edges.map((el: any, i) => {
+    ? images.edges.map((el: any, i: number) => {
         return (
           <SwiperSlide key={i}>
             <Img

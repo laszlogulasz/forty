@@ -2,7 +2,7 @@ import { graphql, useStaticQuery } from 'gatsby'
 import Img from 'gatsby-image'
 import React from 'react'
 import styled from 'styled-components'
-import SwiperCore, { A11y } from 'swiper'
+import SwiperCore, { A11y, Autoplay } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { colors, PageSectionHeader, SectionWrapper } from './shared'
 
@@ -17,7 +17,7 @@ const BrandsSliderWrapper = styled.div`
   border-top: 1px solid ${colors.primaryRed};
   border-bottom: 1px solid ${colors.primaryRed};
 `
-SwiperCore.use([A11y])
+SwiperCore.use([A11y, Autoplay])
 
 const Brands = () => {
   const data = useStaticQuery(graphql`
@@ -59,6 +59,7 @@ const Brands = () => {
           slidesPerGroup={3}
           freeMode={true}
           loop={true}
+          autoplay={{ delay: 2000 }}
         >
           {imgs}
         </Swiper>

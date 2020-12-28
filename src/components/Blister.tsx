@@ -8,7 +8,7 @@ const BlisterHeaderShift = styled(PageSectionHeader)`
 const Blister = () => {
   return (
     <SectionWrapper id="blister">
-      <BlisterHeaderShift>Co to jest lister</BlisterHeaderShift>
+      <BlisterHeaderShift>Co to jest blister</BlisterHeaderShift>
     </SectionWrapper>
   )
 }

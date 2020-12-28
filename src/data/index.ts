@@ -19,7 +19,14 @@ export const menuItemsList = [
       { link: '/offer#own-products', name: 'produkty własne' },
     ],
   },
-  { link: '/technology', name: 'technologia' },
+  { link: '/technology', name: 'technologia', 
+  submenu: [
+    { link: '/technology#thermoforming', name: 'co to jest termoformowanie' },
+    { link: '/technology#blister', name: 'co to jest blister' },
+    { link: '/technology#speciality', name: 'nasza specjalizacja' },
+    { link: '/technology#machine-park', name: 'park maszynowy' },
+    { link: '/technology#plastics', name: 'rodzaje tworzyw sztucznych' },
+  ], },
   { link: '/about-us', name: 'o nas' },
 ]
 export const bottomMenuItemsList = [
