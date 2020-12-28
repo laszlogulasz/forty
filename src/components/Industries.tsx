@@ -185,10 +185,12 @@ const Industries = () => {
   const industries = sliderData.map(
     (industry: { name: string; desc: string; images: object }, i) => (
       <Industry
+        key={i}
         name={industry.name}
         desc={industry.desc}
         images={industry.images}
         direction={i % 2 > 0 ? 'row-reverse' : 'row'}
+        tall={false}
       />
     )
   )

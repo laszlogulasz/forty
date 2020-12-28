@@ -8,20 +8,20 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { BoxWrapper, Description, FlexWrapper, SmallHeader } from './shared'
 
 interface Props {
-  invert: string
+  invert?: string
+  tall?: boolean
 }
 
 const IndustrySliderWrapper = styled.div`
   display: flex;
   width: 100%;
   max-width: 585px;
-  max-height: 290px;
+  max-height: ${(props: Props) => (props.tall ? '585px' : '290px')};
   background-color: white;
 `
 const IndustryDescription = styled(FlexWrapper)`
   width: 100%;
-  height: 290px;
-  height: 290px;
+  height: ${(props: Props) => (props.tall ? '585px' : '290px')};
   padding: 0 1.5em 0 1.5em;
   justify-content: center;
 
@@ -36,7 +36,7 @@ const IndustryDescription = styled(FlexWrapper)`
 `
 SwiperCore.use([Pagination, A11y])
 
-const Industry = ({ name, desc, images, direction }) => {
+const Industry = ({ name, desc, images, direction, tall }) => {
   const imgs = images.edges
     ? images.edges.map(el => {
         return (
@@ -51,8 +51,8 @@ const Industry = ({ name, desc, images, direction }) => {
       })
     : null
   return (
-    <BoxWrapper direction={direction} wide>
-      <IndustrySliderWrapper>
+    <BoxWrapper direction={direction} wide tall>
+      <IndustrySliderWrapper tall={tall}>
         <Swiper
           id={'swiper-industry'}
           spaceBetween={0}
@@ -62,7 +62,7 @@ const Industry = ({ name, desc, images, direction }) => {
           {imgs}
         </Swiper>
       </IndustrySliderWrapper>
-      <IndustryDescription direction={'column'} invert={direction}>
+      <IndustryDescription direction={'column'} invert={direction} tall={tall}>
         <SmallHeader invert={direction}>{name}</SmallHeader>
         <Description invert={direction}>{desc}</Description>
       </IndustryDescription>

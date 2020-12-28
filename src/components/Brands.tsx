@@ -36,9 +36,9 @@ const Brands = () => {
     }
   `)
   const imgs = data.brands.edges
-    ? data.brands.edges.map(el => {
+    ? data.brands.edges.map((el: any, i: number) => {
         return (
-          <SwiperSlide>
+          <SwiperSlide key={i}>
             <Img
               fixed={el.node.childImageSharp.fixed}
               alt="logo marki"

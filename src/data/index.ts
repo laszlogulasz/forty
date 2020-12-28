@@ -46,6 +46,4 @@ export const workFlowList = [
   {title: 'Projektowanie I realizacja formy ', content: 'po akceptacji prototypu wykonujemy formę a następnie wykonujemy wytłoczkę do akceptacji.'},
   {title: 'Realizacja Zlecenia', content: 'po akceptacji wytłoczki docelowej realizujemy produkcję. '},
   {title: 'Dostawa ', content: 'po wyprodukowaniu zlecenia towar dostarczamy do Klienta. Możemy zorganizować transport lub skorzystać z firmy transportowej wskazanej przez Klienta.'},
-
-
 ]

@@ -1,70 +1,18 @@
+import { graphql, useStaticQuery } from 'gatsby'
+import BackgroundImage from 'gatsby-background-image'
 import React from 'react'
 import styled from 'styled-components'
-import { workFlowList } from '../data'
+import Industry from './Industry'
 import {
-  BoxWrapper,
   colors,
   Description,
   PageSectionHeader,
   SectionWrapper,
-  SmallHeader,
 } from './shared'
 interface WokflowProps {
   invert: 'row' | 'row-reverse'
 }
-const WorkflowListWrapper = styled.dl`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`
-const WorkflowWrapper = styled(BoxWrapper)`
-  position: relative;
-  flex-direction: column;
-  justify-content: center;
-  justify-items: center;
-  align-items: center;
-  overflow: visible;
-  border-radius: 10px;
-  margin-bottom: 3em;
-  background: ${(props: WokflowProps) =>
-    props.invert === 'row-reverse'
-      ? `linear-gradient(
-    90deg,
-    rgba(254, 96, 20, 1) 0%,
-     rgba(252, 192, 117, 1) 100%
-  )`
-      : 'white'};
-  border: ${(props: WokflowProps) =>
-    props.invert === 'row-reverse'
-      ? 'none'
-      : `2px solid rgb(254, 96, 20)
-  `};
-  & * {
-    text-align: center;
-    width: 100%;
-    padding: 0;
-  }
-  & dt {
-    margin: 1em 2em 0 2em;
-  }
-  & dd {
-    margin: 0.5em 2em 1.5em 2em;
-  }
-  &:not(:last-child):after {
-    content: '';
-    position: absolute;
-    width: 50px;
-    height: 30px;
-    color: red;
-    background-image: url("data:image/svg+xml;utf8,<svg version='1.1' id='si-ant-down' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 120' fill='rgb(254, 96, 20)'><title  id='cmsi-ant-down-title'>icon down</title><path d='M198.2,2c-1.3-1.3-2.8-2-4.5-2s-3.2,0.7-4.5,2L100,96.1L10.7,2C9.4,0.7,7.9,0,6.2,0S3.1,0.7,1.8,2C0.6,3.3,0,4.8,0,6.6 s0.6,3.4,1.8,4.7l93.8,98.8c1.3,1.3,2.8,2,4.5,2c1.7,0,3.2-0.7,4.5-2l93.8-98.8c1.2-1.3,1.8-2.9,1.8-4.7S199.4,3.3,198.2,2z'/></svg>");
-    bottom: -50px;
-  }
-`
 
-const ContractProductionSmallHeader = styled(SmallHeader)`
-  font-size: 1.5em;
-  text-transform: none;
-`
 const PackingServicesSectionWrapper = styled(SectionWrapper)`
   background: linear-gradient(
     90deg,
@@ -73,31 +21,138 @@ const PackingServicesSectionWrapper = styled(SectionWrapper)`
   );
   box-shadow: 0 0 10px ${colors.primaryGray};
 `
+
+const ContractList = styled.ul`
+  list-style: none;
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: stretch;
+  margin-top: -240px;
+  padding: 0;
+  box-shadow: 0 0 30px ${colors.primaryGray};
+`
+const ContractBackgroundImage = styled(BackgroundImage)`
+  width: 100%;
+  max-height: 240px;
+  background-position: 0 0;
+  background-color: #fff;
+`
+const ContractListItem = styled.p`
+  width: 390px;
+  height: 240px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font: 400 1.2em 'Lato';
+  padding: 0 30px;
+  box-sizing: border-box;
+  margin: 0;
+  color: white;
+  text-transform: uppercase;
+  background-color: ${colors.primaryDarkGrayOpacity1};
+  transition: background-color 0.2s ease;
+  &:hover {
+    background-color: rgba(124, 89, 14, 0.534);
+    filter: saturate(200%);
+  }
+`
+const PackingBoxSectionWrapper = styled(SectionWrapper)`
+  margin: 50px 0;
+`
+const servicesList = [
+  'tace logistyczne',
+  'wkłady do pudełek',
+  'wkłady do gier planszowych',
+  'pokrywy, osłony',
+  'opakowania typu blister',
+  'zamówienia specjalne',
+]
+
 const PackingServices = () => {
-  const workflow = workFlowList.map(
-    (item: { title: String; content: String }, i) => {
-      return (
-        <WorkflowWrapper
-          invert={i % 2 > 0 ? 'row' : 'row-reverse'}
-          wide={i === 0 || i == workFlowList.length - 1}
-          flat={i % 2 ? true : false}
-        >
-          <SmallHeader invert={i % 2 > 0 ? 'row' : 'row-reverse'} as={'dt'}>
-            {item.title}
-          </SmallHeader>
-          <Description invert={i % 2 > 0 ? 'row' : 'row-reverse'} as={'dd'}>
-            {item.content}
-          </Description>
-        </WorkflowWrapper>
-      )
+  const data = useStaticQuery(graphql`
+    query {
+      contracts: allFile(filter: { dir: { regex: "/contract/" } }) {
+        edges {
+          node {
+            childImageSharp {
+              fixed(width: 390, height: 240, cropFocus: CENTER) {
+                ...GatsbyImageSharpFixed
+              }
+            }
+          }
+        }
+      }
+      packing: allFile(filter: { dir: { regex: "/packing/" } }) {
+        edges {
+          node {
+            childImageSharp {
+              fixed(width: 585, height: 585, cropFocus: CENTER) {
+                ...GatsbyImageSharpFixed
+              }
+            }
+          }
+        }
+      }
     }
-  )
+  `)
+
+  const packing = {
+    name: '',
+    desc: (
+      <span>
+        Usługi pakowania realizujemy na życzenie klienta, który ma produkt,
+        który chce spakować w opakowanie końcowe, przeznaczone na rynek.
+        Pomagamy w doborze i projektowaniu opakowania.{' '}
+        <strong>
+          Produkujemy opakowania końcowe i realizujemy usługę konfekcjonowania
+          produktów przesłanych przez Klienta.{' '}
+        </strong>
+        Proponujemy pakowanie typu skin-blister, zgrzewane na maszynach HSP oraz
+        pełny blister zgrzewane na maszynach GEAF.
+      </span>
+    ),
+    images: data.packing,
+  }
+  const services = servicesList.map((item: String, i) => {
+    return (
+      <ContractBackgroundImage
+        Tag="li"
+        fixed={data.contracts.edges[i].node.childImageSharp.fixed}
+        key={i}
+      >
+        <ContractListItem>{item}</ContractListItem>
+      </ContractBackgroundImage>
+    )
+  })
 
   return (
-    <PackingServicesSectionWrapper id="packing-services">
-      <PageSectionHeader>usługi pakowania</PageSectionHeader>
-      <WorkflowListWrapper></WorkflowListWrapper>
-    </PackingServicesSectionWrapper>
+    <>
+      <PackingServicesSectionWrapper>
+        <ContractList>{services}</ContractList>
+        <PageSectionHeader invert id="packing-services">
+          usługi pakowania
+        </PageSectionHeader>
+        <Description invert={'row-reverse'} col={2}>
+          Usługi pakowania realizujemy na życzenie klienta, który ma produkt,
+          który chce spakować w opakowanie końcowe, przeznaczone na rynek.
+          Pomagamy w doborze i projektowaniu opakowania. Produkujemy opakowania
+          końcowe i realizujemy usługę konfekcjonowania produktów przesłanych
+          przez Klienta. Proponujemy pakowanie typu skin-blister, zgrzewane na
+          maszynach HSP oraz pełny blister zgrzewane na maszynach GEAF.
+        </Description>
+      </PackingServicesSectionWrapper>
+      <PackingBoxSectionWrapper>
+        <Industry
+          name={packing.name}
+          desc={packing.desc}
+          images={packing.images}
+          direction={'row'}
+          tall={true}
+        />
+      </PackingBoxSectionWrapper>
+    </>
   )
 }
 

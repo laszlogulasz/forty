@@ -70,6 +70,7 @@ const Workflow = () => {
     (item: { title: String; content: String }, i) => {
       return (
         <WorkflowWrapper
+          key={i}
           invert={i % 2 > 0 ? 'row' : 'row-reverse'}
           wide={i === 0 || i == workFlowList.length - 1}
           flat={i % 2 ? true : false}

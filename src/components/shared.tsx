@@ -4,11 +4,19 @@ interface FlexWrapperProps {
   direction?: string
 }
 interface SmallHeaderProps {
+  invert?: string | boolean
+}
+interface DescriptionProps {
   invert?: string
+  col?: number
 }
 interface BoxWrapperProps {
   flat?: boolean
   wide?: boolean
+  tall?: boolean
+}
+interface TransparentButtonProps {
+  dark?: boolean
 }
 export const colors = {
   primaryLightGray: '#c8c8c8',
@@ -17,6 +25,7 @@ export const colors = {
   secondaryGray: '#555555',
   primaryDarkGray: 'rgb(23, 23, 23)',
   primaryDarkGrayOpacity: 'rgba(23, 23, 23, .2)',
+  primaryDarkGrayOpacity1: 'rgba(0, 0, 0, .7)',
   primaryDarkGrayOpacity2: 'rgba(23, 23, 23, .4)',
   primaryRed: '#ff4e00',
   secondaryOrange: '#fe6d20',
@@ -25,11 +34,12 @@ export const SectionHeader = styled.h2`
   width: 100%;
   margin: 30px 0 0 0;
   font: 400 2em 'Lato';
-  color: ${colors.primaryRed};
+  color: ${(props: SmallHeaderProps) =>
+    props.invert ? 'white' : colors.primaryRed};
   text-transform: uppercase;
 `
 export const PageSectionHeader = styled(SectionHeader)`
-  margin: 100px 0 20px 0;
+  margin: 50px 0 20px 0;
 `
 export const SmallHeader = styled.h3`
   width: 100%;
@@ -41,10 +51,12 @@ export const SmallHeader = styled.h3`
 `
 export const Description = styled.p`
   width: 100%;
-  margin: 5px 0 0 0;
+  margin: 5px 0 40px 0;
   font: 100 1.125em 'Lato';
-  color: ${(props: SmallHeaderProps) =>
+  color: ${(props: DescriptionProps) =>
     props.invert === 'row-reverse' ? 'white' : colors.primaryGray};
+  ${(props: DescriptionProps) => props.col && 'column-count: ' + props.col};
+  column-gap: 3em;
 `
 export const Welcome = styled.strong`
   margin: 0;
@@ -78,7 +90,8 @@ export const TransparentButton = styled.button`
   padding: 15px 60px;
   margin: 60px 0 0 0;
   border: 2px solid ${colors.secondaryOrange};
-  color: white;
+  color: ${(props: TransparentButtonProps) =>
+    props.dark ? colors.secondaryGray : 'white'};
   text-transform: uppercase;
   box-shadow: none;
   transition: box-shadow 0.2s ease;
@@ -145,7 +158,7 @@ export const BoxWrapper = styled(FlexWrapper)`
   width: ${(props: BoxWrapperProps) => (props.wide ? '1170px' : '860px')};
   align-items: center;
   justify-content: center;
-  border-radius: 20px;
+  border-radius: ${(props: BoxWrapperProps) => (props.tall ? '10px' : '20px')};
   box-shadow: 0 0 20px
     ${(props: BoxWrapperProps) =>
       props.flat ? 'transparent' : colors.primaryDarkGrayOpacity};

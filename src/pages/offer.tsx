@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import ContractProduction from '../components/ContractProduction'
 import Layout from '../components/Layout'
+import OwnProducts from '../components/OwnProducts'
 import PackingServices from '../components/PackingServices'
 // import Image from "../components/image"
 import SEO from '../components/Seo'
@@ -25,6 +26,7 @@ const Offer: React.FC = () => (
     <Workflow />
     <ContractProduction />
     <PackingServices />
+    <OwnProducts />
   </Layout>
 )
 

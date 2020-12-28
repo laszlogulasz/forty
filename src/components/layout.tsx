@@ -9,6 +9,9 @@ const Container = styled.div`
   margin: 0;
   flex-direction: column;
 `
+const Main = styled.main`
+  margin-top: 50px;
+`
 
 interface Props {
   isHomePage?: boolean
@@ -33,7 +36,7 @@ const Layout: React.FC<Props> = ({ isHomePage, children }) => {
   return (
     <Container data-is-root-path={isHomePage}>
       <Header />
-      <main>{children}</main>
+      <Main>{children}</Main>
       <Footer />
       {/*
       <footer>

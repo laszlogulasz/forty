@@ -1,9 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
-import { workFlowList } from '../data'
 import {
   BoxWrapper,
-  Description,
   PageSectionHeader,
   SectionWrapper,
   SmallHeader,
@@ -63,35 +61,16 @@ const WorkflowWrapper = styled(BoxWrapper)`
 const ContractProductionSmallHeader = styled(SmallHeader)`
   font-size: 1.5em;
   text-transform: none;
+  margin-bottom: 280px;
 `
 
 const ContractProduction = () => {
-  const workflow = workFlowList.map(
-    (item: { title: String; content: String }, i) => {
-      return (
-        <WorkflowWrapper
-          invert={i % 2 > 0 ? 'row' : 'row-reverse'}
-          wide={i === 0 || i == workFlowList.length - 1}
-          flat={i % 2 ? true : false}
-        >
-          <SmallHeader invert={i % 2 > 0 ? 'row' : 'row-reverse'} as={'dt'}>
-            {item.title}
-          </SmallHeader>
-          <Description invert={i % 2 > 0 ? 'row' : 'row-reverse'} as={'dd'}>
-            {item.content}
-          </Description>
-        </WorkflowWrapper>
-      )
-    }
-  )
-
   return (
     <SectionWrapper id="contract-production">
       <PageSectionHeader>Produkcja na zlecenie</PageSectionHeader>
       <ContractProductionSmallHeader>
         Produkujemy na zlecenie klienta:
       </ContractProductionSmallHeader>
-      <WorkflowListWrapper></WorkflowListWrapper>
     </SectionWrapper>
   )
 }
