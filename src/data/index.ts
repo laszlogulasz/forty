@@ -27,7 +27,16 @@ export const menuItemsList = [
     { link: '/technology#machine-park', name: 'park maszynowy' },
     { link: '/technology#plastics', name: 'rodzaje tworzyw sztucznych' },
   ], },
-  { link: '/about-us', name: 'o nas' },
+  { link: '/about-us', name: 'o nas', 
+  submenu: [
+    { link: '/about-us#news', name: 'aktualności' },
+    { link: '/about-us#our-mision', name: 'misja firmy' },
+    { link: '/about-us#history', name: 'historia firmy' },
+    { link: '/about-us#iso9001', name: 'SYSTEM ZARZĄDZANIA JAKOŚCIĄ ISO 9001' },
+    { link: '/about-us#quality-policy', name: 'NASZA POLITYKA JAKOŚCI' },
+    { link: '/about-us#environment', name: 'Ekologia' },
+    { link: '/about-us#work', name: 'Praca' },
+  ], },
 ]
 export const bottomMenuItemsList = [
   {

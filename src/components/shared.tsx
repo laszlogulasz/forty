@@ -40,6 +40,9 @@ export const SectionHeader = styled.h2`
 `
 export const PageSectionHeader = styled(SectionHeader)`
   margin: 50px 0 20px 0;
+  & > span {
+    color: gray;
+  }
 `
 export const SmallHeader = styled.h3`
   width: 100%;
@@ -52,11 +55,15 @@ export const SmallHeader = styled.h3`
 export const Description = styled.p`
   width: 100%;
   margin: 5px 0 40px 0;
+  line-height: 1.5em;
   font: 100 1.125em 'Lato';
   color: ${(props: DescriptionProps) =>
     props.invert === 'row-reverse' ? 'white' : colors.primaryGray};
   ${(props: DescriptionProps) => props.col && 'column-count: ' + props.col};
   column-gap: 3em;
+  & > span {
+    font: 400 1.125em 'Lato';
+  }
 `
 export const Welcome = styled.strong`
   margin: 0;
@@ -161,6 +168,10 @@ export const GradientSectionWrapper = styled(SectionWrapper)`
     rgba(254, 96, 20, 1) 100%
   );
   box-shadow: 0 0 10px ${colors.primaryGray};
+`
+export const BlackSectionWrapper = styled(SectionWrapper)`
+  background: black;
+  padding-bottom: 30px;
 `
 export const BoxWrapper = styled(FlexWrapper)`
   width: ${(props: BoxWrapperProps) => (props.wide ? '1170px' : '860px')};

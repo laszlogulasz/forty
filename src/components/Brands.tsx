@@ -19,7 +19,7 @@ const BrandsSliderWrapper = styled.div`
 `
 SwiperCore.use([A11y, Autoplay])
 
-const Brands = () => {
+const Brands = ({ header }) => {
   const data = useStaticQuery(graphql`
     query {
       brands: allFile(filter: { dir: { regex: "/brands/" } }) {
@@ -35,6 +35,8 @@ const Brands = () => {
       }
     }
   `)
+  console.log(data)
+
   const imgs = data.brands.edges
     ? data.brands.edges.map((el: any, i: number) => {
         return (
@@ -50,7 +52,7 @@ const Brands = () => {
     : null
   return (
     <SectionWrapper id="brands">
-      <PageSectionHeader>Zaufali nam:</PageSectionHeader>
+      <PageSectionHeader>{header}</PageSectionHeader>
       <BrandsSliderWrapper>
         <Swiper
           id={'swiper-header'}

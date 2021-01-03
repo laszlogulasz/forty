@@ -43,7 +43,7 @@ const Menu = () => {
     return <MenuItem key={i} data={item} />
   })
 
-  const hostname: string = 'www.adressklepu.pl'
+  const hostname: string = 'sklep.forty.com.pl'
   console.log('data: ', data)
   return (
     <>

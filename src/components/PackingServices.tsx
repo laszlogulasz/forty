@@ -81,7 +81,7 @@ const PackingServices = () => {
         edges {
           node {
             childImageSharp {
-              fixed(width: 585, height: 585, cropFocus: CENTER) {
+              fixed(width: 585, height: 420, cropFocus: CENTER) {
                 ...GatsbyImageSharpFixed
               }
             }

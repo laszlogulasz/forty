@@ -1,4 +1,4 @@
-import { graphql, navigate, useStaticQuery } from 'gatsby'
+import { graphql, useStaticQuery } from 'gatsby'
 import Img from 'gatsby-image'
 import React from 'react'
 import styled from 'styled-components'
@@ -98,7 +98,8 @@ const OwnProducts = () => {
           <TransparentButtonWrapper>
             <TransparentButton
               onClick={e => {
-                navigate('#kontakt')
+                window.location.href =
+                  'https://www.sklep.forty.com.pl/produkt/przylbica-ochronna-100-szt/'
                 // @ts-ignore
                 e.currentTarget.blur()
               }}
@@ -129,7 +130,7 @@ const OwnProducts = () => {
             <TransparentButton
               dark
               onClick={e => {
-                navigate('#kontakt')
+                window.location.href = 'https://www.sklep.forty.com.pl'
                 // @ts-ignore
                 e.currentTarget.blur()
               }}
