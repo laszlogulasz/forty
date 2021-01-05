@@ -1,20 +1,31 @@
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useEffect, useRef } from 'react'
+import { useForm } from 'react-hook-form'
+import { useMediaQuery } from 'react-responsive'
 import styled from 'styled-components'
 import {
   colors,
+  device,
   FlexWrapper,
   GradientButton,
   Motto,
   SectionHeader,
+  size,
 } from './shared'
 
 const ContactFormWrapper = styled(FlexWrapper)`
-  width: 485px;
-  height: 485px;
+  @media ${device.laptop} {
+    width: 365px;
+    height: 480px;
+    padding: 30px;
+  }
+  @media ${device.desktop} {
+    width: 485px;
+    height: 485px;
+    padding: 50px;
+  }
   background-color: white;
-  padding: 50px;
 `
 const ContactFormHeader = styled(SectionHeader)`
   font-size: 0.75em;
@@ -125,13 +136,19 @@ const Fieldset = styled.fieldset`
 `
 const ContactButton = styled(GradientButton)`
   box-shadow: 0 0 20px ${colors.primaryDarkGrayOpacity2};
-  padding: 1.5em 60px;
+  padding: 1.5em 30px;
+  @media ${device.desktop} {
+    padding: 1.5em 60px;
+  }
   margin: 1.9em 0 0 0;
 `
 
 const ContactForm = () => {
+  const isDesktop = useMediaQuery({ minWidth: size.desktop })
+  const { register, handleSubmit, watch, errors } = useForm()
   const ContactFileInputRef = useRef(null)
   const ContactFileLabelRef = useRef(null)
+  const onSubmit = data => console.log(data)
   useEffect(() => {
     const labelVal = ContactFileLabelRef?.current.innerHTML
     ContactFileInputRef?.current.addEventListener('change', e => {
@@ -153,24 +170,32 @@ const ContactForm = () => {
         Zawsze odpowiemy
         {'\n'}na Twoje pytania!
       </ContactMotto>
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <Fieldset>
           <ContactLegend>Chcę zapytać o:</ContactLegend>
-          <ContactSelect name="temat" aria-label={'Temat pytania'}>
-            <option value="wycena">Przykładowa wycena</option>
+          <ContactSelect
+            name="temat"
+            aria-label={'Temat pytania'}
+            defaultValue={'Przykładowa wycena'}
+          >
+            <option value="wycena" ref={register}>
+              Przykładowa wycena
+            </option>
           </ContactSelect>
           <ContactInput
             type={'text'}
             name={'imię i nazwisko'}
             aria-label={'Twoja firma lub imię i nazwisko'}
             placeholder={'Firma / imię i nazwisko'}
+            ref={register({ required: true })}
           />
-          <FlexWrapper direction={'row'}>
+          <FlexWrapper direction={isDesktop ? 'row' : 'column'}>
             <ContactInput
               type={'tel'}
               name={'tel'}
               aria-label={'Podaj numer telefonu'}
               placeholder={'Numer telefonu'}
+              ref={register({ required: true })}
             />
 
             <ContactInput
@@ -178,6 +203,7 @@ const ContactForm = () => {
               name={'email'}
               aria-label={'Podaj adres email'}
               placeholder={'Email'}
+              ref={register({ required: true })}
             />
           </FlexWrapper>
           <FlexWrapper direction={'row'}>

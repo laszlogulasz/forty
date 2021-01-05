@@ -10,8 +10,8 @@ const Industries = () => {
         edges {
           node {
             childImageSharp {
-              fixed(width: 585, height: 290) {
-                ...GatsbyImageSharpFixed
+              fluid(maxWidth: 585, maxHeight: 290) {
+                ...GatsbyImageSharpFluid
               }
             }
           }
@@ -21,8 +21,8 @@ const Industries = () => {
         edges {
           node {
             childImageSharp {
-              fixed(width: 585, height: 290) {
-                ...GatsbyImageSharpFixed
+              fluid(maxWidth: 585, maxHeight: 290) {
+                ...GatsbyImageSharpFluid
               }
             }
           }
@@ -32,8 +32,8 @@ const Industries = () => {
         edges {
           node {
             childImageSharp {
-              fixed(width: 585, height: 290) {
-                ...GatsbyImageSharpFixed
+              fluid(maxWidth: 585, maxHeight: 290) {
+                ...GatsbyImageSharpFluid
               }
             }
           }
@@ -43,8 +43,8 @@ const Industries = () => {
         edges {
           node {
             childImageSharp {
-              fixed(width: 585, height: 290) {
-                ...GatsbyImageSharpFixed
+              fluid(maxWidth: 585, maxHeight: 290) {
+                ...GatsbyImageSharpFluid
               }
             }
           }
@@ -54,8 +54,8 @@ const Industries = () => {
         edges {
           node {
             childImageSharp {
-              fixed(width: 585, height: 290) {
-                ...GatsbyImageSharpFixed
+              fluid(maxWidth: 585, maxHeight: 290) {
+                ...GatsbyImageSharpFluid
               }
             }
           }
@@ -65,8 +65,8 @@ const Industries = () => {
         edges {
           node {
             childImageSharp {
-              fixed(width: 585, height: 290) {
-                ...GatsbyImageSharpFixed
+              fluid(maxWidth: 585, maxHeight: 290) {
+                ...GatsbyImageSharpFluid
               }
             }
           }
@@ -76,8 +76,8 @@ const Industries = () => {
         edges {
           node {
             childImageSharp {
-              fixed(width: 585, height: 290) {
-                ...GatsbyImageSharpFixed
+              fluid(maxWidth: 585, maxHeight: 290) {
+                ...GatsbyImageSharpFluid
               }
             }
           }
@@ -87,8 +87,8 @@ const Industries = () => {
         edges {
           node {
             childImageSharp {
-              fixed(width: 585, height: 290) {
-                ...GatsbyImageSharpFixed
+              fluid(maxWidth: 585, maxHeight: 290) {
+                ...GatsbyImageSharpFluid
               }
             }
           }
@@ -98,8 +98,8 @@ const Industries = () => {
         edges {
           node {
             childImageSharp {
-              fixed(width: 585, height: 290) {
-                ...GatsbyImageSharpFixed
+              fluid(maxWidth: 585, maxHeight: 290) {
+                ...GatsbyImageSharpFluid
               }
             }
           }
@@ -109,8 +109,8 @@ const Industries = () => {
         edges {
           node {
             childImageSharp {
-              fixed(width: 585, height: 290) {
-                ...GatsbyImageSharpFixed
+              fluid(maxWidth: 585, maxHeight: 290) {
+                ...GatsbyImageSharpFluid
               }
             }
           }

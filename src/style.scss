@@ -52,6 +52,12 @@
   opacity: 1;
   background-color: #ff4e00;
 }
+#swiper-industry .swiper-slide {
+  height: 100%;
+  display: flex;
+  background: red;
+}
+
 #swiper-industry .swiper-pagination-bullet {
   width: 6px;
   height: 6px;

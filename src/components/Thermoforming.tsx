@@ -10,8 +10,8 @@ const Thermoforming = () => {
         edges {
           node {
             childImageSharp {
-              fixed(width: 585, height: 420, cropFocus: CENTER) {
-                ...GatsbyImageSharpFixed
+              fluid(maxWidth: 585, maxHeight: 420, cropFocus: CENTER) {
+                ...GatsbyImageSharpFluid
               }
             }
           }
@@ -22,7 +22,7 @@ const Thermoforming = () => {
 
   const packing = {
     desc: (
-      <span>
+      <>
         <strong>Termoformowanie</strong> to nazwa procesu technologicznego, w
         którym z płaskich folii lub płyt, podgrzanych wstępnie do określonej
         temperatury charakterystycznej dla danego tworzywa, formuje się produkty
@@ -34,7 +34,7 @@ const Thermoforming = () => {
         kabin prysznicowych, producentów samochodów oraz maszyn roboczych,
         traktorów, bagażników dachowych i wszystkiego tego, co może być
         wyprodukowane w technologii termoformowania.{' '}
-      </span>
+      </>
     ),
     images: data.thermoforming,
   }

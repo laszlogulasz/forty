@@ -11,6 +11,7 @@ const Container = styled.div`
 `
 const Main = styled.main`
   margin-top: 50px;
+  padding: 0;
 `
 
 interface Props {

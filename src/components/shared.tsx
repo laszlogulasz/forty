@@ -18,6 +18,21 @@ interface BoxWrapperProps {
 interface TransparentButtonProps {
   dark?: boolean
 }
+
+export const size = {
+  mobile: 320,
+  tablet: 768,
+  laptop: 960,
+  desktop: 1200,
+}
+
+export const device = {
+  mobile: `(min-width: ${size.mobile}px)`,
+  tablet: `(min-width: ${size.tablet}px)`,
+  laptop: `(min-width: ${size.laptop}px)`,
+  desktop: `(min-width: ${size.desktop}px)`,
+}
+
 export const colors = {
   primaryLightGray: '#c8c8c8',
   secondaryLightGray: '#f1f8fc',
@@ -30,10 +45,20 @@ export const colors = {
   primaryRed: '#ff4e00',
   secondaryOrange: '#fe6d20',
 }
+
 export const SectionHeader = styled.h2`
+  font: 400 1.0625em 'Lato';
+  @media ${device.tablet} {
+    font: 400 1.5em 'Lato';
+  }
+  @media ${device.laptop} {
+    font: 400 1.8em 'Lato';
+  }
+  @media ${device.desktop} {
+    font: 400 2em 'Lato';
+  }
   width: 100%;
-  margin: 30px 0 0 0;
-  font: 400 2em 'Lato';
+
   color: ${(props: SmallHeaderProps) =>
     props.invert ? 'white' : colors.primaryRed};
   text-transform: uppercase;
@@ -47,7 +72,16 @@ export const PageSectionHeader = styled(SectionHeader)`
 export const SmallHeader = styled.h3`
   width: 100%;
   margin: 0;
-  font: 400 1.6em 'Lato';
+  font: 400 0.875em 'Lato';
+  @media ${device.tablet} {
+    font: 400 1.2em 'Lato';
+  }
+  @media ${device.laptop} {
+    font: 400 1.4em 'Lato';
+  }
+  @media ${device.desktop} {
+    font: 400 1.6em 'Lato';
+  }
   color: ${(props: SmallHeaderProps) =>
     props.invert === 'row-reverse' ? 'white' : colors.primaryRed};
   text-transform: uppercase;
@@ -56,7 +90,13 @@ export const Description = styled.p`
   width: 100%;
   margin: 5px 0 40px 0;
   line-height: 1.5em;
-  font: 100 1.125em 'Lato';
+  font: 100 0.875em 'Lato';
+  @media ${device.tablet} {
+    font: 100 1em 'Lato';
+  }
+  @media ${device.desktop} {
+    font: 100 1.125em 'Lato';
+  }
   color: ${(props: DescriptionProps) =>
     props.invert === 'row-reverse' ? 'white' : colors.primaryGray};
   ${(props: DescriptionProps) => props.col && 'column-count: ' + props.col};
@@ -89,6 +129,10 @@ export const Motto = styled.strong`
 `
 export const Legend = styled.legend`
   ${SerifSlogan}
+  margin: 40px 0 0 0;
+  @media ${device.laptop} {
+    margin: 20px 0 0 0;
+  }
 `
 export const TransparentButton = styled.button`
   border-radius: 50px;
@@ -152,6 +196,15 @@ export const FlexWrapper = styled.div`
   flex-direction: ${(props: FlexWrapperProps) => props.direction};
 `
 export const SectionWrapper = styled.section`
+  padding: 0 1em;
+  @media ${device.tablet} {
+    padding: 0 2em;
+  }
+  @media ${device.laptop} {
+  }
+  @media ${device.desktop} {
+    padding: 0;
+  }
   display: flex;
   flex-direction: column;
   background-color: ${props => props.color};
@@ -174,8 +227,13 @@ export const BlackSectionWrapper = styled(SectionWrapper)`
   padding-bottom: 30px;
 `
 export const BoxWrapper = styled(FlexWrapper)`
-  width: ${(props: BoxWrapperProps) => (props.wide ? '1170px' : '860px')};
-  align-items: center;
+  width: ${(props: BoxWrapperProps) => (props.wide ? '100%' : '860px')};
+
+  @media ${device.desktop} {
+    width: ${(props: BoxWrapperProps) => (props.wide ? '1170px' : '860px')};
+  }
+
+  align-items: stretch;
   justify-content: center;
   border-radius: ${(props: BoxWrapperProps) => (props.tall ? '10px' : '20px')};
   box-shadow: 0 0 20px

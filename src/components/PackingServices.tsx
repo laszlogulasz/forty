@@ -81,8 +81,8 @@ const PackingServices = () => {
         edges {
           node {
             childImageSharp {
-              fixed(width: 585, height: 420, cropFocus: CENTER) {
-                ...GatsbyImageSharpFixed
+              fluid(maxWidth: 585, maxHeight: 420, cropFocus: CENTER) {
+                ...GatsbyImageSharpFluid
               }
             }
           }
@@ -93,7 +93,7 @@ const PackingServices = () => {
 
   const packing = {
     desc: (
-      <span>
+      <>
         Usługi pakowania realizujemy na życzenie klienta, który ma produkt,
         który chce spakować w opakowanie końcowe, przeznaczone na rynek.
         Pomagamy w doborze i projektowaniu opakowania.{' '}
@@ -103,7 +103,7 @@ const PackingServices = () => {
         </strong>
         Proponujemy pakowanie typu skin-blister, zgrzewane na maszynach HSP oraz
         pełny blister zgrzewane na maszynach GEAF.
-      </span>
+      </>
     ),
     images: data.packing,
   }

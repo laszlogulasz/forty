@@ -53,9 +53,12 @@
   background-color: #ff4e00;
 }
 
-#swiper-industry .swiper-slide {
-  height: 100%;
+#swiper-industry .swiper-slide  > * {
+  min-height: 100%;
+  width: 100%;
+  align-self: stretch;
 }
+
 #swiper-industry .swiper-pagination-bullet {
   width: 6px;
   height: 6px;

@@ -18,17 +18,19 @@ interface SliderBoxProps {
 }
 
 const SliderBoxSliderWrapper = styled.div`
-  display: flex;
-  width: 100%;
-  max-width: 585px;
-  max-height: ${(props: Props) => (props.tall ? '420px' : '290px')};
   background-color: white;
+  width: 50%;
+  height: ${(props: Props) => (props.tall ? '420px' : '290px')};
 `
 const SliderBoxDescription = styled(FlexWrapper)`
-  width: 100%;
-  padding: 0 1.5em 0 1.5em;
+  display: flex;
+  width: 50%;
+  padding-left: 1.5em;
+  padding-right: 1.5em;
+  box-sizing: border-box;
   justify-content: center;
   align-self: stretch;
+  align-items: flex-start;
   background: ${(props: Props) =>
     props.invert === 'row-reverse'
       ? `linear-gradient(
@@ -49,10 +51,11 @@ const SliderBox: React.FC<SliderBoxProps> = ({
 }) => {
   const imgs = images.edges
     ? images.edges.map((el: any, i: number) => {
+        console.log(i)
         return (
           <SwiperSlide key={i}>
             <Img
-              fixed={el.node.childImageSharp.fixed}
+              fluid={el.node.childImageSharp.fluid}
               alt="produkt firmy"
               fadeIn={false}
             />
@@ -64,10 +67,12 @@ const SliderBox: React.FC<SliderBoxProps> = ({
     <BoxWrapper direction={direction} wide tall>
       <SliderBoxSliderWrapper tall={tall}>
         <Swiper
+          style={{ height: '100%' }}
           id={'swiper-industry'}
           spaceBetween={0}
           slidesPerView={1}
           pagination={{ clickable: true }}
+          centeredSlides={true}
         >
           {imgs}
         </Swiper>

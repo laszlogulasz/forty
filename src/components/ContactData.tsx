@@ -6,7 +6,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import styled from 'styled-components'
-import { colors, FlexWrapper, GradientButton } from './shared'
+import { colors, device, FlexWrapper, GradientButton } from './shared'
 
 const Title = styled.div`
   margin: 1em 0 0.5em 0;
@@ -25,14 +25,22 @@ const Mail = styled.a`
   max-width: 150px;
 `
 const TelButton = styled(GradientButton)`
-  font-size: 1.125em;
+  font-size: 1em;
+  padding: 15px 30px;
+  @media ${device.desktop} {
+    font: 400 1.125em 'Lato';
+    padding: 15px 78px;
+  }
   text-decoration: none;
-  padding: 15px 78px;
+
   margin-top: 1em;
   width: auto;
 `
 const ContactDataWrapper = styled(FlexWrapper)`
-  margin: -0.5em 0 0 2em;
+  margin: -0.5em 0 0 0;
+  @media ${device.desktop} {
+    margin: -0.5em 0 0 2em;
+  }
 `
 const SocialWrapper = styled(FlexWrapper)`
   margin-top: 36px;

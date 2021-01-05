@@ -1,16 +1,19 @@
 import React from 'react'
 import styled from 'styled-components'
-import { colors, FlexWrapper, GradientButton, Legend } from './shared'
+import { colors, device, FlexWrapper, GradientButton, Legend } from './shared'
 
 const NewsletterForm = styled.form`
   display: flex;
   flex-direction: column;
+  flex: 1;
+  max-width: 700px;
   input {
     height: 45px;
     border-radius: 45px;
     border: none;
-    width: 490px;
+    width: 100%;
     margin: 0 35px 0 0;
+    min-width: auto;
     font: 200 0.935em 'Lato';
     &::placeholder,
     &::-webkit-input-placeholder {
@@ -30,7 +33,10 @@ const AdditionalLegend = styled.p`
   color: ${colors.primaryGray};
 `
 const InputWrapper = styled(FlexWrapper)`
-  margin: 85px 30px 0 0;
+  margin: 30px 85px 0 0;
+  @media ${device.laptop} {
+    margin: 85px 30px 0 0;
+  }
   input {
     &:active,
     &:focus {

@@ -9,7 +9,7 @@ const StyledNav = styled.nav`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 0 60px;
+  margin: 0 50px;
 `
 const StyledLink = styled(Link)`
   margin-top: -8px;
