@@ -108,12 +108,30 @@ export const Description = styled.p`
 export const Welcome = styled.strong`
   margin: 0;
   font-weight: thin;
-  font: 300 2em 'Lato';
+  font: 300 1em 'Lato';
+  @media ${device.tablet} {
+    font: 300 1.5em 'Lato';
+  }
+  @media ${device.laptop} {
+    font: 300 1.8em 'Lato';
+  }
+  @media ${device.desktop} {
+    font: 300 2em 'Lato';
+  }
   color: white;
 `
 export const MainHeader = styled.h1`
   margin: 20px 0 0 0;
-  font: 400 4em 'source-serif-pro';
+  font: 400 2em 'source-serif-pro';
+  @media ${device.tablet} {
+    font: 400 3em 'source-serif-pro';
+  }
+  @media ${device.laptop} {
+    font: 400 3.5em 'source-serif-pro';
+  }
+  @media ${device.desktop} {
+    font: 400 4em 'source-serif-pro';
+  }
   color: white;
   span {
     color: ${colors.primaryRed};
@@ -121,7 +139,16 @@ export const MainHeader = styled.h1`
 `
 const SerifSlogan = css`
   margin: 20px 0 0 0;
-  font: 400 2em 'source-serif-pro';
+  font: 400 1.2em 'source-serif-pro';
+  @media ${device.tablet} {
+    font: 400 1.5em 'source-serif-pro';
+  }
+  @media ${device.laptop} {
+    font: 400 1.8em 'source-serif-pro';
+  }
+  @media ${device.desktop} {
+    font: 400 2em 'source-serif-pro';
+  }
   color: white;
 `
 export const Motto = styled.strong`
@@ -129,7 +156,7 @@ export const Motto = styled.strong`
 `
 export const Legend = styled.legend`
   ${SerifSlogan}
-  margin: 40px 0 0 0;
+  margin: 10px 0 0 0;
   @media ${device.laptop} {
     margin: 20px 0 0 0;
   }
@@ -137,7 +164,10 @@ export const Legend = styled.legend`
 export const TransparentButton = styled.button`
   border-radius: 50px;
   background-color: transparent;
-  align-self: flex-start;
+  align-self: center;
+  @media ${device.tablet} {
+    align-self: flex-start;
+  }
   padding: 15px 60px;
   margin: 60px 0 0 0;
   border: 2px solid ${colors.secondaryOrange};

@@ -29,8 +29,8 @@ const FormAndMap = () => {
   return (
     <FormAndMapWrapper>
       <ShadowWrapper>
-        <ContactForm />
         <Laptop>
+          <ContactForm />
           <GMap width={mapSize.width} height={mapSize.height}></GMap>
         </Laptop>
       </ShadowWrapper>

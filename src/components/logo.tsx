@@ -10,15 +10,15 @@ const Logo: React.FC<LogoProps> = ({ theme }) => {
     query {
       light: file(relativePath: { eq: "logo_light.png" }) {
         childImageSharp {
-          fixed(width: 217, height: 81) {
-            ...GatsbyImageSharpFixed
+          fluid(maxWidth: 217) {
+            ...GatsbyImageSharpFluid
           }
         }
       }
       dark: file(relativePath: { eq: "logo_dark.png" }) {
         childImageSharp {
-          fixed(width: 217, height: 82) {
-            ...GatsbyImageSharpFixed
+          fluid(maxWidth: 217) {
+            ...GatsbyImageSharpFluid
           }
         }
       }
@@ -27,7 +27,7 @@ const Logo: React.FC<LogoProps> = ({ theme }) => {
   console.log('logo ', data)
   return (
     <Img
-      fixed={data[theme].childImageSharp.fixed}
+      fluid={data[theme].childImageSharp.fluid}
       alt="logo firmy Forty"
       fadeIn={false}
     />

@@ -5,13 +5,32 @@ import React from 'react'
 import styled from 'styled-components'
 import { menuItemsList } from '../data'
 import MenuItem, { Item } from './MenuItem'
+import { device } from './shared'
 
 export const MenuItems = styled.ul`
   list-style: none;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  left: 0;
+  @media ${device.laptop} {
+    flex-direction: row;
+    position: static;
+  }
+
   margin: 0;
   padding: 0;
+`
+const LangItems = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 60px;
+  align-items: flex-start;
+
+  @media ${device.desktop} {
+    flex-direction: row;
+  }
 `
 const LangItem = styled(Item)`
   margin: 0 0 0 1.5vw;
@@ -19,7 +38,6 @@ const LangItem = styled(Item)`
     margin-left: 5px;
   }
 `
-
 const Menu = () => {
   const data = useStaticQuery(graphql`
     query {

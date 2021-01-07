@@ -33,30 +33,44 @@ const ContactFormHeader = styled(SectionHeader)`
 `
 const ContactMotto = styled(Motto)`
   color: ${colors.primaryDarkGray};
+  margin-top: 0;
+  @media ${device.desktop} {
+    margin-top: 20px;
+  }
   margin-bottom: 20px;
 `
 const ContactLegend = styled.legend`
   display: block;
   margin: 30px 0;
-  font: 100 1.125em 'Lato';
+  font: 100 1em 'Lato';
+  @media ${device.desktop} {
+    font: 100 1.125em 'Lato';
+  }
   color: ${colors.primaryGray};
 `
 const ContactSelect = styled.select`
   -webkit-appearance: none;
   -moz-appearance: none;
-  font: 100 0.9375em 'Lato';
   color: ${colors.primaryGray};
   background: ${colors.secondaryLightGray};
   width: 100%;
-  background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='40' viewBox='0 0 35 25' width='45' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+  background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='40' viewBox='0 0 33 30' width='42' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
   background-repeat: no-repeat;
   background-position-x: 100%;
   background-position-y: 5px;
   border: none;
   border-radius: 30px;
   margin-right: 2em;
-  padding: 1em;
-  padding-right: 2em;
+  font: 100 0.9em 'Lato';
+  padding: 0.8em;
+  padding-right: 1.5em;
+  @media ${device.desktop} {
+    font: 100 0.9375em 'Lato';
+    background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='40' viewBox='0 0 35 25' width='45' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+    padding: 1em;
+    padding-right: 2em;
+  }
+
   &:active,
   &:focus {
     outline: none;
@@ -64,7 +78,12 @@ const ContactSelect = styled.select`
   }
 `
 const ContactInput = styled.input`
-  font: 100 0.9375em 'Lato';
+  font: 100 0.9em 'Lato';
+  @media ${device.desktop} {
+    font: 100 0.9375em 'Lato';
+    padding: 1em;
+    margin-top: 1.8em;
+  }
   color: ${colors.primaryGray};
   background: ${colors.secondaryLightGray};
   width: calc(100% - 2em);
@@ -72,7 +91,7 @@ const ContactInput = styled.input`
   border-radius: 30px;
   margin-top: 1.5em;
   margin-right: 1em;
-  padding: 1em;
+  padding: 0.8em;
   &:last-child {
     margin-right: 0;
   }
@@ -136,7 +155,7 @@ const Fieldset = styled.fieldset`
 `
 const ContactButton = styled(GradientButton)`
   box-shadow: 0 0 20px ${colors.primaryDarkGrayOpacity2};
-  padding: 1.5em 30px;
+  padding: 1.5em 40px;
   @media ${device.desktop} {
     padding: 1.5em 60px;
   }

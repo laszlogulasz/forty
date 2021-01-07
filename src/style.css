@@ -1,3 +1,9 @@
+/* #swiper-header .swiper-slide  > * {
+  min-height: 100%;
+  width: 100%;
+  align-self: stretch;
+} */
+
 #swiper-header .swiper-button-prev,
 #swiper-header .swiper-button-next {
   cursor: pointer;

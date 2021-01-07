@@ -2,19 +2,26 @@ import { faEnvelope, faPhoneAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import styled from 'styled-components'
+import { device } from './shared'
 
 const ContactDetailsList = styled.ul`
   display: flex;
   list-style: none;
   align-self: center;
   width: 100vw;
+  align-self: flex-start;
+  flex-wrap: wrap;
   justify-content: center;
-  margin: 15px 0 30px 0;
+  margin: 0 0 30px 0;
+  @media ${device.tablet} {
+    margin: 15px 0 30px 0;
+  }
+
   padding: 0;
 `
 const ContactDetailsElement = styled.li`
   list-style: none;
-  margin: 0 10px;
+  margin: 0 2em 0 0;
   display: inline;
   font: 400 0.875em 'Lato';
   cursor: pointer;
