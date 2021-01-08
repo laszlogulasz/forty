@@ -1,17 +1,17 @@
 import React from 'react'
-import { useMediaQuery } from 'react-responsive'
 import styled from 'styled-components'
 import SwiperCore, { A11y, Navigation, Pagination, Scrollbar } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { device, size } from './shared'
+import { Mobile, Tablet } from './Responsive'
+import { device } from './shared'
 import SlideContent from './SlideContent'
 
 const StyledSlider = styled.section`
   display: flex;
   width: 100%;
+  height: 100vh;
   position: absolute;
   top: 0;
-  height: 100vh;
   @media ${device.tablet} {
     top: 185px;
     border-top: 0.5px solid #737576;
@@ -23,31 +23,41 @@ const StyledSlider = styled.section`
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y])
 
 const Slider = () => {
-  const isTablet = useMediaQuery({ minWidth: size.tablet })
+  const slides = [...Array(4)].map((e, i) => {
+    return (
+      <SwiperSlide key={i}>
+        <SlideContent />
+      </SwiperSlide>
+    )
+  })
+
   return (
     <StyledSlider>
-      <Swiper
-        id={'swiper-header'}
-        spaceBetween={50}
-        slidesPerView={1}
-        navigation={isTablet}
-        pagination={{ clickable: true }}
-        onSwiper={swiper => console.log(swiper)}
-        onSlideChange={() => console.log('slide change')}
-      >
-        <SwiperSlide>
-          <SlideContent />
-        </SwiperSlide>
-        <SwiperSlide>
-          <SlideContent />
-        </SwiperSlide>
-        <SwiperSlide>
-          <SlideContent />
-        </SwiperSlide>
-        <SwiperSlide>
-          <SlideContent />
-        </SwiperSlide>
-      </Swiper>
+      <Mobile>
+        <Swiper
+          id={'swiper-header'}
+          spaceBetween={50}
+          slidesPerView={1}
+          pagination={{ clickable: true }}
+          onSwiper={swiper => console.log(swiper)}
+          onSlideChange={() => console.log('slide change')}
+        >
+          {slides}
+        </Swiper>
+      </Mobile>
+      <Tablet>
+        <Swiper
+          id={'swiper-header'}
+          spaceBetween={50}
+          slidesPerView={1}
+          navigation
+          pagination={{ clickable: true }}
+          onSwiper={swiper => console.log(swiper)}
+          onSlideChange={() => console.log('slide change')}
+        >
+          {slides}
+        </Swiper>
+      </Tablet>
     </StyledSlider>
   )
 }

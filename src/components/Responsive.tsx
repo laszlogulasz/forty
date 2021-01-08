@@ -15,6 +15,10 @@ export const Tablet = ({ children }) => {
   return isTablet ? children : null
 }
 export const Mobile = ({ children }) => {
-  const isMobile = useMediaQuery({ maxWidth: 767 })
+  const isMobile = useMediaQuery({ maxWidth: size.mobile })
+  return isMobile ? children : null
+}
+export const MobileAndTablet = ({ children }) => {
+  const isMobile = useMediaQuery({ maxWidth: size.mobileAndTablet })
   return isMobile ? children : null
 }

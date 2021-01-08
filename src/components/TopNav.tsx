@@ -20,16 +20,21 @@ const StyledNav = styled.nav`
   align-items: center;
 `
 const StyledLink = styled(Link)`
-  margin-top: -8px;
-  width: 150px;
+  width: 123px;
+  height: 51px;
+  margin-top: 4px;
   @media ${device.tablet} {
     width: 180px;
+    height: 67px;
   }
   @media ${device.laptop} {
+    margin-top: -8px;
     width: 200px;
+    height: 75px;
   }
   @media ${device.desktop} {
     width: 217px;
+    height: 81px;
   }
 `
 const TopNav: React.FC = () => {

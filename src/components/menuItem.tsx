@@ -2,7 +2,7 @@ import { Link } from 'gatsby'
 import { AnchorLink } from 'gatsby-plugin-anchor-links'
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { colors } from './shared'
+import { colors, device } from './shared'
 
 interface SubItemsProps {
   visible: boolean
@@ -23,6 +23,9 @@ const SubItems = styled.ul`
       opacity: 1;
     }
   }
+  @media ${device.mobileAndtablet} {
+    position: static;
+  }
   position: absolute;
   top: 69px;
   animation: toggleIn 0.5s 1;
@@ -31,7 +34,6 @@ const SubItems = styled.ul`
   padding: 0;
   display: ${(props: SubItemsProps) => (props.visible ? `flex` : `none`)};
   opacity: ${(props: SubItemsProps) => (props.visible ? `1` : `0`)};
-  position: absolute;
   margin-top: 53px;
   left: 50%;
   margin-left: -115px;
@@ -54,6 +56,10 @@ export const Item = styled.li`
   text-decoration: none;
   margin: 0 1.5vw;
   z-index: 1000;
+  @media ${device.mobileAndtablet} {
+    position: static;
+    height: 50px;
+  }
   height: 122px;
   align-content: center;
   text-align: center;

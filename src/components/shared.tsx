@@ -20,15 +20,17 @@ interface TransparentButtonProps {
 }
 
 export const size = {
-  mobile: 320,
+  mobile: 767,
   tablet: 768,
+  mobileAndTablet: 959,
   laptop: 960,
   desktop: 1200,
 }
 
 export const device = {
-  mobile: `(min-width: ${size.mobile}px)`,
+  mobile: `(max-width: ${size.mobile}px)`,
   tablet: `(min-width: ${size.tablet}px)`,
+  mobileAndtablet: `(max-width: ${size.mobileAndTablet}px)`,
   laptop: `(min-width: ${size.laptop}px)`,
   desktop: `(min-width: ${size.desktop}px)`,
 }
@@ -39,7 +41,9 @@ export const colors = {
   primaryGray: '#9fa4af',
   secondaryGray: '#555555',
   primaryDarkGray: 'rgb(23, 23, 23)',
+  secondaryDarkGray: 'rgb(45, 45, 45)',
   primaryDarkGrayOpacity: 'rgba(23, 23, 23, .2)',
+  primaryDarkGrayOpacity3: 'rgba(20, 20, 20, .9)',
   primaryDarkGrayOpacity1: 'rgba(0, 0, 0, .7)',
   primaryDarkGrayOpacity2: 'rgba(23, 23, 23, .4)',
   primaryRed: '#ff4e00',
