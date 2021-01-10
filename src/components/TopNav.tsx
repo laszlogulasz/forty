@@ -22,7 +22,7 @@ const StyledNav = styled.nav`
 const StyledLink = styled(Link)`
   width: 123px;
   height: 51px;
-  margin-top: 4px;
+  margin-top: 0.5em;
   @media ${device.tablet} {
     width: 180px;
     height: 67px;
