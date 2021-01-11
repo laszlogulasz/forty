@@ -1,4 +1,5 @@
 import React from 'react'
+import { Slide } from 'react-awesome-reveal'
 import styled from 'styled-components'
 import {
   BoxWrapper,
@@ -67,7 +68,11 @@ const ContractProductionSmallHeader = styled(SmallHeader)`
 const ContractProduction = () => {
   return (
     <SectionWrapper id="contract-production">
-      <PageSectionHeader>Produkcja na zlecenie</PageSectionHeader>
+      <PageSectionHeader>
+        <Slide direction={'left'} duration={300} delay={100} triggerOnce>
+          Produkcja na zlecenie
+        </Slide>
+      </PageSectionHeader>
       <ContractProductionSmallHeader>
         Produkujemy na zlecenie klienta:
       </ContractProductionSmallHeader>

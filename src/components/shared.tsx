@@ -75,13 +75,14 @@ export const PageSectionHeader = styled(SectionHeader)`
 `
 export const SmallHeader = styled.h3`
   width: 100%;
-  margin: 0;
+  margin: 1.5em 0 0 0;
   font: 400 0.875em 'Lato';
   @media ${device.tablet} {
     font: 400 1.2em 'Lato';
   }
   @media ${device.laptop} {
     font: 400 1.4em 'Lato';
+    margin: 0;
   }
   @media ${device.desktop} {
     font: 400 1.6em 'Lato';
@@ -92,11 +93,12 @@ export const SmallHeader = styled.h3`
 `
 export const Description = styled.p`
   width: 100%;
-  margin: 5px 0 40px 0;
+  margin: 25px 0 20px 0;
   line-height: 1.5em;
   font: 100 0.875em 'Lato';
   @media ${device.tablet} {
     font: 100 1em 'Lato';
+    margin: 5px 0 40px 0;
   }
   @media ${device.desktop} {
     font: 100 1.125em 'Lato';
@@ -104,8 +106,9 @@ export const Description = styled.p`
   color: ${(props: DescriptionProps) =>
     props.invert === 'row-reverse' ? 'white' : colors.primaryGray};
   ${(props: DescriptionProps) => props.col && 'column-count: ' + props.col};
-  column-gap: 3em;
+  column-gap: 2em;
   & > span {
+    margin-bottom: 20px;
     font: 400 1.125em 'Lato';
   }
 `
@@ -198,6 +201,9 @@ export const TransparentButton = styled.button`
   &:focus-visible {
     outline: none;
   }
+  @media ${device.mobile} {
+    padding: 10px 30px;
+  }
 `
 export const GradientButton = styled(TransparentButton)`
   background: linear-gradient(
@@ -227,7 +233,10 @@ export const GradientButton = styled(TransparentButton)`
 `
 export const FlexWrapper = styled.div`
   display: flex;
-  flex-direction: ${(props: FlexWrapperProps) => props.direction};
+  flex-direction: column;
+  @media ${device.tablet} {
+    flex-direction: ${(props: FlexWrapperProps) => props.direction};
+  }
 `
 export const SectionWrapper = styled.section`
   padding: 0 1em;
@@ -261,7 +270,12 @@ export const BlackSectionWrapper = styled(SectionWrapper)`
   padding-bottom: 30px;
 `
 export const BoxWrapper = styled(FlexWrapper)`
-  width: ${(props: BoxWrapperProps) => (props.wide ? '100%' : '860px')};
+  width: 100vw;
+  @media ${device.laptop} {
+    width: ${(props: BoxWrapperProps) => (props.wide ? '100%' : '860px')};
+    border-radius: ${(props: BoxWrapperProps) =>
+      props.tall ? '10px' : '20px'};
+  }
 
   @media ${device.desktop} {
     width: ${(props: BoxWrapperProps) => (props.wide ? '1170px' : '860px')};
@@ -269,7 +283,7 @@ export const BoxWrapper = styled(FlexWrapper)`
 
   align-items: stretch;
   justify-content: center;
-  border-radius: ${(props: BoxWrapperProps) => (props.tall ? '10px' : '20px')};
+
   box-shadow: 0 0 20px
     ${(props: BoxWrapperProps) =>
       props.flat ? 'transparent' : colors.primaryDarkGrayOpacity};

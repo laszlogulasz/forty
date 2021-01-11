@@ -1,6 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
-import { PageSectionHeader, SectionWrapper, SmallHeader } from './shared'
+import {
+  device,
+  PageSectionHeader,
+  SectionWrapper,
+  SmallHeader,
+} from './shared'
 interface SpecialityList {
   invert?: boolean
 }
@@ -20,9 +25,24 @@ const SpecialityListItem = styled.li`
   margin-left: 0;
   padding: 0;
   & > p {
-    font: 100 1.2em 'Lato';
+    font: 100 0.875em 'Lato';
     line-height: 1.5em;
     text-align: left;
+  }
+
+  @media ${device.tablet} {
+    & > p {
+      font: 100 1em 'Lato';
+      line-height: 1.5em;
+      text-align: left;
+    }
+  }
+  @media ${device.laptop} {
+    & > p {
+      font: 100 1.2em 'Lato';
+      line-height: 1.5em;
+      text-align: left;
+    }
   }
 `
 const HistorySmallHeader = styled(SmallHeader)`

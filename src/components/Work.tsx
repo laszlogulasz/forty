@@ -9,8 +9,9 @@ const QualitySectionWrapper = styled(SectionWrapper)`
   margin-bottom: 50px;
 `
 const OffersBox = styled.div`
-  width: 1170;
+  max-width: 1170;
   display: flex;
+  flex-wrap: wrap;
   flex-direction: row;
   justify-content: space-around;
   align-self: center;
@@ -20,17 +21,16 @@ const OffersBox = styled.div`
 const Offer = styled.a`
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
   align-self: stretch;
   align-items: center;
-  width: 350px;
+  width: 320px;
   height: 150px;
+  justify-content: center;
   font: 400 1.2em 'lato';
   text-decoration: none;
   box-shadow: 0 0 10px ${colors.primaryGray};
-  margin-right: 50px;
+  margin: 25px 20px;
   &:last-child {
-    margin-right: 0;
   }
   &:nth-child(odd) {
     border: solid 2px ${colors.secondaryGray};

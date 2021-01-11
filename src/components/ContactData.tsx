@@ -10,6 +10,9 @@ const Title = styled.div`
   font: 400 0.75em 'Lato';
   color: ${colors.secondaryGray};
   text-transform: uppercase;
+  @media ${device.mobileAndtablet} {
+    margin: 2em 0 0.5em 0;
+  }
 `
 const Data = styled.div`
   font: 400 0.75em 'Lato';

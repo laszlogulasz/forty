@@ -1,9 +1,12 @@
 import { graphql, useStaticQuery } from 'gatsby'
 import React from 'react'
-import { PageSectionHeader, SectionWrapper } from './shared'
+import { Slide } from 'react-awesome-reveal'
+import { useMediaQuery } from 'react-responsive'
+import { device, PageSectionHeader, SectionWrapper } from './shared'
 import SliderBox from './SliderBox'
 
 const Industries = () => {
+  const isMobileAndTablet = useMediaQuery({ maxWidth: device.mobileAndtablet })
   const data = useStaticQuery(graphql`
     query {
       moto: allFile(filter: { dir: { regex: "/moto/" } }) {
@@ -189,14 +192,18 @@ const Industries = () => {
         name={industry.name}
         desc={industry.desc}
         images={industry.images}
-        direction={i % 2 > 0 ? 'row-reverse' : 'row'}
+        direction={!isMobileAndTablet && i % 2 > 0 ? 'row-reverse' : 'row'}
         tall={false}
       />
     )
   )
   return (
     <SectionWrapper id="industries">
-      <PageSectionHeader>Branże dla których pracujemy</PageSectionHeader>
+      <PageSectionHeader>
+        <Slide direction={'left'} duration={300} delay={100} triggerOnce>
+          Branże dla których pracujemy
+        </Slide>
+      </PageSectionHeader>
       {industries}
     </SectionWrapper>
   )

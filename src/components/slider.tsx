@@ -14,9 +14,11 @@ const StyledSlider = styled.section`
   top: 0;
   @media ${device.tablet} {
     top: 185px;
-    border-top: 0.5px solid #737576;
     height: calc(100vh - 185px);
     position: static;
+  }
+  @media ${device.laptop} {
+    border-top: 0.5px solid #737576;
   }
 `
 

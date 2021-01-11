@@ -166,7 +166,6 @@ const ArrowButton = styled.button`
   }
   width: 20px;
   height: 20px;
-  outline: none;
   transform: ${(props: SubItemsProps) =>
     props.visible ? `rotate(0deg)` : `rotate(-90deg)`};
   transition: transform 0.2s ease-out;

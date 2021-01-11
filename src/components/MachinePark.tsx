@@ -1,6 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
-import { PageSectionHeader, SectionWrapper, SmallHeader } from './shared'
+import {
+  device,
+  PageSectionHeader,
+  SectionWrapper,
+  SmallHeader,
+} from './shared'
 interface SpecialityList {
   invert?: boolean
 }
@@ -18,8 +23,16 @@ const SpecialityList = styled.ul`
 const SpecialityListItem = styled.li`
   margin-left: 1em;
   padding: 0;
-  font: 100 1.2em 'Lato';
-  line-height: 2em;
+  font: 100 0.875em 'Lato';
+  line-height: 1.5em;
+  @media ${device.tablet} {
+    font: 100 1em 'Lato';
+    line-height: 2em;
+  }
+  @media ${device.laptop} {
+    font: 100 1.2em 'Lato';
+    line-height: 2em;
+  }
   text-align: left;
 `
 const PageSectionHeaderGray = styled(PageSectionHeader)`

@@ -13,18 +13,16 @@ import { colors, device, size } from './shared'
 interface MenuItemsProps {
   visible?: boolean
 }
-const width =
-  window.innerWidth < 420 ? (0 - window.innerWidth).toString() + 'px' : '-420px'
-console.log('🚀 ~ file: Menu.tsx ~ line 17 ~ width', width)
+
 export const MenuItems = styled.ul`
   @media ${device.mobileAndtablet} {
     padding-top: 50px;
     width: 100%;
-    max-width: 420px;
+    max-width: 414px;
     background-color: ${colors.primaryDarkGray};
     z-index: 1000;
     transform: ${(props: MenuItemsProps) =>
-      props.visible ? 'translate(0, 0)' : 'translate(-420px, 0)'};
+      props.visible ? 'translate(0, 0)' : 'translate(-414px, 0)'};
     transition: all 0.2s ease-out;
   }
   list-style: none;

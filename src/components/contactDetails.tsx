@@ -8,7 +8,7 @@ const ContactDetailsList = styled.ul`
   display: flex;
   list-style: none;
   align-self: center;
-  width: 100vw;
+  width: 100%;
   align-self: flex-start;
   flex-wrap: wrap;
   justify-content: center;

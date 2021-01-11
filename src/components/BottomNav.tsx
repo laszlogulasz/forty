@@ -17,15 +17,23 @@ const BottomMenuItems = styled.ul`
   margin: 0;
   padding: 0;
 `
+const BottomLogoLink = styled(Link)`
+  & > * {
+    height: 81px;
+    width: 217px;
+    position: absolute;
+    display: block;
+  }
+`
 const BottomNav = () => {
   const menuItems = bottomMenuItemsList.map((item, i) => {
     return <MenuItem key={i} data={item} dark />
   })
   return (
     <BottomNavWrapper>
-      <Link to="/">
+      <BottomLogoLink to="/">
         <Logo theme={'dark'} />
-      </Link>
+      </BottomLogoLink>
       <FlexWrapper direction={'row'}>
         <BottomMenuItems>
           {menuItems}

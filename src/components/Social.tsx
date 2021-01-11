@@ -8,6 +8,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { colors, device, FlexWrapper } from './shared'
 const SocialWrapper = styled(FlexWrapper)`
+  flex-direction: row;
   @media ${device.tablet} {
     margin-top: 2.2em;
   }

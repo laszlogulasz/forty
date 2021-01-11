@@ -1,21 +1,40 @@
 import { graphql, useStaticQuery } from 'gatsby'
 import Img from 'gatsby-image'
 import React from 'react'
+import { Slide } from 'react-awesome-reveal'
 import styled from 'styled-components'
 import SwiperCore, { A11y, Autoplay } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { colors, PageSectionHeader, SectionWrapper } from './shared'
+import { colors, device, PageSectionHeader, SectionWrapper } from './shared'
 
 const BrandsSliderWrapper = styled.div`
   padding-top: 10px;
   display: flex;
   align-self: center;
   width: 100%;
-  height: 216px;
   background-color: white;
   margin: 30px 0 100px 0;
   border-top: 1px solid ${colors.primaryRed};
   border-bottom: 1px solid ${colors.primaryRed};
+  @media ${device.tablet} {
+    width: 100%;
+  }
+`
+const ImgWrapper = styled.div`
+  width: 100px;
+  height: 66px;
+  @media ${device.tablet} {
+    width: 200px;
+    height: 133px;
+  }
+  @media ${device.laptop} {
+    width: 250px;
+    height: 166px;
+  }
+  @media ${device.desktop} {
+    width: 300px;
+    height: 200px;
+  }
 `
 SwiperCore.use([A11y, Autoplay])
 
@@ -26,8 +45,8 @@ const Brands = ({ header }) => {
         edges {
           node {
             childImageSharp {
-              fixed(height: 200, grayscale: true) {
-                ...GatsbyImageSharpFixed
+              fluid(maxHeight: 180, maxWidth: 300, grayscale: true) {
+                ...GatsbyImageSharpFluid
               }
             }
           }
@@ -41,21 +60,27 @@ const Brands = ({ header }) => {
     ? data.brands.edges.map((el: any, i: number) => {
         return (
           <SwiperSlide key={i}>
-            <Img
-              fixed={el.node.childImageSharp.fixed}
-              alt="logo marki"
-              fadeIn={false}
-            />
+            <ImgWrapper>
+              <Img
+                fluid={el.node.childImageSharp.fluid}
+                alt="logo marki"
+                fadeIn={false}
+              />
+            </ImgWrapper>
           </SwiperSlide>
         )
       })
     : null
   return (
     <SectionWrapper id="brands">
-      <PageSectionHeader>{header}</PageSectionHeader>
+      <PageSectionHeader>
+        <Slide direction={'left'} duration={300} delay={100} triggerOnce>
+          {header}
+        </Slide>
+      </PageSectionHeader>
       <BrandsSliderWrapper>
         <Swiper
-          id={'swiper-header'}
+          id={'swiper-brands'}
           spaceBetween={35}
           slidesPerView={3}
           slidesPerGroup={3}

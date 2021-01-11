@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import {
   colors,
   Description,
+  device,
   GradientSectionWrapper,
   PageSectionHeader,
 } from './shared'
@@ -17,9 +18,25 @@ const Figure = styled.figure`
   max-width: 1170px;
   display: flex;
   flex-direction: row;
+  @media ${device.mobileAndtablet} {
+    flex-direction: column;
+  }
 `
 const Figcaption = styled.figcaption`
-  width: 60%;
+  width: 50%;
+  @media ${device.mobileAndtablet} {
+    width: 100%;
+  }
+`
+const ImgWrapper = styled.div`
+  align-self: center;
+  width: 407px;
+  @media ${device.mobile} {
+    width: 320px;
+  }
+  @media ${device.mobileAndtablet} {
+    margin-bottom: 2em;
+  }
 `
 const GradientImg = styled(Img)`
   box-shadow: 0 0 10px ${colors.primaryGray};
@@ -40,8 +57,16 @@ const GradientSectionWrapperISO = styled(GradientSectionWrapper)`
 const SpecialityListItem = styled.li`
   margin-left: 1em;
   padding: 0;
-  font: 100 1.125em 'Lato';
+  font: 100 0.875em 'Lato';
   line-height: 1.5em;
+  @media ${device.tablet} {
+    font: 100 1em 'Lato';
+    line-height: 2em;
+  }
+  @media ${device.laptop} {
+    font: 100 1.2em 'Lato';
+    line-height: 2em;
+  }
   text-align: left;
 `
 const ISO9001 = () => {
@@ -49,8 +74,8 @@ const ISO9001 = () => {
     query {
       cert: file(relativePath: { eq: "certs/certyfikat.jpg" }) {
         childImageSharp {
-          fixed(width: 407, height: 561) {
-            ...GatsbyImageSharpFixed
+          fluid(maxWidth: 407, maxHeight: 561) {
+            ...GatsbyImageSharpFluid
           }
         }
       }
@@ -63,12 +88,14 @@ const ISO9001 = () => {
         System Zarządzania Jakością <span>ISO 9001</span>
       </PageSectionHeader>
       <Figure>
-        <GradientImg
-          //@ts-ignore
-          fixed={data.cert.childImageSharp.fixed}
-          alt="logo firmy Forty"
-          fadeIn={false}
-        />
+        <ImgWrapper>
+          <GradientImg
+            //@ts-ignore
+            fluid={data.cert.childImageSharp.fluid}
+            alt="logo firmy Forty"
+            fadeIn={false}
+          />
+        </ImgWrapper>
         <Figcaption>
           <Description invert="row-reverse">
             Firma Forty s.j. mając świadomość z korzyści płynących z posiadania

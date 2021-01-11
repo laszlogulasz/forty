@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import {
+  device,
   GradientSectionWrapper,
   PageSectionHeader,
   SmallHeader,
@@ -23,9 +24,18 @@ const SpecialityList = styled.ul`
 const SpecialityListItem = styled.li`
   margin-left: 1em;
   padding: 0;
-  font: 100 1.2em 'Lato';
-  line-height: 2em;
+
   text-align: left;
+  font: 100 0.875em 'Lato';
+  line-height: 1.5em;
+  @media ${device.tablet} {
+    font: 100 1em 'Lato';
+    line-height: 2em;
+  }
+  @media ${device.laptop} {
+    font: 100 1.2em 'Lato';
+    line-height: 2em;
+  }
 `
 const GradientSpecialitySectionWrapper = styled(GradientSectionWrapper)`
   margin-top: -200px;

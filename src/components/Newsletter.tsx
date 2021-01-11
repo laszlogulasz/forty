@@ -26,6 +26,9 @@ const NewsletterForm = styled.form`
       rgba(254, 96, 20, 1) 0%,
       rgba(252, 192, 117, 1) 100%
     );
+    /* @media ${device.tablet} {
+      height: 35px;
+    } */
   }
 `
 const AdditionalLegend = styled.p`

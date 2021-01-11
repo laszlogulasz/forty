@@ -1,4 +1,5 @@
 import React from 'react'
+import { Slide } from 'react-awesome-reveal'
 import styled from 'styled-components'
 import ContactData from './ContactData'
 import Newsletter from './Newsletter'
@@ -12,16 +13,21 @@ import {
 
 const ContactItemsWrapper = styled(FlexWrapper)`
   width: 100%;
-  margin-bottom: 400px;
-  flex-direction: column-reverse;
+  margin-bottom: 40px;
+  flex-direction: column;
   @media ${device.laptop} {
     flex-direction: row;
+    margin-bottom: 400px;
   }
 `
 const Contact = () => {
   return (
     <SectionWrapper color={colors.primaryDarkGray} id={'contact'}>
-      <SectionHeader>kontakt</SectionHeader>
+      <SectionHeader>
+        <Slide direction={'left'} duration={300} delay={100} triggerOnce>
+          kontakt
+        </Slide>
+      </SectionHeader>
       <ContactItemsWrapper>
         <Newsletter />
         <ContactData />

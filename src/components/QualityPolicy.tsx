@@ -4,6 +4,7 @@ import React from 'react'
 import styled from 'styled-components'
 import {
   colors,
+  device,
   PageSectionHeader,
   SectionWrapper,
   SmallHeader,
@@ -19,34 +20,57 @@ const Figure = styled.figure`
   max-width: 1170px;
   display: flex;
   flex-direction: row;
+
+  margin: 0;
+  @media ${device.mobileAndtablet} {
+    flex-direction: column;
+  }
+`
+const ImgWrapper = styled.div`
+  align-self: center;
+  width: 417px;
+  @media ${device.mobile} {
+    width: 320px;
+  }
+  @media ${device.mobileAndtablet} {
+    margin-bottom: 2em;
+  }
 `
 const Figcaption = styled.figcaption`
-  width: 60%;
-  margin-left: 20px;
+  width: 50%;
+  @media ${device.mobileAndtablet} {
+    width: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+
   align-self: stretch;
   align-items: center;
 `
 const GradientImg = styled(Img)`
-  width: 585px;
-  display: flex;
-  align-self: flex-start;
   box-shadow: 0 0 10px ${colors.primaryGray};
 `
 const PageSectionHeaderGray = styled(PageSectionHeader)`
   margin-top: 150px;
   color: gray;
+  @media ${device.mobileAndtablet} {
+    margin: 0;
+  }
 `
 const SmallHeaderGray = styled(SmallHeader)`
   color: gray;
   font-weight: 100;
+  margin: 0;
 `
 const QualityPolicy = () => {
   const data = useStaticQuery(graphql`
     query {
       cert: file(relativePath: { eq: "certs/2.jpg" }) {
         childImageSharp {
-          fixed(width: 417, height: 551) {
-            ...GatsbyImageSharpFixed
+          fluid(maxWidth: 417, maxHeight: 551) {
+            ...GatsbyImageSharpFluid
           }
         }
       }
@@ -57,12 +81,14 @@ const QualityPolicy = () => {
     <QualitySectionWrapper id="quality-policy">
       <PageSectionHeader>Nasza polityka jakości</PageSectionHeader>
       <Figure>
-        <GradientImg
-          //@ts-ignore
-          fixed={data.cert.childImageSharp.fixed}
-          alt="logo firmy Forty"
-          fadeIn={false}
-        />
+        <ImgWrapper>
+          <GradientImg
+            //@ts-ignore
+            fluid={data.cert.childImageSharp.fluid}
+            alt="skan dokumentu Polityka Jakosci Firmy FORTY Sp.j."
+            fadeIn={false}
+          />
+        </ImgWrapper>
         <Figcaption>
           <PageSectionHeaderGray>
             Interesuje nas wyłącznie najwyższa jakość…

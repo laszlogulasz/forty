@@ -1,9 +1,11 @@
 import React from 'react'
+import { useMediaQuery } from 'react-responsive'
 import styled from 'styled-components'
 import {
   BlackSectionWrapper,
   Description,
   PageSectionHeader,
+  size,
   SmallHeader,
 } from './shared'
 
@@ -18,13 +20,15 @@ const SmallHeaderLowerCase = styled(SmallHeader)`
   text-transform: none;
 `
 const Environment = () => {
+  const isLaptop = useMediaQuery({ minWidth: size.laptop })
+  const col = isLaptop ? 2 : 1
   return (
     <BlackSectionWrapper id="environment">
       <PageSectionHeader>Ekologia</PageSectionHeader>
       <SmallHeaderLowerCase>
         Tworzywa sztuczne a środowisko
       </SmallHeaderLowerCase>
-      <Description col={2}>
+      <Description col={col}>
         Tworzywa sztuczne od początku ich wynalezienia funkcjonują w przestrzeni
         człowieka. Weszły do wszystkich gałęzi gospodarki i w pewnych obszarach
         wydają się niezastąpione. Same w sobie tworzywa sztuczne nie są
@@ -34,7 +38,7 @@ const Environment = () => {
         obiegu zamkniętymi poddawanie ich recyklingowi.
       </Description>
       <SmallHeaderLowerCase>Tworzywa sztuczne w Forty</SmallHeaderLowerCase>
-      <Description col={2}>
+      <Description col={col}>
         Projektujemy rozwiązania, w których odpad tworzyw sztucznych z produkcji
         jest minimalny. Dodatkowo, cały odpad trafia do firm, które robią z
         niego pełnowartościowe tworzywo.
@@ -42,7 +46,7 @@ const Environment = () => {
       <SmallHeaderLowerCase>
         Jak sortować tworzywa sztuczne
       </SmallHeaderLowerCase>
-      <Description col={2}>
+      <Description col={col}>
         Zajmujemy się produkcją opakowań z tworzyw sztucznych, głównie PET, PS,
         PP i PVC. W trosce o środowisko promujemy zachowania proekologiczne i
         zachęcamy poprawnego do sortowania odpadów do których na koniec trafia
