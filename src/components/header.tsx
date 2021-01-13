@@ -3,7 +3,7 @@ import BackgroundImage from 'gatsby-background-image'
 import React from 'react'
 import styled from 'styled-components'
 import ContactDetails from './ContactDetails'
-import { Tablet } from './Responsive'
+import { Laptop } from './Responsive'
 import Slider from './Slider'
 import TopNav from './TopNav'
 
@@ -34,9 +34,9 @@ const Header: React.FC = () => {
     >
       <TopNav />
       <Slider />
-      <Tablet>
+      <Laptop>
         <ContactDetails />
-      </Tablet>
+      </Laptop>
     </BackgroundImage>
   )
 }

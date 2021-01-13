@@ -8,7 +8,7 @@ import { colors, device, FlexWrapper, SectionWrapper, size } from './shared'
 
 const FormAndMapWrapper = styled(SectionWrapper)`
   margin-top: -250px;
-  margin-bottom: 130px;
+  margin-bottom: 60px;
   height: 585px;
 `
 const ShadowWrapper = styled(FlexWrapper)`

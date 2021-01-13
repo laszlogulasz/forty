@@ -6,16 +6,17 @@ import styled from 'styled-components'
 import BottomNav from './BottomNav'
 import Contact from './Contact'
 import ContactDetails from './ContactDetails'
+import ContactForm from './ContactForm'
 import FormAndMap from './FormAndMap'
 import Logo from './Logo'
-import { Laptop, Mobile, Tablet } from './Responsive'
+import Newsletter from './Newsletter'
+import { Laptop, MobileAndTablet } from './Responsive'
 import { colors, SectionHeader, SectionWrapper, size } from './shared'
 import Social from './Social'
 
 const MobileFooterSectionWrapper = styled(SectionWrapper)`
-  padding: 0.5em 1em;
+  padding-bottom: 2em;
   & > * {
-    padding: 0.5em 0;
     &:first-child {
       margin-top: 1em;
     }
@@ -33,7 +34,7 @@ const Footer = () => {
   const isNotLaptop = useMediaQuery({ maxWidth: size.laptop - 1 })
   return (
     <>
-      <Mobile>
+      <MobileAndTablet>
         <MobileFooterSectionWrapper
           color={colors.primaryDarkGray}
           id={'contact'}
@@ -43,18 +44,15 @@ const Footer = () => {
               kontakt
             </Slide>
           </SectionHeader>
+          <Newsletter />
+          <ContactForm />
+          <ContactDetails />
           <BottomLogoLink to="/">
             <Logo theme={'light'} />
           </BottomLogoLink>
           <Social />
-          <ContactDetails />
         </MobileFooterSectionWrapper>
-      </Mobile>
-      {isNotLaptop && (
-        <Tablet>
-          <Contact />
-        </Tablet>
-      )}
+      </MobileAndTablet>
       <Laptop>
         <Contact />
         <FormAndMap />

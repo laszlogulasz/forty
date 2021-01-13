@@ -17,7 +17,7 @@ const ContactItemsWrapper = styled(FlexWrapper)`
   flex-direction: column;
   @media ${device.laptop} {
     flex-direction: row;
-    margin-bottom: 400px;
+    margin-bottom: 300px;
   }
 `
 const Contact = () => {

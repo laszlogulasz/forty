@@ -7,7 +7,7 @@ interface SmallHeaderProps {
   invert?: string | boolean
 }
 interface DescriptionProps {
-  invert?: string
+  invert?: string | boolean
   col?: number
 }
 interface BoxWrapperProps {
@@ -77,8 +77,18 @@ export const SmallHeader = styled.h3`
   width: 100%;
   margin: 1.5em 0 0 0;
   font: 400 0.875em 'Lato';
+  color: ${(props: SmallHeaderProps) =>
+    props.invert === false ||
+    props.invert === 'row' ||
+    props.invert === 'row-reverse'
+      ? 'white'
+      : colors.primaryRed};
   @media ${device.tablet} {
     font: 400 1.2em 'Lato';
+    color: ${(props: SmallHeaderProps) =>
+      props.invert === 'row-reverse' || props.invert === false
+        ? 'white'
+        : colors.primaryRed};
   }
   @media ${device.laptop} {
     font: 400 1.4em 'Lato';
@@ -87,8 +97,6 @@ export const SmallHeader = styled.h3`
   @media ${device.desktop} {
     font: 400 1.6em 'Lato';
   }
-  color: ${(props: SmallHeaderProps) =>
-    props.invert === 'row-reverse' ? 'white' : colors.primaryRed};
   text-transform: uppercase;
 `
 export const Description = styled.p`
@@ -96,15 +104,26 @@ export const Description = styled.p`
   margin: 25px 0 20px 0;
   line-height: 1.5em;
   font: 100 0.875em 'Lato';
+  color: ${(props: SmallHeaderProps) =>
+    props.invert === false ||
+    props.invert === 'row' ||
+    props.invert === 'row-reverse'
+      ? 'white'
+      : colors.primaryGray};
   @media ${device.tablet} {
     font: 100 1em 'Lato';
     margin: 5px 0 40px 0;
+    color: ${(props: DescriptionProps) =>
+      props.invert === 'row-reverse' || props.invert === false
+        ? 'white'
+        : colors.primaryGray};
+  }
+  @media ${device.laptop} {
   }
   @media ${device.desktop} {
     font: 100 1.125em 'Lato';
   }
-  color: ${(props: DescriptionProps) =>
-    props.invert === 'row-reverse' ? 'white' : colors.primaryGray};
+
   ${(props: DescriptionProps) => props.col && 'column-count: ' + props.col};
   column-gap: 2em;
   & > span {
@@ -201,7 +220,7 @@ export const TransparentButton = styled.button`
   &:focus-visible {
     outline: none;
   }
-  @media ${device.mobile} {
+  @media ${device.tablet} {
     padding: 10px 30px;
   }
 `

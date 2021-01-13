@@ -15,7 +15,19 @@ import {
 } from './shared'
 
 const ContactFormWrapper = styled(FlexWrapper)`
+  @media ${device.mobileAndtablet} {
+    width: 100vw;
+    max-width: 500px;
+    height: auto;
+    padding: 1em;
+    margin-top: 1em;
+    box-sizing: border-box;
+  }
+  @media (min-width: 500px) {
+    border-radius: 10px;
+  }
   @media ${device.laptop} {
+    border-radius: 0;
     width: 365px;
     height: 480px;
     padding: 30px;
@@ -41,10 +53,14 @@ const ContactMotto = styled(Motto)`
 `
 const ContactLegend = styled.legend`
   display: block;
-  margin: 30px 0;
+  margin: 20px 0;
   font: 100 1em 'Lato';
+
+  @media ${device.laptop} {
+    margin: 25px 0;
+  }
   @media ${device.desktop} {
-    font: 100 1.125em 'Lato';
+    margin: 30px 0;
   }
   color: ${colors.primaryGray};
 `
@@ -53,22 +69,25 @@ const ContactSelect = styled.select`
   -moz-appearance: none;
   color: ${colors.primaryGray};
   background: ${colors.secondaryLightGray};
-  width: 100%;
+  width: calc(100% - 0.5em);
   background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='40' viewBox='0 0 33 30' width='42' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
   background-repeat: no-repeat;
   background-position-x: 100%;
   background-position-y: 5px;
   border: none;
   border-radius: 30px;
-  margin-right: 2em;
+
   font: 100 0.9em 'Lato';
   padding: 0.8em;
   padding-right: 1.5em;
+  margin: 0;
+
   @media ${device.desktop} {
     font: 100 0.9375em 'Lato';
     background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='40' viewBox='0 0 35 25' width='45' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
     padding: 1em;
     padding-right: 2em;
+    width: 100%;
   }
 
   &:active,
@@ -79,6 +98,11 @@ const ContactSelect = styled.select`
 `
 const ContactInput = styled.input`
   font: 100 0.9em 'Lato';
+  margin-top: 1.2em;
+
+  @media ${device.laptop} {
+    margin-top: 1.6em;
+  }
   @media ${device.desktop} {
     font: 100 0.9375em 'Lato';
     padding: 1em;
@@ -89,9 +113,19 @@ const ContactInput = styled.input`
   width: calc(100% - 2em);
   border: none;
   border-radius: 30px;
-  margin-top: 1.5em;
-  margin-right: 1em;
   padding: 0.8em;
+  margin-top: 1.2em;
+
+  @media ${device.laptop} {
+    margin-top: 1.6em;
+    margin-right: 1em;
+  }
+  @media ${device.desktop} {
+    font: 100 0.9375em 'Lato';
+
+    padding: 1em;
+    margin-top: 1.8em;
+  }
   &:last-child {
     margin-right: 0;
   }
@@ -99,6 +133,13 @@ const ContactInput = styled.input`
   &:focus {
     outline: none;
     box-shadow: inset 0 0 10px ${colors.primaryDarkGrayOpacity};
+  }
+  @media screen and (-webkit-min-device-pixel-ratio: 0) {
+    select,
+    textarea,
+    input {
+      font-size: 16px;
+    }
   }
 `
 const ContactFileInput = styled.input`
@@ -122,14 +163,23 @@ const ContactLabel = styled.label`
   white-space: nowrap;
   border: none;
   border-radius: 30px;
-  margin-top: 1.5em;
-  margin-right: 1em;
-  padding: 1em;
+  margin-top: 1.2em;
+  padding: 0.6em 0.8em;
+
   cursor: pointer;
   &:active,
   &:focus {
     outline: none;
     box-shadow: inset 0 0 10px ${colors.primaryDarkGrayOpacity};
+  }
+  @media ${device.laptop} {
+    margin-top: 1.9em;
+    margin-right: 1.5em;
+    padding: 0.8em 1em 0.5em 1em;
+  }
+  @media ${device.desktop} {
+    margin-top: 1.9em;
+    padding: 1em 1em 0em 1em;
   }
 `
 const Ikon = styled.div`
@@ -155,15 +205,24 @@ const Fieldset = styled.fieldset`
 `
 const ContactButton = styled(GradientButton)`
   box-shadow: 0 0 20px ${colors.primaryDarkGrayOpacity2};
-  padding: 1.5em 40px;
+  padding: 1em 40px;
+  margin: 1.9em 0 0 0;
+  align-self: center;
+  @media ${device.laptop} {
+    align-self: flex-start;
+    padding: 1.2em 40px;
+    margin: 2.5em 0 0 0;
+    transform: translateX(-0.5em);
+  }
   @media ${device.desktop} {
     padding: 1.5em 60px;
+    transform: translateX(0);
   }
-  margin: 1.9em 0 0 0;
 `
 
 const ContactForm = () => {
   const isDesktop = useMediaQuery({ minWidth: size.desktop })
+  const isLaptop = useMediaQuery({ minWidth: size.laptop })
   const { register, handleSubmit, watch, errors } = useForm()
   const ContactFileInputRef = useRef(null)
   const ContactFileLabelRef = useRef(null)
@@ -225,7 +284,7 @@ const ContactForm = () => {
               ref={register({ required: true })}
             />
           </FlexWrapper>
-          <FlexWrapper direction={'row'}>
+          <FlexWrapper direction={isLaptop ? 'row' : 'column'}>
             <ContactFileInput
               ref={ContactFileInputRef}
               type={'file'}

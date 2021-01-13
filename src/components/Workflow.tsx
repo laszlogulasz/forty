@@ -111,12 +111,12 @@ const Workflow = () => {
           flat={i % 2 ? true : false}
         >
           <Fade>
-            <SmallHeader invert={i % 2 > 0 ? 'row' : 'row-reverse'} as={'dt'}>
+            <SmallHeader invert={i % 2 > 0 ? true : false} as={'dt'}>
               {item.title}
             </SmallHeader>
           </Fade>
           <Fade>
-            <Description invert={i % 2 > 0 ? 'row' : 'row-reverse'} as={'dd'}>
+            <Description invert={i % 2 > 0 ? true : false} as={'dd'}>
               {item.content}
             </Description>
           </Fade>

@@ -20,7 +20,7 @@ const BottomMenuItems = styled.ul`
 const BottomLogoLink = styled(Link)`
   & > * {
     height: 81px;
-    width: 217px;
+    width: 216px;
     position: absolute;
     display: block;
   }

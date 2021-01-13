@@ -45,7 +45,7 @@ const ContactDataWrapper = styled(FlexWrapper)`
 
 const ContactData = () => {
   return (
-    <ContactDataWrapper direction={'column'}>
+    <ContactDataWrapper direction={'column'} as={'address'}>
       <Title>Adres</Title>
       <Data>
         Forty Spółka Jawna

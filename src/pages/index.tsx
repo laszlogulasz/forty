@@ -1,11 +1,12 @@
 import React from 'react'
+import { useMediaQuery } from 'react-responsive'
 import styled from 'styled-components'
 import Brands from '../components/Brands'
 import Industries from '../components/Industries'
 import Layout from '../components/Layout'
 // import Image from "../components/image"
 import SEO from '../components/Seo'
-import { colors } from '../components/shared'
+import { colors, size } from '../components/shared'
 const Background = styled.div`
   background: linear-gradient(
     90deg,
@@ -19,13 +20,16 @@ const Background = styled.div`
   height: 1200px;
   margin-top: -1200px;
 `
-const IndexPage: React.FC = () => (
-  <Layout isHomePage>
-    <SEO title="Start" />
-    <Background />
-    <Industries />
-    <Brands header={'Zaufali nam:'} />
-  </Layout>
-)
+const IndexPage: React.FC = () => {
+  const isLaptop = useMediaQuery({ minWidth: size.laptop })
+  return (
+    <Layout isHomePage>
+      <SEO title="Start" />
+      {isLaptop && <Background />}
+      <Industries />
+      <Brands header={'Zaufali nam:'} />
+    </Layout>
+  )
+}
 
 export default IndexPage

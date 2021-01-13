@@ -9,7 +9,7 @@ import styled from 'styled-components'
 import { colors, device, FlexWrapper } from './shared'
 const SocialWrapper = styled(FlexWrapper)`
   flex-direction: row;
-  @media ${device.tablet} {
+  @media ${device.laptop} {
     margin-top: 2.2em;
   }
 `
