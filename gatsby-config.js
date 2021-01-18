@@ -5,6 +5,11 @@
  * https://www.gatsbyjs.com/docs/gatsby-config/
  *
  */
+const dotenv = require("dotenv")
+dotenv.config({
+  path: `.env.${process.env.NODE_ENV}`,
+})
+
 const path = require(`path`)
 module.exports = {
   /**

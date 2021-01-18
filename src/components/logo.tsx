@@ -11,20 +11,20 @@ const Logo: React.FC<LogoProps> = ({ theme }) => {
       light: file(relativePath: { eq: "logo_light.png" }) {
         childImageSharp {
           fluid(maxWidth: 217) {
-            ...GatsbyImageSharpFluid
+            ...GatsbyImageSharpFluid_noBase64
           }
         }
       }
       dark: file(relativePath: { eq: "logo_dark.png" }) {
         childImageSharp {
           fluid(maxWidth: 217) {
-            ...GatsbyImageSharpFluid
+            ...GatsbyImageSharpFluid_noBase64
           }
         }
       }
     }
   `)
-  console.log('logo ', data)
+  console.log(data[theme].childImageSharp.fluid)
   return (
     <Img
       fluid={data[theme].childImageSharp.fluid}

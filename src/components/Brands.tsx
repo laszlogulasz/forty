@@ -41,12 +41,20 @@ SwiperCore.use([A11y, Autoplay])
 const Brands = ({ header }) => {
   const data = useStaticQuery(graphql`
     query {
-      brands: allFile(filter: { dir: { regex: "/brands/" } }) {
+      allWpMediaItem(
+        filter: { wpParent: { node: { slug: { eq: "zaufali-nam" } } } }
+      ) {
         edges {
           node {
-            childImageSharp {
-              fluid(maxHeight: 180, maxWidth: 300, grayscale: true) {
-                ...GatsbyImageSharpFluid
+            altText
+            localFile {
+              childImageSharp {
+                fluid(maxHeight: 180, maxWidth: 300, grayscale: true) {
+                  src
+                  srcSet
+                  sizes
+                  aspectRatio
+                }
               }
             }
           }
@@ -54,16 +62,14 @@ const Brands = ({ header }) => {
       }
     }
   `)
-  console.log(data)
-
-  const imgs = data.brands.edges
-    ? data.brands.edges.map((el: any, i: number) => {
+  const imgs = data.allWpMediaItem.edges
+    ? data.allWpMediaItem.edges.map((el: any, i: number) => {
         return (
           <SwiperSlide key={i}>
             <ImgWrapper>
               <Img
-                fluid={el.node.childImageSharp.fluid}
-                alt="logo marki"
+                fluid={el.node.localFile.childImageSharp.fluid}
+                alt={el.node.altText}
                 fadeIn={false}
               />
             </ImgWrapper>

@@ -3,7 +3,7 @@ import { size } from './shared'
 
 export const Desktop = ({ children }) => {
   const isDesktop = useMediaQuery({ minWidth: size.desktop })
-  console.log('weszlo')
+
   return isDesktop ? children : null
 }
 export const Laptop = ({ children }) => {

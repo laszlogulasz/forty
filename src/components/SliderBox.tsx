@@ -79,14 +79,13 @@ const SliderBox: React.FC<SliderBoxProps> = ({
   direction,
   tall,
 }) => {
-  const imgs = images.edges
-    ? images.edges.map((el: any, i: number) => {
-        console.log(i)
+  const imgs = images.length
+    ? images.map((el: any, i: number) => {
         return (
           <SwiperSlide key={i}>
             <Img
-              fluid={el.node.childImageSharp.fluid}
-              alt="produkt firmy"
+              fluid={el.node.localFile.childImageSharp.fluid}
+              alt={el.node.altText}
               fadeIn={false}
             />
           </SwiperSlide>

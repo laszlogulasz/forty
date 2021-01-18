@@ -63,3 +63,15 @@ export const workFlowList = [
   {title: 'Realizacja Zlecenia', content: 'po akceptacji wytłoczki docelowej realizujemy produkcję. '},
   {title: 'Dostawa ', content: 'po wyprodukowaniu zlecenia towar dostarczamy do Klienta. Możemy zorganizować transport lub skorzystać z firmy transportowej wskazanej przez Klienta.'},
 ]
+
+export const inDustrySlugsOrder = [
+  'motoryzacyjna',
+  'przemyslowa',
+  'kosmetyczna',
+  'farmaceutyczna',
+  'elektrotechniczna',
+  'gier',
+  'domIOgrod',
+  'detaliczna',
+  'spozywcza',
+]
