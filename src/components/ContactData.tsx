@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import ContactDetails from './ContactDetails'
 import { Mobile, Tablet } from './Responsive'
 import { colors, device, FlexWrapper, GradientButton } from './shared'
-import Social from './Social'
 
 const Title = styled.div`
   margin: 1em 0 0.5em 0;
@@ -15,6 +14,7 @@ const Title = styled.div`
   }
 `
 const Data = styled.div`
+  text-align: center;
   font: 400 0.75em 'Lato';
   color: ${colors.primaryGray};
 `
@@ -37,6 +37,7 @@ const TelButton = styled(GradientButton)`
   width: auto;
 `
 const ContactDataWrapper = styled(FlexWrapper)`
+  align-items: center;
   margin: -0.5em 0 0 0;
   @media ${device.desktop} {
     margin: -1.8em 0 0 2em;
@@ -67,7 +68,7 @@ const ContactData = () => {
           + 48 22 664 97 69
         </TelButton>
       </Tablet>
-      <Social />
+      {/* <Social /> */}
     </ContactDataWrapper>
   )
 }

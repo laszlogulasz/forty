@@ -1,7 +1,6 @@
 import React from 'react'
 import { useMediaQuery } from 'react-responsive'
 import styled from 'styled-components'
-import ContactForm from './ContactForm'
 import GMap from './GMap'
 import { Laptop } from './Responsive'
 import { colors, device, FlexWrapper, SectionWrapper, size } from './shared'
@@ -30,7 +29,7 @@ const FormAndMap = () => {
     <FormAndMapWrapper>
       <ShadowWrapper>
         <Laptop>
-          <ContactForm />
+          {/* <ContactForm /> */}
           <GMap width={mapSize.width} height={mapSize.height}></GMap>
         </Laptop>
       </ShadowWrapper>

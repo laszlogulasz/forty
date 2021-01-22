@@ -2,7 +2,6 @@ import React from 'react'
 import { Slide } from 'react-awesome-reveal'
 import styled from 'styled-components'
 import ContactData from './ContactData'
-import Newsletter from './Newsletter'
 import {
   colors,
   device,
@@ -16,6 +15,7 @@ const ContactItemsWrapper = styled(FlexWrapper)`
   margin-bottom: 40px;
   flex-direction: column;
   @media ${device.laptop} {
+    justify-content: center;
     flex-direction: row;
     margin-bottom: 300px;
   }
@@ -29,7 +29,7 @@ const Contact = () => {
         </Slide>
       </SectionHeader>
       <ContactItemsWrapper>
-        <Newsletter />
+        {/* <Newsletter /> */}
         <ContactData />
       </ContactItemsWrapper>
     </SectionWrapper>

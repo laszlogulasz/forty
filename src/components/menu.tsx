@@ -1,12 +1,11 @@
 import { graphql, useStaticQuery } from 'gatsby'
-import Img from 'gatsby-image'
 import { AnchorLink } from 'gatsby-plugin-anchor-links'
 import React, { useRef, useState } from 'react'
 import { useMediaQuery } from 'react-responsive'
 import styled from 'styled-components'
 import { menuItemsList } from '../data'
 import useOutsideClick from '../helpers/useOutsideClick'
-import MenuItem, { Item, ItemBar } from './MenuItem'
+import MenuItem, { Item } from './MenuItem'
 import { MobileAndTablet } from './Responsive'
 import { colors, device, size } from './shared'
 
@@ -143,30 +142,6 @@ const Menu = () => {
             sklep
           </a>
         </MenuItem>
-        <ItemBar>
-          <LangItem>
-            <Img
-              fixed={data.de.childImageSharp.fixed}
-              alt="logo firmy Forty"
-              fadeIn={false}
-            />
-            <a href={`#`}>en</a>
-          </LangItem>
-        </ItemBar>
-        <ItemBar>
-          <LangItem
-            onClick={() => {
-              isMobileAndTablet ? setVisible(!visible) : null
-            }}
-          >
-            <Img
-              fixed={data.gb.childImageSharp.fixed}
-              alt="logo firmy Forty"
-              fadeIn={false}
-            />
-            <a href={`#`}>de</a>
-          </LangItem>
-        </ItemBar>
       </MenuItems>
     </>
   )

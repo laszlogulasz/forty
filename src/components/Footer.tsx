@@ -6,13 +6,10 @@ import styled from 'styled-components'
 import BottomNav from './BottomNav'
 import Contact from './Contact'
 import ContactDetails from './ContactDetails'
-import ContactForm from './ContactForm'
 import FormAndMap from './FormAndMap'
 import Logo from './Logo'
-import Newsletter from './Newsletter'
 import { Laptop, MobileAndTablet } from './Responsive'
 import { colors, SectionHeader, SectionWrapper, size } from './shared'
-import Social from './Social'
 
 const MobileFooterSectionWrapper = styled(SectionWrapper)`
   padding-bottom: 2em;
@@ -44,13 +41,13 @@ const Footer = () => {
               kontakt
             </Slide>
           </SectionHeader>
-          <Newsletter />
-          <ContactForm />
+          {/* <Newsletter />
+          <ContactForm /> */}
           <ContactDetails />
           <BottomLogoLink to="/">
             <Logo theme={'light'} />
           </BottomLogoLink>
-          <Social />
+          {/* <Social /> */}
         </MobileFooterSectionWrapper>
       </MobileAndTablet>
       <Laptop>
