@@ -1,4 +1,6 @@
-import React from 'react'
+import { graphql, useStaticQuery } from 'gatsby'
+import { I18nextContext, useTranslation } from 'gatsby-plugin-react-i18next'
+import React, { useEffect, useState } from 'react'
 import { Fade, Slide } from 'react-awesome-reveal'
 import styled from 'styled-components'
 import { workFlowList } from '../data'
@@ -10,6 +12,7 @@ import {
   SectionWrapper,
   SmallHeader,
 } from './shared'
+
 interface WokflowProps {
   invert: 'row' | 'row-reverse'
 }
@@ -101,6 +104,68 @@ const WorkflowSmallHeader = styled(SmallHeader)`
 `
 
 const Workflow = () => {
+  const { language } = React.useContext(I18nextContext)
+  const data = useStaticQuery(graphql`
+    query {
+      allWpMediaItem(
+        filter: {
+          wpParent: { node: { slug: { eq: "produkcja-na-zlecenie" } } }
+        }
+      ) {
+        edges {
+          node {
+            altText
+            localFile {
+              childImageSharp {
+                fluid(maxWidth: 585, maxHeight: 290, cropFocus: CENTER) {
+                  src
+                  srcSet
+                  sizes
+                  aspectRatio
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  `)
+  const { t } = useTranslation()
+  const [sliderData, setSliderData] = useState(null)
+  useEffect(() => {
+    // const updatedData = inDustrySlugsOrder.map((slug: String) => {
+    //   const range = document.createRange()
+    //   const node = data[`${slug}Post`].nodes[0]
+    //   const translations = node.translations
+    //   const transEN = translations.filter(
+    //     (el: { language: { code: string } }) => el.language.code === 'EN'
+    //   )
+    //   const transDE = translations.filter(
+    //     (el: { language: { code: string } }) => el.language.code === 'DE'
+    //   )
+    //   const names = {
+    //     pl: node.title,
+    //     en: transEN[0]?.title,
+    //     de: transDE[0]?.title,
+    //   }
+    //   const descriptions = {
+    //     pl: node.blocks[0].originalContent,
+    //     en: transEN[0]?.blocks[0].originalContent ?? 'no translation here 🤷‍♂️',
+    //     de:
+    //       transDE[0]?.blocks[0].originalContent ?? 'Keine Übersetzung hier 🤷‍♂️',
+    //   }
+    //   const name = names[`${language}`]
+    //   const desc = range.createContextualFragment(descriptions[`${language}`])
+    //     .textContent
+    //   const images = data[`${slug}Pics`].edges
+    //   return {
+    //     name,
+    //     desc,
+    //     images,
+    //   }
+    // })
+    // setSliderData(updatedData)
+  }, [language])
   const workflow = workFlowList.map(
     (item: { title: String; content: String }, i) => {
       return (
@@ -129,13 +194,14 @@ const Workflow = () => {
     <SectionWrapper id="workflow">
       <PageSectionHeader>
         <Slide direction={'left'} duration={300} delay={100} triggerOnce>
-          Jak pracujemy
+          {t('jak pracujemy')}
         </Slide>
       </PageSectionHeader>
 
       <WorkflowSmallHeader>
-        Poniżej przedstawiamy proces od zapytania do otrzymania zamówionego
-        wyrobu.
+        {t(
+          'Poniżej przedstawiamy proces od zapytania do otrzymania zamówionego wyrobu.'
+        )}
       </WorkflowSmallHeader>
       <WorkflowListWrapper>{workflow}</WorkflowListWrapper>
     </SectionWrapper>

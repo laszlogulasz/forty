@@ -1,5 +1,9 @@
-import { Link } from 'gatsby'
 import { AnchorLink } from 'gatsby-plugin-anchor-links'
+import {
+  I18nextContext,
+  Link as TransLink,
+  useTranslation,
+} from 'gatsby-plugin-react-i18next'
 import React, { useState } from 'react'
 import { useMediaQuery } from 'react-responsive'
 import styled from 'styled-components'
@@ -182,13 +186,20 @@ const MenuItem: React.FC<MenuItemProps> = ({
   children,
   setMenuVisible,
 }) => {
+  const { t } = useTranslation()
+  const { language } = React.useContext(I18nextContext)
   const [visible, setVisible] = useState(false)
   const isLaptop = useMediaQuery({ minWidth: size.laptop })
+
   const subMenuItems = data?.submenu?.map(
-    (item: { link: any; name: React.ReactNode }, i: React.ReactText) => {
+    (item: { link: any; name: string }, i: React.ReactText) => {
       return (
         <SubItem key={i} onClick={() => !isLaptop && setMenuVisible(false)}>
-          <AnchorLink to={`${item.link}`}>{item.name}</AnchorLink>
+          <AnchorLink
+            to={`${language === 'pl' ? '' : '/' + language}${item.link}`}
+          >
+            {t(item.name)}
+          </AnchorLink>
         </SubItem>
       )
     }
@@ -212,14 +223,14 @@ const MenuItem: React.FC<MenuItemProps> = ({
       onMouseOver={() => isLaptop && setVisible(true)}
     >
       <ItemBar>
-        <Link
+        <TransLink
           to={data.link}
-          title={data.name}
+          title={t(data.name)}
           activeStyle={activeStyles}
           onClick={() => !isLaptop && setMenuVisible(false)}
         >
-          {data.name}
-        </Link>
+          {t(data.name)}
+        </TransLink>
         <MobileAndTablet>
           <ArrowButton
             name={visible ? 'close submenu' : 'open submenu'}

@@ -1,5 +1,6 @@
 import { graphql, useStaticQuery } from 'gatsby'
 import Img from 'gatsby-image'
+import { useTranslation } from 'gatsby-plugin-react-i18next'
 import React from 'react'
 import { Slide } from 'react-awesome-reveal'
 import styled from 'styled-components'
@@ -62,6 +63,8 @@ const Brands = ({ header }) => {
       }
     }
   `)
+  console.log(header)
+  const { t } = useTranslation()
   const imgs = data.allWpMediaItem.edges
     ? data.allWpMediaItem.edges.map((el: any, i: number) => {
         return (
@@ -81,7 +84,7 @@ const Brands = ({ header }) => {
     <SectionWrapper id="brands">
       <PageSectionHeader>
         <Slide direction={'left'} duration={300} delay={100} triggerOnce>
-          {header}
+          {t(header)}
         </Slide>
       </PageSectionHeader>
       <BrandsSliderWrapper>

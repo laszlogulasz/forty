@@ -1,7 +1,12 @@
-import { graphql, useStaticQuery } from 'gatsby'
-import Img from 'gatsby-image'
 import { AnchorLink } from 'gatsby-plugin-anchor-links'
+import {
+  I18nextContext,
+  Link as TransLink,
+  useI18next,
+  useTranslation,
+} from 'gatsby-plugin-react-i18next'
 import React, { useRef, useState } from 'react'
+import { CircleFlag } from 'react-circle-flags'
 import { useMediaQuery } from 'react-responsive'
 import styled from 'styled-components'
 import { menuItemsList } from '../data'
@@ -12,6 +17,9 @@ import { colors, device, size } from './shared'
 
 interface MenuItemsProps {
   visible?: boolean
+}
+interface LangProps {
+  lang: string
 }
 
 export const MenuItems = styled.ul`
@@ -49,12 +57,11 @@ const LangItems = styled.div`
   }
 `
 const LangItem = styled(Item)`
+  position: relative;
   margin: 0 0 0 0;
   display: flex;
   flex-direction: row;
-  a {
-    margin-left: 5px;
-  }
+  margin-left: 5px;
 `
 const BurgerButton = styled.button`
   background-image: url("data:image/svg+xml;utf8,<!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'><svg height='30px' id='Layer_1' fill='rgb(254, 96, 20)' version='1.1' viewBox='0 0 30 30' width='30px' xml:space='preserve' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><path d='M4,10h24c1.104,0,2-0.896,2-2s-0.896-2-2-2H4C2.896,6,2,6.896,2,8S2.896,10,4,10z M28,14H4c-1.104,0-2,0.896-2,2  s0.896,2,2,2h24c1.104,0,2-0.896,2-2S29.104,14,28,14z M28,22H4c-1.104,0-2,0.896-2,2s0.896,2,2,2h24c1.104,0,2-0.896,2-2  S29.104,22,28,22z'/></svg>");
@@ -80,28 +87,37 @@ const CloseButton = styled.button`
   z-index: 1001;
 `
 const Menu = () => {
-  const data = useStaticQuery(graphql`
-    query {
-      de: file(relativePath: { eq: "de.png" }) {
-        childImageSharp {
-          fixed(width: 20, height: 20) {
-            ...GatsbyImageSharpFixed
-          }
-        }
-      }
-      gb: file(relativePath: { eq: "gb.png" }) {
-        childImageSharp {
-          fixed(width: 20, height: 20) {
-            ...GatsbyImageSharpFixed
-          }
-        }
-      }
-    }
-  `)
+  const { language } = React.useContext(I18nextContext)
   const [visible, setVisible] = useState(false)
   const isMobileAndTablet = useMediaQuery({ maxWidth: size.mobileAndTablet })
   const ref = useRef()
+  const { t } = useTranslation()
+  const { languages, originalPath } = useI18next()
 
+  const langLinks = languages
+    .filter((lng: string) => lng !== language)
+    .map((lng: string) => (
+      <ItemBar key={lng}>
+        <LangItem lang={lng}>
+          <TransLink to={originalPath} language={lng}>
+            <CircleFlag
+              countryCode={lng === 'en' ? 'gb' : lng}
+              width="15"
+              height="15"
+              style={{
+                borderRadius: '15px',
+                border: '1px solid white',
+                marginLeft: '-5px',
+                marginRight: '5px',
+                transform: 'translateY(2px)',
+              }}
+            />
+            {lng}
+          </TransLink>
+        </LangItem>
+      </ItemBar>
+    ))
+  console.log(language)
   useOutsideClick(ref, () => {
     if (visible) setVisible(false)
   })
@@ -136,37 +152,14 @@ const Menu = () => {
         </MobileAndTablet>
         {menuItems}
         <MenuItem>
-          <AnchorLink to={'#contact'}>kontakt</AnchorLink>
+          <AnchorLink to={'#contact'}>{t('KONTAKT')}</AnchorLink>
         </MenuItem>
         <MenuItem>
           <a href={`https://${hostname}`} target="_blank" rel="norefferer">
-            sklep
+            {t('sklep')}
           </a>
         </MenuItem>
-        <ItemBar>
-          <LangItem>
-            <Img
-              fixed={data.de.childImageSharp.fixed}
-              alt="logo firmy Forty"
-              fadeIn={false}
-            />
-            <a href={`#`}>en</a>
-          </LangItem>
-        </ItemBar>
-        <ItemBar>
-          <LangItem
-            onClick={() => {
-              isMobileAndTablet ? setVisible(!visible) : null
-            }}
-          >
-            <Img
-              fixed={data.gb.childImageSharp.fixed}
-              alt="logo firmy Forty"
-              fadeIn={false}
-            />
-            <a href={`#`}>de</a>
-          </LangItem>
-        </ItemBar>
+        {langLinks}
       </MenuItems>
     </>
   )

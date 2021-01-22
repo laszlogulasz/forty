@@ -19,6 +19,7 @@ module.exports = {
    * If you need any more you can search here: https://www.gatsbyjs.com/plugins/
    */
   plugins: [
+    `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-plugin-styled-components`,
       options: {
@@ -56,7 +57,27 @@ module.exports = {
         path: path.join(__dirname, `src`, `images`),
       },
     },
-
+    {
+      resolve: `gatsby-plugin-react-i18next`,
+      options: {
+        path: `${__dirname}/locales`,
+        languages: [`pl`, `en`, `de`],
+        defaultLanguage: `pl`,
+        redirect: false,
+        // if you are using Helmet, you must include siteUrl, and make sure you add http:https
+        // you can pass any i18next options
+        // pass following options to allow message content as a key
+        i18nextOptions: {
+          lowerCaseLng: true,
+          saveMissing: false,
+          interpolation: {
+            escapeValue: false // not needed for react as it escapes by default
+          },
+          keySeparator: false,
+          nsSeparator: false
+        },
+      }
+    },
     /**
      * The following two plugins are required if you want to use Gatsby image
      * See https://www.gatsbyjs.com/docs/gatsby-image/#setting-up-gatsby-image
@@ -82,7 +103,7 @@ module.exports = {
     },
 
     // See https://www.gatsbyjs.com/plugins/gatsby-plugin-react-helmet/?=gatsby-plugin-react-helmet
-    `gatsby-plugin-react-helmet`,
+
 
     /**
      * this (optional) plugin enables Progressive Web App + Offline functionality

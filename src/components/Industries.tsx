@@ -1,4 +1,5 @@
 import { graphql, useStaticQuery } from 'gatsby'
+import { I18nextContext, useTranslation } from 'gatsby-plugin-react-i18next'
 import React, { useEffect, useState } from 'react'
 import { Slide } from 'react-awesome-reveal'
 import { useMediaQuery } from 'react-responsive'
@@ -7,7 +8,9 @@ import { device, PageSectionHeader, SectionWrapper } from './shared'
 import SliderBox from './SliderBox'
 
 const Industries = () => {
+  const { language } = React.useContext(I18nextContext)
   const isMobileAndTablet = useMediaQuery({ maxWidth: device.mobileAndtablet })
+  const { t } = useTranslation()
 
   const data = useStaticQuery(graphql`
     query {
@@ -29,6 +32,7 @@ const Industries = () => {
             language {
               code
             }
+            title
           }
           blocks {
             ... on WpCoreParagraphBlock {
@@ -71,6 +75,7 @@ const Industries = () => {
             language {
               code
             }
+            title
           }
           blocks {
             ... on WpCoreParagraphBlock {
@@ -113,6 +118,7 @@ const Industries = () => {
             language {
               code
             }
+            title
           }
           blocks {
             ... on WpCoreParagraphBlock {
@@ -158,6 +164,7 @@ const Industries = () => {
             language {
               code
             }
+            title
           }
           blocks {
             ... on WpCoreParagraphBlock {
@@ -203,6 +210,7 @@ const Industries = () => {
             language {
               code
             }
+            title
           }
           blocks {
             ... on WpCoreParagraphBlock {
@@ -245,6 +253,7 @@ const Industries = () => {
             language {
               code
             }
+            title
           }
           blocks {
             ... on WpCoreParagraphBlock {
@@ -287,6 +296,7 @@ const Industries = () => {
             language {
               code
             }
+            title
           }
           blocks {
             ... on WpCoreParagraphBlock {
@@ -329,6 +339,7 @@ const Industries = () => {
             language {
               code
             }
+            title
           }
           blocks {
             ... on WpCoreParagraphBlock {
@@ -371,6 +382,7 @@ const Industries = () => {
             language {
               code
             }
+            title
           }
           blocks {
             ... on WpCoreParagraphBlock {
@@ -404,12 +416,30 @@ const Industries = () => {
   const [sliderData, setSliderData] = useState(null)
   useEffect(() => {
     const updatedData = inDustrySlugsOrder.map((slug: String) => {
-      const name = data[`${slug}Post`].nodes[0].title
-      const desc = document
-        .createRange()
-        .createContextualFragment(
-          data[`${slug}Post`].nodes[0].blocks[0].originalContent
-        ).textContent
+      const range = document.createRange()
+      const node = data[`${slug}Post`].nodes[0]
+      const translations = node.translations
+      const transEN = translations.filter(
+        (el: { language: { code: string } }) => el.language.code === 'EN'
+      )
+      const transDE = translations.filter(
+        (el: { language: { code: string } }) => el.language.code === 'DE'
+      )
+
+      const names = {
+        pl: node.title,
+        en: transEN[0]?.title,
+        de: transDE[0]?.title,
+      }
+      const descriptions = {
+        pl: node.blocks[0].originalContent,
+        en: transEN[0]?.blocks[0].originalContent ?? 'no translation here 🤷‍♂️',
+        de:
+          transDE[0]?.blocks[0].originalContent ?? 'Keine Übersetzung hier 🤷‍♂️',
+      }
+      const name = names[`${language}`]
+      const desc = range.createContextualFragment(descriptions[`${language}`])
+        .textContent
 
       const images = data[`${slug}Pics`].edges
       return {
@@ -419,33 +449,7 @@ const Industries = () => {
       }
     })
     setSliderData(updatedData)
-  }, [])
-
-  // const ImageNodes = imagesFromWpCoreGalleryBlock.map(
-  //   (el: { originalContent: string }) => {
-  //     const imageNode = document
-  //       .createRange()
-  //       .createContextualFragment(el.originalContent)
-  //       .querySelectorAll('img')[1]
-
-  //     const imageNodes = document
-  //       .createRange()
-  //       .createContextualFragment(el.originalContent)
-  //       .querySelectorAll('img')
-
-  //     const sizes = '(max-width: 585px) 100vw, 585px'
-  //     const src = imageNode?.getAttribute('src')
-  //     const srcSet = imageNode?.getAttribute('srcSet')
-
-  //     const ImageData = {
-  //       sizes,
-  //       src,
-  //       srcSet,
-  //     }
-
-  //     return ImageData
-  //   }
-  // )
+  }, [language])
 
   const industries = sliderData?.map(
     (
@@ -467,7 +471,7 @@ const Industries = () => {
     <SectionWrapper id="industries">
       <PageSectionHeader>
         <Slide direction={'left'} duration={300} delay={100} triggerOnce>
-          Branże dla których pracujemy
+          {t('Dla jakich branż pracujemy')}
         </Slide>
       </PageSectionHeader>
       {industries}

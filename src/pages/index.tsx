@@ -1,3 +1,4 @@
+import { useTranslation } from 'gatsby-plugin-react-i18next'
 import React from 'react'
 import { useMediaQuery } from 'react-responsive'
 import styled from 'styled-components'
@@ -7,6 +8,7 @@ import Layout from '../components/Layout'
 // import Image from "../components/image"
 import SEO from '../components/Seo'
 import { colors, size } from '../components/shared'
+
 const Background = styled.div`
   background: linear-gradient(
     90deg,
@@ -21,13 +23,14 @@ const Background = styled.div`
   margin-top: -1200px;
 `
 const IndexPage: React.FC = () => {
+  const { t } = useTranslation()
   const isLaptop = useMediaQuery({ minWidth: size.laptop })
   return (
     <Layout isHomePage>
       <SEO title="Start" />
       {isLaptop && <Background />}
       <Industries />
-      <Brands header={'Zaufali nam:'} />
+      <Brands header={t('zaufali nam')} />
     </Layout>
   )
 }

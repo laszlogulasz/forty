@@ -24,7 +24,6 @@ const Logo: React.FC<LogoProps> = ({ theme }) => {
       }
     }
   `)
-  console.log(data[theme].childImageSharp.fluid)
   return (
     <Img
       fluid={data[theme].childImageSharp.fluid}
