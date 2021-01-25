@@ -1,9 +1,12 @@
 import { graphql, useStaticQuery } from 'gatsby'
 import BackgroundImage from 'gatsby-background-image'
-import React from 'react'
+import { I18nextContext, useTranslation } from 'gatsby-plugin-react-i18next'
+import parse from 'html-react-parser'
+import React, { useEffect, useState } from 'react'
 import { Slide, Zoom } from 'react-awesome-reveal'
 import { useMediaQuery } from 'react-responsive'
 import styled from 'styled-components'
+import { useNodes } from '../helpers/useNodes'
 import {
   colors,
   Description,
@@ -87,14 +90,6 @@ const PackingBoxSectionWrapper = styled(SectionWrapper)`
     margin: 10px 0 20px 0;
   }
 `
-const servicesList = [
-  'tace logistyczne',
-  'wkłady do pudełek',
-  'wkłady do gier planszowych',
-  'pokrywy, osłony',
-  'opakowania typu blister',
-  'zamówienia specjalne',
-]
 
 const PackingServices = () => {
   const isLaptop = useMediaQuery({ minWidth: size.laptop })
@@ -102,23 +97,90 @@ const PackingServices = () => {
 
   const data = useStaticQuery(graphql`
     query {
-      contracts: allFile(filter: { dir: { regex: "/contract/" } }) {
+      posts: allWpPost(
+        filter: {
+          language: { code: { eq: PL } }
+          slug: { eq: "uslugi-pakowania" }
+        }
+      ) {
+        nodes {
+          id
+          title
+          translations {
+            blocks {
+              ... on WpCoreParagraphBlock {
+                originalContent
+              }
+            }
+            language {
+              code
+            }
+            title
+          }
+          blocks {
+            ... on WpCoreParagraphBlock {
+              originalContent
+            }
+          }
+        }
+      }
+      pics: allWpMediaItem(
+        filter: { wpParent: { node: { slug: { eq: "uslugi-pakowania" } } } }
+      ) {
         edges {
           node {
-            childImageSharp {
-              fluid(maxWidth: 390, maxHeight: 240, cropFocus: CENTER) {
-                ...GatsbyImageSharpFluid
+            altText
+            localFile {
+              childImageSharp {
+                fluid(maxWidth: 585, maxHeight: 290, cropFocus: CENTER) {
+                  src
+                  srcSet
+                  sizes
+                  aspectRatio
+                }
               }
             }
           }
         }
       }
-      packing: allFile(filter: { dir: { regex: "/packing/" } }) {
+      text: allWpPost(
+        filter: {
+          language: { code: { eq: PL } }
+          slug: { eq: "produkcja-na-zlecenie" }
+        }
+      ) {
+        nodes {
+          blocks {
+            dynamicContent
+          }
+          translations {
+            blocks {
+              ... on WpCoreGalleryBlock {
+                originalContent
+              }
+            }
+            language {
+              code
+            }
+          }
+        }
+      }
+      contractPics: allWpMediaItem(
+        filter: {
+          wpParent: { node: { slug: { eq: "produkcja-na-zlecenie" } } }
+        }
+      ) {
         edges {
           node {
-            childImageSharp {
-              fluid(maxWidth: 585, maxHeight: 420, cropFocus: CENTER) {
-                ...GatsbyImageSharpFluid
+            altText
+            localFile {
+              childImageSharp {
+                fluid(maxWidth: 390, maxHeight: 240, cropFocus: CENTER) {
+                  src
+                  srcSet
+                  sizes
+                  aspectRatio
+                }
               }
             }
           }
@@ -126,28 +188,58 @@ const PackingServices = () => {
       }
     }
   `)
+  const { language } = React.useContext(I18nextContext)
+  const { t } = useTranslation()
+  const [servicesList, setServicesList] = useState(null)
+  const [sliderData, setSliderData] = useState(null)
+  const [descData, setDescData] = useState(null)
 
-  const packing = {
-    desc: (
-      <>
-        Usługi pakowania realizujemy na życzenie klienta, który ma produkt,
-        który chce spakować w opakowanie końcowe, przeznaczone na rynek.
-        Pomagamy w doborze i projektowaniu opakowania.{' '}
-        <strong>
-          Produkujemy opakowania końcowe i realizujemy usługę konfekcjonowania
-          produktów przesłanych przez Klienta.{' '}
-        </strong>
-        Proponujemy pakowanie typu skin-blister, zgrzewane na maszynach HSP oraz
-        pełny blister zgrzewane na maszynach GEAF.
-      </>
-    ),
-    images: data.packing,
-  }
-  const services = servicesList.map((item: String, i) => {
+  useEffect(() => {
+    const range = document.createRange()
+    const { content } = useNodes({
+      dataslug: data.text,
+      dynamic: language === 'pl' && true,
+    })
+    const figCaptions = range
+      .createContextualFragment(content[`${language}`])
+      .querySelectorAll('figcaption')
+    const newServicesList = [...figCaptions].map(el => el.innerText)
+
+    setServicesList(newServicesList)
+  }, [language])
+
+  useEffect(() => {
+    const range = document.createRange()
+    const { content } = useNodes({ dataslug: data[`posts`], nthNode: 1 })
+
+    const desc =
+      content[`${language}`] &&
+      parse(
+        range.createContextualFragment(content[`${language}`]).children[0]
+          .innerHTML
+      )
+    const images = data[`pics`].edges
+    const updatedData = {
+      desc: content[`${language}`] ? desc : t('brak tłumaczenia'),
+      images,
+    }
+    setSliderData(updatedData)
+  }, [language])
+
+  useEffect(() => {
+    const range = document.createRange()
+    const { content } = useNodes({ dataslug: data[`posts`] })
+    const desc = content[`${language}`]
+      ? range.createContextualFragment(content[`${language}`]).textContent
+      : t('brak tłumaczenia')
+    setDescData(desc)
+  }, [language])
+
+  const services = servicesList?.map((item: String, i: number) => {
     return (
       <ContractBackgroundImage
         Tag="li"
-        fluid={data.contracts.edges[i].node.childImageSharp.fluid}
+        fluid={data.contractPics.edges[i].node.localFile.childImageSharp.fluid}
         key={i}
       >
         <ContractListItemWrapper>
@@ -165,22 +257,17 @@ const PackingServices = () => {
         <ContractList>{services}</ContractList>
         <PageSectionHeader invert id="packing-services">
           <Slide direction={'left'} duration={300} triggerOnce>
-            usługi pakowania
+            {t('usługi pakowania')}
           </Slide>
         </PageSectionHeader>
         <Description invert={'row-reverse'} col={col}>
-          Usługi pakowania realizujemy na życzenie klienta, który ma produkt,
-          który chce spakować w opakowanie końcowe, przeznaczone na rynek.
-          Pomagamy w doborze i projektowaniu opakowania. Produkujemy opakowania
-          końcowe i realizujemy usługę konfekcjonowania produktów przesłanych
-          przez Klienta. Proponujemy pakowanie typu skin-blister, zgrzewane na
-          maszynach HSP oraz pełny blister zgrzewane na maszynach GEAF.
+          {descData}
         </Description>
       </GradientSectionWrapper>
       <PackingBoxSectionWrapper>
         <SliderBox
-          desc={packing.desc}
-          images={packing.images}
+          desc={sliderData?.desc}
+          images={sliderData?.images}
           direction={'row'}
           tall={true}
         />

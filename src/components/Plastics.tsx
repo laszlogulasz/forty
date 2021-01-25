@@ -1,5 +1,10 @@
-import React from 'react'
+import { graphql, useStaticQuery } from 'gatsby'
+import { I18nextContext, useTranslation } from 'gatsby-plugin-react-i18next'
+import parse from 'html-react-parser'
+import React, { useEffect, useState } from 'react'
+import { Fade, Slide } from 'react-awesome-reveal'
 import styled from 'styled-components'
+import { useNodes } from '../helpers/useNodes'
 import {
   device,
   GradientSectionWrapper,
@@ -18,44 +23,98 @@ const SpecialityList = styled.ul`
   width: 100%;
   & > * {
     color: ${(props: SpecialityList) => (props.invert ? 'white' : 'gray')};
+    margin-left: 2em;
+    padding: 0;
+    font: 100 0.875em 'Lato';
+    line-height: 1.5em;
+    @media ${device.tablet} {
+      font: 100 1em 'Lato';
+      line-height: 2em;
+    }
+    @media ${device.laptop} {
+      font: 100 1.2em 'Lato';
+      line-height: 2em;
+    }
+    text-align: left;
   }
 `
-const SpecialityListItem = styled.li`
-  margin-left: 1em;
-  padding: 0;
-  font: 100 0.875em 'Lato';
-  line-height: 1.5em;
-  @media ${device.tablet} {
-    font: 100 1em 'Lato';
-    line-height: 2em;
-  }
-  @media ${device.laptop} {
-    font: 100 1.2em 'Lato';
-    line-height: 2em;
-  }
-  text-align: left;
-`
+
 const Plastics = () => {
+  const data = useStaticQuery(graphql`
+    query {
+      list: allWpPost(
+        filter: {
+          language: { code: { eq: PL } }
+          slug: { eq: "rodzaje-tworzyw-sztucznych" }
+        }
+      ) {
+        nodes {
+          blocks {
+            ... on WpCoreHeadingBlock {
+              originalContent
+            }
+            ... on WpCoreListBlock {
+              originalContent
+            }
+          }
+          translations {
+            blocks {
+              ... on WpCoreHeadingBlock {
+                originalContent
+              }
+              ... on WpCoreListBlock {
+                originalContent
+              }
+            }
+            language {
+              code
+            }
+          }
+        }
+      }
+    }
+  `)
+  const { language } = React.useContext(I18nextContext)
+  const { t } = useTranslation()
+  const [plasticsContent, setPlasticsContent] = useState(null)
+  useEffect(() => {
+    const range = document.createRange()
+    const { content: headerNode } = useNodes({
+      dataslug: data.list,
+      nthNode: 0,
+    })
+    const { content: listNode } = useNodes({ dataslug: data.list, nthNode: 1 })
+
+    const header = headerNode[`${language}`]
+      ? parse(
+          range.createContextualFragment(headerNode[`${language}`]).children[0]
+            .innerHTML
+        )
+      : t('brak tłumaczenia')
+    const list = listNode[`${language}`]
+      ? parse(
+          range.createContextualFragment(listNode[`${language}`]).children[0]
+            .innerHTML
+        )
+      : t('brak tłumaczenia')
+    const updatedData = {
+      header,
+      list,
+    }
+    setPlasticsContent(updatedData)
+  }, [language])
   return (
     <GradientSectionWrapper id="plastics">
-      <PageSectionHeader invert>Rodzaje tworzyw sztucznych</PageSectionHeader>
+      <PageSectionHeader invert>
+        <Slide direction={'left'} duration={300} triggerOnce>
+          {t('rodzaje tworzyw sztucznych')}
+        </Slide>
+      </PageSectionHeader>
       <SmallHeader invert={'row-reverse'}>
-        Wykorzystując nasze bogate zaplecze techniczne oraz doświadczenie w
-        termoformowaniu wykonujemy usługi tłoczenia płyt m. in. PS, ABS, HIPS,
-        PVC, PET, a także materiałów ESDo grubości do 10 mm np.:
+        {plasticsContent?.header}
       </SmallHeader>
       <SpecialityList invert>
-        <SpecialityListItem>kasetony i szyldy reklamowe,</SpecialityListItem>
-        <SpecialityListItem>
-          osłony i obudowy maszyn i pojazdów odporne na działanie czynników
-          atmosferycznych,
-        </SpecialityListItem>
-        <SpecialityListItem>wanny i brodziki,</SpecialityListItem>
-        <SpecialityListItem>palety transportowe,</SpecialityListItem>
-        <SpecialityListItem>
-          elementy wnętrza pojazdów wykonane z materiałów ognioodpornych,
-        </SpecialityListItem>
-        <SpecialityListItem>elementy lad chłodniczych.</SpecialityListItem>
+        <Fade>{plasticsContent?.list}</Fade>
       </SpecialityList>
     </GradientSectionWrapper>
   )

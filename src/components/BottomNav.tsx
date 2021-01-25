@@ -1,5 +1,6 @@
 import { Link } from 'gatsby'
 import { AnchorLink } from 'gatsby-plugin-anchor-links'
+import { useTranslation } from 'gatsby-plugin-react-i18next'
 import React from 'react'
 import styled from 'styled-components'
 import { bottomMenuItemsList, hostname } from '../data'
@@ -26,6 +27,7 @@ const BottomLogoLink = styled(Link)`
   }
 `
 const BottomNav = () => {
+  const { t } = useTranslation()
   const menuItems = bottomMenuItemsList.map((item, i) => {
     return <MenuItem key={i} data={item} dark />
   })
@@ -38,11 +40,11 @@ const BottomNav = () => {
         <BottomMenuItems>
           {menuItems}
           <MenuItem dark>
-            <AnchorLink to={'#contact'}>kontakt</AnchorLink>
+            <AnchorLink to={'#contact'}>{`${t('KONTAKT')}`}</AnchorLink>
           </MenuItem>
           <MenuItem dark>
             <a href={`https://${hostname}`} target="_blank" rel="norefferer">
-              sklep
+              {t('sklep')}
             </a>
           </MenuItem>
         </BottomMenuItems>

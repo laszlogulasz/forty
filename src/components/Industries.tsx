@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { Slide } from 'react-awesome-reveal'
 import { useMediaQuery } from 'react-responsive'
 import { inDustrySlugsOrder } from '../data'
+import { useNodes } from '../helpers/useNodes'
 import { device, PageSectionHeader, SectionWrapper } from './shared'
 import SliderBox from './SliderBox'
 
@@ -417,29 +418,11 @@ const Industries = () => {
   useEffect(() => {
     const updatedData = inDustrySlugsOrder.map((slug: String) => {
       const range = document.createRange()
-      const node = data[`${slug}Post`].nodes[0]
-      const translations = node.translations
-      const transEN = translations.filter(
-        (el: { language: { code: string } }) => el.language.code === 'EN'
-      )
-      const transDE = translations.filter(
-        (el: { language: { code: string } }) => el.language.code === 'DE'
-      )
-
-      const names = {
-        pl: node.title,
-        en: transEN[0]?.title,
-        de: transDE[0]?.title,
-      }
-      const descriptions = {
-        pl: node.blocks[0].originalContent,
-        en: transEN[0]?.blocks[0].originalContent ?? 'no translation here 🤷‍♂️',
-        de:
-          transDE[0]?.blocks[0].originalContent ?? 'Keine Übersetzung hier 🤷‍♂️',
-      }
-      const name = names[`${language}`]
-      const desc = range.createContextualFragment(descriptions[`${language}`])
-        .textContent
+      const { titles, content } = useNodes({ dataslug: data[`${slug}Post`] })
+      const name = titles[`${language}`]
+      const desc = range.createContextualFragment(
+        content[`${language}`] ?? t('brak tłumaczenia')
+      ).textContent
 
       const images = data[`${slug}Pics`].edges
       return {
@@ -471,7 +454,7 @@ const Industries = () => {
     <SectionWrapper id="industries">
       <PageSectionHeader>
         <Slide direction={'left'} duration={300} delay={100} triggerOnce>
-          {t('Dla jakich branż pracujemy')}
+          {t('dla jakich branż pracujemy')}
         </Slide>
       </PageSectionHeader>
       {industries}

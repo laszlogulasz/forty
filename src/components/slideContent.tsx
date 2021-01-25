@@ -1,8 +1,16 @@
 import { navigate } from '@reach/router'
-import React from 'react'
+import { useTranslation } from 'gatsby-plugin-react-i18next'
+import React, { ReactFragment } from 'react'
 import styled from 'styled-components'
 import { device, MainHeader, Motto, TransparentButton, Welcome } from './shared'
 
+interface ISlideContent {
+  heroList: {
+    firstLine: ReactFragment
+    secondLine: ReactFragment
+    thirdLine: ReactFragment
+  }
+}
 const SlideContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -33,15 +41,13 @@ const SlideContentWrapper = styled.div`
   /* backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px); */
 `
-const SlideContent: React.FC = () => {
+const SlideContent: React.FC<ISlideContent> = ({ heroList }) => {
+  const { t } = useTranslation()
   return (
     <SlideContentWrapper>
-      <Welcome>Witamy w Forty</Welcome>
-      <MainHeader>
-        Od 1995 roku <span>termoformujemy</span>
-        <br /> tworzywa sztuczne
-      </MainHeader>
-      <Motto>Tworzymy rozwiązania czyte na miarę.</Motto>
+      <Welcome>{heroList && heroList.firstLine}</Welcome>
+      <MainHeader>{heroList && heroList.secondLine}</MainHeader>
+      <Motto>{heroList && heroList.thirdLine}</Motto>
       <TransparentButton
         onClick={e => {
           navigate('#contact')
@@ -49,7 +55,7 @@ const SlideContent: React.FC = () => {
           e.currentTarget.blur()
         }}
       >
-        Kontakt
+        {t('KONTAKT')}
       </TransparentButton>
     </SlideContentWrapper>
   )

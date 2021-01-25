@@ -1,3 +1,4 @@
+import { useTranslation } from 'gatsby-plugin-react-i18next'
 import React from 'react'
 import styled from 'styled-components'
 import ContactDetails from './ContactDetails'
@@ -44,9 +45,10 @@ const ContactDataWrapper = styled(FlexWrapper)`
 `
 
 const ContactData = () => {
+  const { t } = useTranslation()
   return (
     <ContactDataWrapper direction={'column'} as={'address'}>
-      <Title>Adres</Title>
+      <Title>{t('adres')}</Title>
       <Data>
         Forty Spółka Jawna
         <br />
@@ -56,7 +58,7 @@ const ContactData = () => {
         <ContactDetails />
       </Mobile>
       <Tablet>
-        <Title>Napisz do nas</Title>
+        <Title>{t('napisz do nas')}</Title>
         <Mail href="&#109;&#097;i&#108;&#116;o&#058;&#x62;&#x69;&#x75;&#x72;&#x6f;&#x40;&#x66;&#x6f;&#x72;&#x74;&#x79;&#x2e;&#x63;&#x6f;&#x6d;&#x2e;&#x70;&#x6c;">
           &#x62;&#x69;&#x75;&#x72;&#x6f;&#x40;&#x66;&#x6f;&#x72;&#x74;&#x79;&#x2e;&#x63;&#x6f;&#x6d;&#x2e;&#x70;&#x6c;
         </Mail>

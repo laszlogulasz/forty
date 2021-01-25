@@ -1,4 +1,5 @@
 import { Link } from 'gatsby'
+import { useTranslation } from 'gatsby-plugin-react-i18next'
 import React from 'react'
 import { Slide } from 'react-awesome-reveal'
 import { useMediaQuery } from 'react-responsive'
@@ -31,6 +32,7 @@ const BottomLogoLink = styled(Link)`
   }
 `
 const Footer = () => {
+  const { t } = useTranslation()
   const isNotLaptop = useMediaQuery({ maxWidth: size.laptop - 1 })
   return (
     <>
@@ -41,7 +43,7 @@ const Footer = () => {
         >
           <SectionHeader>
             <Slide direction={'left'} duration={300} delay={100} triggerOnce>
-              kontakt
+              {t('KONTAKT')}
             </Slide>
           </SectionHeader>
           <Newsletter />

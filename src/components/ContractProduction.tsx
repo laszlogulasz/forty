@@ -1,3 +1,4 @@
+import { useTranslation } from 'gatsby-plugin-react-i18next'
 import React from 'react'
 import { Slide } from 'react-awesome-reveal'
 import styled from 'styled-components'
@@ -66,15 +67,16 @@ const ContractProductionSmallHeader = styled(SmallHeader)`
 `
 
 const ContractProduction = () => {
+  const { t } = useTranslation()
   return (
     <SectionWrapper id="contract-production">
       <PageSectionHeader>
         <Slide direction={'left'} duration={300} delay={100} triggerOnce>
-          Produkcja na zlecenie
+          {t('produkcja na zlecenie')}
         </Slide>
       </PageSectionHeader>
       <ContractProductionSmallHeader>
-        Produkujemy na zlecenie klienta:
+        {t('Produkujemy na zlecenie klienta:')}
       </ContractProductionSmallHeader>
     </SectionWrapper>
   )

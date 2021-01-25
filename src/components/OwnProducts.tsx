@@ -1,9 +1,12 @@
 import { graphql, useStaticQuery } from 'gatsby'
 import Img from 'gatsby-image'
-import React from 'react'
+import { I18nextContext, useTranslation } from 'gatsby-plugin-react-i18next'
+import parse from 'html-react-parser'
+import React, { useEffect, useState } from 'react'
 import { Slide } from 'react-awesome-reveal'
 import { useMediaQuery } from 'react-responsive'
 import styled from 'styled-components'
+import { useNodes } from '../helpers/useNodes'
 import {
   colors,
   device,
@@ -47,6 +50,7 @@ const ProductImgWrapper = styled.div`
 `
 const ProductImg = styled(Img)`
   margin: 0 auto;
+  min-width: 320px;
 `
 const TransparentButtonWrapper = styled.div`
   display: flex;
@@ -84,92 +88,170 @@ const ProductInfoDesc = styled.p`
 const OwnProducts = () => {
   const data = useStaticQuery(graphql`
     query {
-      helmet: file(relativePath: { eq: "own/przylbica.png" }) {
-        childImageSharp {
-          fixed(height: 300) {
-            ...GatsbyImageSharpFixed
+      posts: allWpPost(
+        filter: {
+          language: { code: { eq: PL } }
+          slug: { eq: "produkty-wlasne" }
+        }
+      ) {
+        nodes {
+          blocks {
+            ... on WpCoreGroupBlock {
+              innerBlocks {
+                ... on WpCoreHeadingBlock {
+                  originalContent
+                }
+                ... on WpCoreParagraphBlock {
+                  originalContent
+                }
+                ... on WpCoreButtonsBlock {
+                  innerBlocks {
+                    ... on WpCoreButtonBlock {
+                      originalContent
+                    }
+                  }
+                }
+              }
+            }
+          }
+          translations {
+            blocks {
+              ... on WpCoreGroupBlock {
+                innerBlocks {
+                  ... on WpCoreHeadingBlock {
+                    originalContent
+                  }
+                  ... on WpCoreParagraphBlock {
+                    originalContent
+                  }
+                  ... on WpCoreButtonsBlock {
+                    innerBlocks {
+                      ... on WpCoreButtonBlock {
+                        originalContent
+                      }
+                    }
+                  }
+                }
+              }
+            }
+            language {
+              code
+            }
           }
         }
       }
-      blistry: file(relativePath: { eq: "own/blistry.jpg" }) {
-        childImageSharp {
-          fixed(height: 360) {
-            ...GatsbyImageSharpFixed
+      pic: allWpMediaItem(
+        filter: { wpParent: { node: { slug: { eq: "produkty-wlasne" } } } }
+      ) {
+        edges {
+          node {
+            altText
+            localFile {
+              childImageSharp {
+                fluid(maxHeight: 360) {
+                  ...GatsbyImageSharpFluid
+                }
+              }
+            }
           }
         }
       }
     }
   `)
+  const { language } = React.useContext(I18nextContext)
+  const { t } = useTranslation()
+  const [productsList, setProductsList] = useState(null)
+
+  useEffect(() => {
+    const range = document.createRange()
+    const newProductList = data.posts.nodes[0].blocks.map((_el, i) => {
+      const { content: headerNode } = useNodes({
+        dataslug: data.posts,
+        group: true,
+        nthNode: i,
+        innerNthNode: 0,
+      })
+      const { content: descNode } = useNodes({
+        dataslug: data.posts,
+        group: true,
+        nthNode: i,
+        innerNthNode: 1,
+      })
+      const { content: buttonNode } = useNodes({
+        dataslug: data.posts,
+        group: true,
+        nthNode: i,
+        innerNthNode: 2,
+      })
+      const header = headerNode[`${language}`]
+        ? range.createContextualFragment(headerNode[`${language}`]).textContent
+        : t('brak tłumaczenia')
+      const desc = descNode[`${language}`]
+        ? range.createContextualFragment(descNode[`${language}`]).textContent
+        : t('brak tłumaczenia')
+      const button: any = buttonNode[`${language}`]
+        ? parse(buttonNode[`${language}`].originalContent)
+        : null
+
+      const image = i === 0 ? data.pic.edges[1] : data.pic.edges[0]
+      console.log(
+        '🚀 ~ file: OwnProducts.tsx ~ line 197 ~ newProductList ~ image',
+        data.pic.edges
+      )
+      return {
+        header,
+        desc,
+        button: {
+          link: button ? button.props.id : '#',
+          text: button
+            ? button.props.children.props.children
+            : t('brak tłumaczenia'),
+        },
+        image,
+      }
+    })
+    setProductsList(newProductList)
+  }, [language])
   const isMobile = useMediaQuery({ maxWidth: size.tablet - 1 })
+  const products = productsList?.map((el, i) => (
+    <ProductBox>
+      <ProductImgWrapper>
+        <ProductImg
+          // @ts-ignore
+          fluid={el.image.node.localFile.childImageSharp.fluid}
+          alt={el.image.node.altText}
+          fadeIn={false}
+        />
+      </ProductImgWrapper>
+      <TransparentButtonWrapper>
+        <TransparentButton
+          dark={i % 2 === 0 ? false : true}
+          onClick={e => {
+            window.location.href = el.button.link
+            // @ts-ignore
+            e.currentTarget.blur()
+          }}
+        >
+          {el.button.text}
+        </TransparentButton>
+      </TransparentButtonWrapper>
+      <ProductInfoWrapper>
+        <ProductInfoHeader>{el.header}</ProductInfoHeader>
+        <ProductInfoDesc dark={i % 2 === 0 ? true : false}>
+          {el.desc}
+        </ProductInfoDesc>
+      </ProductInfoWrapper>
+    </ProductBox>
+  ))
   return (
     <SectionWrapper id="own-products">
       <PageSectionHeader>
         <Slide direction={'left'} duration={300} delay={100} triggerOnce>
-          produkty własne
+          {t('produkty własne')}
         </Slide>
       </PageSectionHeader>
       <OwnProductsBoxWrapper direction={isMobile ? 'column' : 'row'}>
-        <ProductBox>
-          <ProductImgWrapper>
-            <ProductImg
-              // @ts-ignore
-              fixed={data.helmet.childImageSharp.fixed}
-              alt="logo firmy Forty"
-              fadeIn={false}
-            />
-          </ProductImgWrapper>
-          <TransparentButtonWrapper>
-            <TransparentButton
-              onClick={e => {
-                window.location.href =
-                  'https://www.sklep.forty.com.pl/produkt/przylbica-ochronna-100-szt/'
-                // @ts-ignore
-                e.currentTarget.blur()
-              }}
-            >
-              kup teraz
-            </TransparentButton>
-          </TransparentButtonWrapper>
-          <ProductInfoWrapper>
-            <ProductInfoHeader>przyłbice ochronne</ProductInfoHeader>
-            <ProductInfoDesc dark>
-              W odpowiedzi na zapotrzebowanie rynku, wprowadziliśmy do
-              asortymentu przyłbicę ochronną, ograniczającą styczność
-              użytkownika ze szkodliwymi czynnikami zewnętrznymi. Jeżeli jesteś
-              zainteresowany tym produktem zapraszamy do naszego sklepu.
-            </ProductInfoDesc>
-          </ProductInfoWrapper>
-        </ProductBox>
-        <ProductBox>
-          <ProductImgWrapper>
-            <ProductImg
-              // @ts-ignore
-              fixed={data.blistry.childImageSharp.fixed}
-              alt="logo firmy Forty"
-              fadeIn={false}
-            />
-          </ProductImgWrapper>
-          <TransparentButtonWrapper>
-            <TransparentButton
-              dark
-              onClick={e => {
-                window.location.href = 'https://www.sklep.forty.com.pl'
-                // @ts-ignore
-                e.currentTarget.blur()
-              }}
-            >
-              kup teraz
-            </TransparentButton>
-          </TransparentButtonWrapper>
-          <ProductInfoWrapper>
-            <ProductInfoHeader>blistry</ProductInfoHeader>
-            <ProductInfoDesc>
-              Prowadzimy sprzedaż blistrów standardowych, zamykanych o
-              określonych wymiarach. Jeżeli jesteś zainteresowany tym produktem
-              zapraszamy do naszego sklepu.
-            </ProductInfoDesc>
-          </ProductInfoWrapper>
-        </ProductBox>
+        {products}
       </OwnProductsBoxWrapper>
     </SectionWrapper>
   )

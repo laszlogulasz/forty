@@ -1,7 +1,11 @@
 import { graphql, useStaticQuery } from 'gatsby'
 import Img from 'gatsby-image'
-import React from 'react'
+import { I18nextContext, useTranslation } from 'gatsby-plugin-react-i18next'
+import parse from 'html-react-parser'
+import React, { useEffect, useState } from 'react'
+import { Fade, Slide } from 'react-awesome-reveal'
 import styled from 'styled-components'
+import { useNodes } from '../helpers/useNodes'
 import {
   colors,
   Description,
@@ -49,29 +53,70 @@ const SpecialityList = styled.ul`
   width: 100%;
   & > * {
     color: ${(props: SpecialityList) => (props.invert ? 'white' : 'gray')};
+    margin-left: 1em;
+    padding: 0;
+    font: 100 0.875em 'Lato';
+    line-height: 1.5em;
+    @media ${device.tablet} {
+      font: 100 1em 'Lato';
+      line-height: 2em;
+    }
+    @media ${device.laptop} {
+      font: 100 1.2em 'Lato';
+      line-height: 2em;
+    }
+    text-align: left;
   }
 `
 const GradientSectionWrapperISO = styled(GradientSectionWrapper)`
   margin: 50px 0;
 `
-const SpecialityListItem = styled.li`
-  margin-left: 1em;
-  padding: 0;
-  font: 100 0.875em 'Lato';
-  line-height: 1.5em;
-  @media ${device.tablet} {
-    font: 100 1em 'Lato';
-    line-height: 2em;
-  }
-  @media ${device.laptop} {
-    font: 100 1.2em 'Lato';
-    line-height: 2em;
-  }
-  text-align: left;
-`
+
 const ISO9001 = () => {
   const data = useStaticQuery(graphql`
     query {
+      paragraphs: allWpPost(
+        filter: { language: { code: { eq: PL } }, slug: { eq: "iso-9001" } }
+      ) {
+        nodes {
+          blocks {
+            ... on WpCoreParagraphBlock {
+              originalContent
+            }
+          }
+          translations {
+            blocks {
+              ... on WpCoreParagraphBlock {
+                originalContent
+              }
+            }
+            language {
+              code
+            }
+          }
+        }
+      }
+      list: allWpPost(
+        filter: { language: { code: { eq: PL } }, slug: { eq: "iso-9001" } }
+      ) {
+        nodes {
+          blocks {
+            ... on WpCoreListBlock {
+              originalContent
+            }
+          }
+          translations {
+            blocks {
+              ... on WpCoreListBlock {
+                originalContent
+              }
+            }
+            language {
+              code
+            }
+          }
+        }
+      }
       cert: file(relativePath: { eq: "certs/certyfikat.jpg" }) {
         childImageSharp {
           fluid(maxWidth: 407, maxHeight: 561) {
@@ -81,64 +126,71 @@ const ISO9001 = () => {
       }
     }
   `)
+  const { language } = React.useContext(I18nextContext)
+  const { t } = useTranslation()
+  const [paragraphsData, setParagraphsData] = useState(null)
+  const [listData, setListData] = useState(null)
+  useEffect(() => {
+    const range = document.createRange()
+    const paragraphsArr: any[] = data.paragraphs.nodes[0].blocks
+    const paragraphList: any[] = paragraphsArr.map((_el: any, i: number) => {
+      const { content } = useNodes({ dataslug: data.paragraphs, nthNode: i })
+      const paragraph =
+        content[`${language}`] &&
+        parse(
+          range.createContextualFragment(content[`${language}`]).children[0]
+            .innerHTML
+        )
+      return paragraph
+    })
+    const { content } = useNodes({
+      dataslug: data.list,
+      nthNode: paragraphsArr.length - 1,
+    })
+
+    const list =
+      content[`${language}`] &&
+      parse(
+        range.createContextualFragment(content[`${language}`]).children[0]
+          .innerHTML
+      )
+
+    setParagraphsData(paragraphList)
+    setListData(list)
+  }, [language])
+  const paragraphs = paragraphsData
+    ?.map(
+      (el: React.ReactNode) =>
+        el && <Description invert="row-reverse">{el}</Description>
+    )
+    .filter(el => el && el)
 
   return (
     <GradientSectionWrapperISO id="iso9001">
       <PageSectionHeader invert>
-        System Zarządzania Jakością <span>ISO 9001</span>
+        <Slide direction={'left'} duration={300} triggerOnce>
+          <>
+            {t('system zarządzania jakością')} <span>ISO 9001</span>
+          </>
+        </Slide>
       </PageSectionHeader>
       <Figure>
         <ImgWrapper>
           <GradientImg
             //@ts-ignore
             fluid={data.cert.childImageSharp.fluid}
-            alt="logo firmy Forty"
+            alt="zdjęcie certyfikatu ISO9001"
             fadeIn={false}
           />
         </ImgWrapper>
         <Figcaption>
-          <Description invert="row-reverse">
-            Firma Forty s.j. mając świadomość z korzyści płynących z posiadania
-            skutecznego systemu zarządzania jakością w lutym 2006 r. rozpoczęła
-            wdrażanie systemu zarządzania opartego na normie ISO 9001. W efekcie
-            tych działań uzyskała certyfikat Zarządzania Jakością ISO 9001:2008
-            w październiku 2006 r.Jednostką certyfikującą była firma ISOQAR CEE
-            z Wielkiej Brytanii.
-          </Description>
-          <Description invert="row-reverse">
-            Od 2006 utrzymujemy aktywny certyfikat zarządzania jakością,
-            realizujemy wewnętrze i zewnętrzne audyty jakości.
-          </Description>
-
-          <Description invert="row-reverse">
-            <span>Wdrożenie systemu w firmie pozwala nam na:</span>
-          </Description>
+          <Fade>
+            {paragraphs && paragraphs.length
+              ? paragraphs
+              : t('brak tłumaczenia')}
+          </Fade>
           <SpecialityList invert>
-            <SpecialityListItem>
-              jasne i przejrzyste określenie zadań i uprawnień personelu,
-            </SpecialityListItem>
-            <SpecialityListItem>
-              ustalenie jednolitych kanałów komunikacyjnych w Naszym
-              przedsiębiorstwie,
-            </SpecialityListItem>
-            <SpecialityListItem>
-              utrzymanie stałego poziomu jakości Naszych produktów i usług,
-            </SpecialityListItem>
-            <SpecialityListItem>
-              jednoznaczną identyfikację potrzeb Klienta, zarówno jawnych jak i
-              ukrytych,
-            </SpecialityListItem>
-            <SpecialityListItem>
-              podniesienie poziomu jakości obsługi klienta,
-            </SpecialityListItem>
-            <SpecialityListItem>
-              skrócenie czasu adaptacji nowych pracowników do powierzonych im
-              zadań,
-            </SpecialityListItem>
-            <SpecialityListItem>
-              racjonalizacje ponoszonych kosztów z tytułu prowadzonej
-              działalności.
-            </SpecialityListItem>
+            <Fade>{listData ?? null}</Fade>
           </SpecialityList>
         </Figcaption>
       </Figure>

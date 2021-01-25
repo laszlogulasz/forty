@@ -1,4 +1,5 @@
 import Img from 'gatsby-image'
+import { useTranslation } from 'gatsby-plugin-react-i18next'
 import React, { ReactNode } from 'react'
 import { Fade, Zoom } from 'react-awesome-reveal'
 import styled from 'styled-components'
@@ -79,7 +80,8 @@ const SliderBox: React.FC<SliderBoxProps> = ({
   direction,
   tall,
 }) => {
-  const imgs = images.length
+  const { t } = useTranslation()
+  const imgs = images?.length
     ? images.map((el: any, i: number) => {
         return (
           <SwiperSlide key={i}>

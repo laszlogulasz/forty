@@ -1,3 +1,4 @@
+import { useTranslation } from 'gatsby-plugin-react-i18next'
 import React from 'react'
 import styled from 'styled-components'
 import { colors, device, FlexWrapper, GradientButton, Legend } from './shared'
@@ -84,21 +85,25 @@ const GradientNewletterButton = styled(GradientButton)`
 `
 
 const Newsletter = () => {
+  const { t } = useTranslation()
   return (
     <NewsletterForm>
-      <Legend>Zapisz się do naszego newslettera!</Legend>
+      <Legend>{t('Zapisz się do naszego newslettera!')}</Legend>
       <AdditionalLegend>
-        Uzyskaj informacje na temat naszych nowych rozwiązan i aktualnych
-        produktach.
+        {t(
+          'Uzyskaj informacje na temat naszych nowych rozwiązan i aktualnych produktach.'
+        )}
       </AdditionalLegend>
       <InputWrapper direction={'row'}>
         <input
           type={'email'}
           name={'email'}
-          aria-label={'Podaj adres email'}
-          placeholder={'Twój adres email'}
+          aria-label={`${t('Twój adres email')}`}
+          placeholder={`${t('Twój adres email')}`}
         />
-        <GradientNewletterButton type="submit">Wyślij</GradientNewletterButton>
+        <GradientNewletterButton type="submit">
+          {t('WYŚLIJ')}
+        </GradientNewletterButton>
       </InputWrapper>
     </NewsletterForm>
   )

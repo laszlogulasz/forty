@@ -1,5 +1,11 @@
-import React from 'react'
+import { graphql, useStaticQuery } from 'gatsby'
+import { I18nextContext, useTranslation } from 'gatsby-plugin-react-i18next'
+import parse from 'html-react-parser'
+import React, { useEffect, useState } from 'react'
+import { Fade, Slide } from 'react-awesome-reveal'
 import styled from 'styled-components'
+// import { Fade, Slide } from 'react-awesome-reveal'
+import { useNodes } from '../helpers/useNodes'
 import {
   device,
   PageSectionHeader,
@@ -49,96 +55,77 @@ const HistorySmallHeader = styled(SmallHeader)`
   margin: 1em 0 0 0;
 `
 const History = () => {
+  const data = useStaticQuery(graphql`
+    query {
+      list: allWpPost(
+        filter: {
+          language: { code: { eq: PL } }
+          slug: { eq: "historia-firmy" }
+        }
+      ) {
+        nodes {
+          blocks {
+            ... on WpCoreListBlock {
+              originalContent
+            }
+          }
+          translations {
+            blocks {
+              ... on WpCoreListBlock {
+                originalContent
+              }
+            }
+            language {
+              code
+            }
+          }
+        }
+      }
+    }
+  `)
+  const { language } = React.useContext(I18nextContext)
+  const { t } = useTranslation()
+  const [historyList, setHistoryList] = useState(null)
+  useEffect(() => {
+    const range = document.createRange()
+    const { content } = useNodes({
+      dataslug: data.list,
+    })
+    const list =
+      content[`${language}`] &&
+      parse(
+        range.createContextualFragment(content[`${language}`]).children[0]
+          .innerHTML
+      )
+    const headers =
+      content[`${language}`] && [...list]?.filter((_el, i) => i % 2 === 0)
+    const texts =
+      content[`${language}`] && [...list]?.filter((_el, i) => i % 2 !== 0)
+    const historyData = { headers, texts }
+    setHistoryList(historyData)
+  }, [language])
+
+  const historyItems =
+    historyList?.headers?.map((_el, i) => (
+      <Fade>
+        <SpecialityListItem>
+          <HistorySmallHeader>
+            {historyList.headers[i].props.children}
+          </HistorySmallHeader>
+          <p>{historyList.texts[i].props.children}</p>
+        </SpecialityListItem>
+      </Fade>
+    )) ?? t('brak tłumaczenia')
   return (
     <SectionWrapper id={'history'}>
-      <PageSectionHeader>Historia firmy</PageSectionHeader>
-      <SpecialityList>
-        <SpecialityListItem>
-          <HistorySmallHeader>1994</HistorySmallHeader>
-          <p>
-            Założenie Firmy Forty przez dwóch Wspólników: Andrzeja Korczyńskiego
-            i Mirosławy Tytkowskiej. Zakup maszyn do termoformowania.
-            Rozpoczęcie działalności usługowej w wynajętym w Truskawiu zakładzie
-            stolarskim o powierzchni ca 100 m2 i pierwsza produkcja: pakowanie
-            baterii dla Firmy Gillette.
-          </p>
-        </SpecialityListItem>
-        <SpecialityListItem>
-          <HistorySmallHeader>1996</HistorySmallHeader>
-          <p>
-            Zakup nowego zakładu od Spółdzielni Mototransport w Różanie.
-            Rozpoczęcie produkcji w nowej lokalizacji.
-          </p>
-        </SpecialityListItem>
-        <SpecialityListItem>
-          <HistorySmallHeader>1996 - 2000</HistorySmallHeader>
-          <p>
-            Zakup kolejnych maszyn do termoformowania Firmy ILLIG oraz urządzeń
-            towarzyszących. Remont hali produkcyjneji pomieszczeń socjalnych
-            oraz adaptacja Zakładu do potrzeb produkcyjnych.
-          </p>
-        </SpecialityListItem>
-        <SpecialityListItem>
-          <HistorySmallHeader>2004</HistorySmallHeader>
-          <p>
-            Zakup nowoczesnych obrabiarek CNC. Urządzenie własnej narzędziowni i
-            Biura Konstrukcyjnego.
-          </p>
-        </SpecialityListItem>
-        <SpecialityListItem>
-          <HistorySmallHeader>2006</HistorySmallHeader>
-          <p>
-            Zakup Zakładu od Polmozbytu w Różanie po drugiej stronie ulicy o
-            powierzchni Ca 500m2 i adaptacja do celów produkcyjnych. Rozpoczęcie
-            produkcji na nowo zakupionych maszynach do termoformowania płyt wraz
-            z centrum obróbczym Firmy Geiss.
-          </p>
-        </SpecialityListItem>
-        <SpecialityListItem>
-          <HistorySmallHeader>2016</HistorySmallHeader>
-          <p>
-            Wybudowanie nowoczesnego biura handlowego w Warszawie przy ulicy
-            Kopalnianej 6A.
-          </p>
-        </SpecialityListItem>
-        <SpecialityListItem>
-          <HistorySmallHeader>2018</HistorySmallHeader>
-          <p>
-            Zakończenie budowy nowej hali produkcyjnej i magazynu wysokiego
-            składowania w Różanie przy ul. Warszawskiej 42.
-          </p>
-        </SpecialityListItem>
-        <SpecialityListItem>
-          <HistorySmallHeader>2020</HistorySmallHeader>
-          <p>
-            Wdrożenie nowoczesnego programu zarządzania ERP Optima XL, zakup
-            wózka widłowego STILL. Planowana wymiana wentylacji na hali
-            produkcyjnej, która znacznie poprawi warunki pracy naszych
-            pracowników. Nasze następne cele rozwojowe: Powiększenie powierzchni
-            magazynowej (projekt i budowa magazynu wysokiego składowania),
-            dalsza automatyzacja procesu produkcji.
-          </p>
-        </SpecialityListItem>
-      </SpecialityList>
+      <PageSectionHeader>
+        <Slide direction={'left'} duration={300} triggerOnce>
+          {t('historia firmy')}
+        </Slide>
+      </PageSectionHeader>
+      <SpecialityList>{historyItems ?? null} </SpecialityList>
     </SectionWrapper>
   )
 }
 
 export default History
-
-// 2006
-//
-
-// 2016
-// Wybudowanie nowoczesnego biura handlowego w Warszawie przy ulicy Kopalnianej 6A.
-
-// 2018
-// Zakończenie budowy nowej hali produkcyjnej i magazynu wysokiego składowania w Różanie przy ul. Warszawskiej 42
-
-// 2019
-// Zakup nowoczesnego automatu do termoformowania Firmy ILLIG.
-
-// 2020
-// Wdrożenie nowoczesnego programu zarządzania ERP Optima XL, zakup wózka widłowego STILL. Planowana wymiana wentylacji na hali produkcyjnej, która znacznie poprawi warunki pracy naszych pracowników.
-// Nasze następne cele rozwojowe: Powiększenie powierzchni magazynowej
-// (projekt i budowa magazynu wysokiego składowania), dalsza automatyzacja procesu produkcji.

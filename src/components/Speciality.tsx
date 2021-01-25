@@ -1,5 +1,10 @@
-import React from 'react'
+import { graphql, useStaticQuery } from 'gatsby'
+import { I18nextContext, useTranslation } from 'gatsby-plugin-react-i18next'
+import parse from 'html-react-parser'
+import React, { useEffect, useState } from 'react'
+import { Fade, Slide } from 'react-awesome-reveal'
 import styled from 'styled-components'
+import { useNodes } from '../helpers/useNodes'
 import {
   device,
   GradientSectionWrapper,
@@ -19,22 +24,20 @@ const SpecialityList = styled.ul`
   width: 100%;
   & > * {
     color: ${(props: SpecialityList) => (props.invert ? 'white' : 'gray')};
-  }
-`
-const SpecialityListItem = styled.li`
-  margin-left: 1em;
-  padding: 0;
 
-  text-align: left;
-  font: 100 0.875em 'Lato';
-  line-height: 1.5em;
-  @media ${device.tablet} {
-    font: 100 1em 'Lato';
-    line-height: 2em;
-  }
-  @media ${device.laptop} {
-    font: 100 1.2em 'Lato';
-    line-height: 2em;
+    margin-left: 2em;
+    padding: 0;
+    text-align: left;
+    font: 100 0.875em 'Lato';
+    line-height: 1.5em;
+    @media ${device.tablet} {
+      font: 100 1em 'Lato';
+      line-height: 2em;
+    }
+    @media ${device.laptop} {
+      font: 100 1.2em 'Lato';
+      line-height: 2em;
+    }
   }
 `
 const GradientSpecialitySectionWrapper = styled(GradientSectionWrapper)`
@@ -43,27 +46,83 @@ const GradientSpecialitySectionWrapper = styled(GradientSectionWrapper)`
 `
 
 const Speciality = () => {
+  const data = useStaticQuery(graphql`
+    query {
+      list: allWpPost(
+        filter: {
+          language: { code: { eq: PL } }
+          slug: { eq: "nasza-specjalizacja" }
+        }
+      ) {
+        nodes {
+          blocks {
+            ... on WpCoreHeadingBlock {
+              originalContent
+            }
+            ... on WpCoreListBlock {
+              originalContent
+            }
+          }
+          translations {
+            blocks {
+              ... on WpCoreHeadingBlock {
+                originalContent
+              }
+              ... on WpCoreListBlock {
+                originalContent
+              }
+            }
+            language {
+              code
+            }
+          }
+        }
+      }
+    }
+  `)
+  const { language } = React.useContext(I18nextContext)
+  const { t } = useTranslation()
+  const [specialityContent, setSpecialityContent] = useState(null)
+  useEffect(() => {
+    const range = document.createRange()
+    const { content: headerNode } = useNodes({
+      dataslug: data.list,
+      nthNode: 0,
+    })
+    const { content: listNode } = useNodes({ dataslug: data.list, nthNode: 1 })
+
+    const header = headerNode[`${language}`]
+      ? parse(
+          range.createContextualFragment(headerNode[`${language}`]).children[0]
+            .innerHTML
+        )
+      : t('brak tłumaczenia')
+    const list = listNode[`${language}`]
+      ? parse(
+          range.createContextualFragment(listNode[`${language}`]).children[0]
+            .innerHTML
+        )
+      : t('brak tłumaczenia')
+    const updatedData = {
+      header,
+      list,
+    }
+    setSpecialityContent(updatedData)
+  }, [language])
+
   return (
     <GradientSpecialitySectionWrapper id="speciality">
-      <PageSectionHeader invert>Nasza specjalizacja</PageSectionHeader>
-      <SmallHeader invert={'row-reverse'}>Specjalizujemy się w:</SmallHeader>
+      <PageSectionHeader invert>
+        <Slide direction={'left'} duration={300} triggerOnce>
+          {t('nasza specjalizacja')}
+        </Slide>
+      </PageSectionHeader>
+      <SmallHeader invert={'row-reverse'}>
+        {specialityContent?.header}
+      </SmallHeader>
+
       <SpecialityList invert>
-        <SpecialityListItem>
-          produkcji palet transportowych dla przemysłu,
-        </SpecialityListItem>
-        <SpecialityListItem>
-          produkcji wytłoczek do gier planszowych,
-        </SpecialityListItem>
-        <SpecialityListItem>
-          produkcji blistrów do pakowania wyrobów gotowych dla różnych branż,
-        </SpecialityListItem>
-        <SpecialityListItem>
-          pakowaniu wyrobów gotowych powierzonych przez Klienta w technologii
-          skin-blister lub w-cz (zgrzewanie 2 elementów plastikowych),
-        </SpecialityListItem>
-        <SpecialityListItem>
-          projektowaniu opakowań dla produktów klientów.
-        </SpecialityListItem>
+        <Fade>{specialityContent?.list}</Fade>
       </SpecialityList>
     </GradientSpecialitySectionWrapper>
   )

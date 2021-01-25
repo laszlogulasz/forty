@@ -1,5 +1,11 @@
-import React from 'react'
+import { graphql, useStaticQuery } from 'gatsby'
+import { I18nextContext, useTranslation } from 'gatsby-plugin-react-i18next'
+import parse from 'html-react-parser'
+import React, { useEffect, useState } from 'react'
+import { Fade, Slide } from 'react-awesome-reveal'
 import styled from 'styled-components'
+// import { Fade, Slide } from 'react-awesome-reveal'
+import { useNodes } from '../helpers/useNodes'
 import { device, PageSectionHeader, SectionWrapper } from './shared'
 interface SpecialityList {
   invert?: boolean
@@ -14,85 +20,84 @@ const SpecialityList = styled.ul`
   list-style: none;
   & > * {
     color: ${(props: SpecialityList) => (props.invert ? 'white' : 'gray')};
+    margin-left: 0;
+    padding: 0;
+    text-align: left;
+    margin-bottom: 0.5em;
+    font: 100 0.875em 'Lato';
+    & > strong {
+      font: 400 0.875em 'Lato';
+    }
+    line-height: 1.5em;
+    @media ${device.tablet} {
+      font: 100 1em 'Lato';
+      & > strong {
+        font: 400 0.9em 'Lato';
+      }
+      line-height: 2em;
+    }
+    @media ${device.laptop} {
+      font: 100 1.2em 'Lato';
+      & > strong {
+        font: 400 1em 'Lato';
+      }
+      line-height: 2em;
+    }
   }
 `
-const SpecialityListItem = styled.li`
-  margin-left: 0;
-  padding: 0;
-  text-align: left;
-  margin-bottom: 0.5em;
-  font: 100 0.875em 'Lato';
-  & > span {
-    font: 400 0.875em 'Lato';
-  }
-  line-height: 1.5em;
-  @media ${device.tablet} {
-    font: 100 1em 'Lato';
-    & > span {
-      font: 400 0.9em 'Lato';
-    }
-    line-height: 2em;
-  }
-  @media ${device.laptop} {
-    font: 100 1.2em 'Lato';
-    & > span {
-      font: 400 1em 'Lato';
-    }
-    line-height: 2em;
-  }
-`
+const SpecialityListItem = styled.li``
 const News = () => {
+  const data = useStaticQuery(graphql`
+    query {
+      list: allWpPost(
+        filter: { language: { code: { eq: PL } }, slug: { eq: "aktualnosci" } }
+      ) {
+        nodes {
+          blocks {
+            ... on WpCoreListBlock {
+              originalContent
+            }
+          }
+          translations {
+            blocks {
+              ... on WpCoreListBlock {
+                originalContent
+              }
+            }
+            language {
+              code
+            }
+          }
+        }
+      }
+    }
+  `)
+  const { language } = React.useContext(I18nextContext)
+  const { t } = useTranslation()
+  const [newsList, setNewsList] = useState(null)
+  useEffect(() => {
+    const range = document.createRange()
+    const { content } = useNodes({
+      dataslug: data.list,
+    })
+    const list = content[`${language}`]
+      ? parse(
+          range.createContextualFragment(content[`${language}`]).children[0]
+            .innerHTML
+        )
+      : t('brak tłumaczenia')
+
+    setNewsList(list)
+  }, [language])
   return (
     <SectionWrapper id={'news'}>
-      <PageSectionHeader>Aktualności</PageSectionHeader>
+      <PageSectionHeader>
+        <Slide direction={'left'} duration={300} triggerOnce>
+          {t('aktualności')}
+        </Slide>
+      </PageSectionHeader>
       <SpecialityList>
-        <SpecialityListItem>
-          <span>21.09.2020</span> – zapraszamy do obejrzenia nowej wersji naszej
-          strony internetowej.
-        </SpecialityListItem>
-        <SpecialityListItem>
-          <span>27.07.2020</span> – Wdrożyliśmy nowy system do kontroli obiegu
-          odpadów pochodzących z produkcji.
-        </SpecialityListItem>
-        <SpecialityListItem>
-          <span>15.07.2020</span> – Witamy w naszych szeregach nowego
-          specjalistę ds. sprzedaży. Życzymy Tomkowi dobrych wyników i miłej
-          pracy.
-        </SpecialityListItem>
-        <SpecialityListItem>
-          <span>01.07.2020</span> – Witamy w naszym gronie nowych magazynierów –
-          Arek i Paweł – życzymy sukcesów w pracy.
-        </SpecialityListItem>
-        <SpecialityListItem>
-          <span>30.06.2020</span> – Zakończyliśmy wdrożenie nowego systemu
-          produkcyjnego w ramach systemu ERP, uwzględniającego moduł MES.
-        </SpecialityListItem>
-        <SpecialityListItem>
-          <span>15.05.2020</span> – Wdrożyliśmy nowy system magazynowy w ramach
-          systemu ERP. Zakończyliśmy optymalizację powierzchni magazynowej.
-        </SpecialityListItem>
-        <SpecialityListItem>
-          <span>30.04.2020</span> – Rekrutacja wewnętrzna wyłoniła nowego
-          kierownika Magazynu – Hubert, życzymy samych sukcesów w pracy.
-        </SpecialityListItem>
-        <SpecialityListItem>
-          <span>15.07.2020</span> – Witamy w naszych szeregach nowego
-          specjalistę ds. sprzedaży. Życzymy Tomkowi dobrych wyników i miłej
-          pracy.
-        </SpecialityListItem>
-        <SpecialityListItem>
-          <span>22.04.2020 </span>– Rozpoczynamy użytkowanie wózka bocznego
-          STILL
-        </SpecialityListItem>
-        <SpecialityListItem>
-          <span>15.04.2020</span> – Z przyjemnością informujemy o tym, że
-          rozpoczęliśmy sprzedaż przyłbic ochronnych. Zapraszamy do
-          naszegosklepu internetowego: sklep.forty.com.pl
-        </SpecialityListItem>
-        <SpecialityListItem>
-          <span>15.02.2020</span> – Witamy w naszych szeregach nowego
-          konstruktora. Marcin – życzymy sukcesów w pracy.
-        </SpecialityListItem>
+        <Fade>{newsList ?? null}</Fade>
       </SpecialityList>
     </SectionWrapper>
   )

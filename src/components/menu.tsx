@@ -117,7 +117,7 @@ const Menu = () => {
         </LangItem>
       </ItemBar>
     ))
-  console.log(language)
+
   useOutsideClick(ref, () => {
     if (visible) setVisible(false)
   })

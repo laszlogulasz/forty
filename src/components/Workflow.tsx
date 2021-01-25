@@ -3,7 +3,6 @@ import { I18nextContext, useTranslation } from 'gatsby-plugin-react-i18next'
 import React, { useEffect, useState } from 'react'
 import { Fade, Slide } from 'react-awesome-reveal'
 import styled from 'styled-components'
-import { workFlowList } from '../data'
 import {
   BoxWrapper,
   Description,
@@ -107,22 +106,31 @@ const Workflow = () => {
   const { language } = React.useContext(I18nextContext)
   const data = useStaticQuery(graphql`
     query {
-      allWpMediaItem(
+      allWpPost(
         filter: {
-          wpParent: { node: { slug: { eq: "produkcja-na-zlecenie" } } }
+          language: { code: { eq: PL } }
+          slug: { eq: "jak-pracujemy" }
         }
       ) {
-        edges {
-          node {
-            altText
-            localFile {
-              childImageSharp {
-                fluid(maxWidth: 585, maxHeight: 290, cropFocus: CENTER) {
-                  src
-                  srcSet
-                  sizes
-                  aspectRatio
-                }
+        nodes {
+          blocks {
+            ... on WpCoreHeadingBlock {
+              originalContent
+            }
+            ... on WpCoreParagraphBlock {
+              originalContent
+            }
+          }
+          translations {
+            language {
+              code
+            }
+            blocks {
+              ... on WpCoreHeadingBlock {
+                originalContent
+              }
+              ... on WpCoreParagraphBlock {
+                originalContent
               }
             }
           }
@@ -131,43 +139,47 @@ const Workflow = () => {
     }
   `)
   const { t } = useTranslation()
-  const [sliderData, setSliderData] = useState(null)
+  const [workFlowList, setWorkFlowList] = useState(null)
   useEffect(() => {
-    // const updatedData = inDustrySlugsOrder.map((slug: String) => {
-    //   const range = document.createRange()
-    //   const node = data[`${slug}Post`].nodes[0]
-    //   const translations = node.translations
-    //   const transEN = translations.filter(
-    //     (el: { language: { code: string } }) => el.language.code === 'EN'
-    //   )
-    //   const transDE = translations.filter(
-    //     (el: { language: { code: string } }) => el.language.code === 'DE'
-    //   )
-    //   const names = {
-    //     pl: node.title,
-    //     en: transEN[0]?.title,
-    //     de: transDE[0]?.title,
-    //   }
-    //   const descriptions = {
-    //     pl: node.blocks[0].originalContent,
-    //     en: transEN[0]?.blocks[0].originalContent ?? 'no translation here 🤷‍♂️',
-    //     de:
-    //       transDE[0]?.blocks[0].originalContent ?? 'Keine Übersetzung hier 🤷‍♂️',
-    //   }
-    //   const name = names[`${language}`]
-    //   const desc = range.createContextualFragment(descriptions[`${language}`])
-    //     .textContent
-    //   const images = data[`${slug}Pics`].edges
-    //   return {
-    //     name,
-    //     desc,
-    //     images,
-    //   }
-    // })
-    // setSliderData(updatedData)
+    const range = document.createRange()
+    const nodes = data.allWpPost.nodes[0]
+    const translations = nodes.translations
+    const transEN = translations.filter(
+      (el: { language: { code: string } }) => el.language.code === 'EN'
+    )
+    const transDE = translations.filter(
+      (el: { language: { code: string } }) => el.language.code === 'DE'
+    )
+    const langBlocks = {
+      pl: nodes.blocks,
+      en: transEN?.blocks,
+      de: transDE?.blocks,
+    }
+    const headers = langBlocks[`${language}`]
+      ?.filter((el: any, i: number) => i % 2 === 0)
+      ?.map(
+        (el: any) =>
+          range.createContextualFragment(el.originalContent)?.textContent
+      )
+
+    const descs = langBlocks[`${language}`]
+      ?.filter((el: any, i: number) => i % 2 !== 0)
+      ?.map(
+        (el: any) =>
+          range.createContextualFragment(el.originalContent)?.textContent
+      )
+
+    const newWorkflowList = headers?.map((el: any, i: any) => {
+      return {
+        title: el,
+        content: descs[i],
+      }
+    })
+    setWorkFlowList(newWorkflowList)
   }, [language])
-  const workflow = workFlowList.map(
-    (item: { title: String; content: String }, i) => {
+
+  const workflow =
+    workFlowList?.map((item: { title: String; content: String }, i) => {
       return (
         <WorkflowWrapper
           key={i}
@@ -187,8 +199,7 @@ const Workflow = () => {
           </Fade>
         </WorkflowWrapper>
       )
-    }
-  )
+    }) ?? t('brak tłumaczenia')
 
   return (
     <SectionWrapper id="workflow">

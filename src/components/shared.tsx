@@ -69,7 +69,7 @@ export const SectionHeader = styled.h2`
 `
 export const PageSectionHeader = styled(SectionHeader)`
   margin: 50px 0 20px 0;
-  & > span {
+  & > * > span {
     color: gray;
   }
 `
@@ -159,8 +159,9 @@ export const MainHeader = styled.h1`
     font: 400 4em 'source-serif-pro';
   }
   color: white;
-  span {
+  strong {
     color: ${colors.primaryRed};
+    font-weight: 400;
   }
 `
 const SerifSlogan = css`

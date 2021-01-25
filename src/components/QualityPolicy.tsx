@@ -1,7 +1,10 @@
 import { graphql, useStaticQuery } from 'gatsby'
 import Img from 'gatsby-image'
-import React from 'react'
+import { I18nextContext, useTranslation } from 'gatsby-plugin-react-i18next'
+import React, { useEffect, useState } from 'react'
+import { Slide } from 'react-awesome-reveal'
 import styled from 'styled-components'
+import { useNodes } from '../helpers/useNodes'
 import {
   colors,
   device,
@@ -67,6 +70,30 @@ const SmallHeaderGray = styled(SmallHeader)`
 const QualityPolicy = () => {
   const data = useStaticQuery(graphql`
     query {
+      headers: allWpPost(
+        filter: {
+          language: { code: { eq: PL } }
+          slug: { eq: "nasza-polityka-jakosci" }
+        }
+      ) {
+        nodes {
+          blocks {
+            ... on WpCoreHeadingBlock {
+              originalContent
+            }
+          }
+          translations {
+            blocks {
+              ... on WpCoreHeadingBlock {
+                originalContent
+              }
+            }
+            language {
+              code
+            }
+          }
+        }
+      }
       cert: file(relativePath: { eq: "certs/2.jpg" }) {
         childImageSharp {
           fluid(maxWidth: 417, maxHeight: 551) {
@@ -76,10 +103,35 @@ const QualityPolicy = () => {
       }
     }
   `)
-
+  const { language } = React.useContext(I18nextContext)
+  const { t } = useTranslation()
+  const [headersData, setHeadersData] = useState(null)
+  useEffect(() => {
+    const range = document.createRange()
+    const { content: headerNode } = useNodes({
+      dataslug: data.headers,
+      nthNode: 0,
+    })
+    const { content: smallHeaderNode } = useNodes({
+      dataslug: data.headers,
+      nthNode: 1,
+    })
+    const header = headerNode[`${language}`]
+      ? range.createContextualFragment(headerNode[`${language}`]).textContent
+      : t('brak tłumaczenia')
+    const smallHeader = smallHeaderNode[`${language}`]
+      ? range.createContextualFragment(smallHeaderNode[`${language}`])
+          .textContent
+      : t('brak tłumaczenia')
+    setHeadersData({ header, smallHeader })
+  }, [language])
   return (
     <QualitySectionWrapper id="quality-policy">
-      <PageSectionHeader>Nasza polityka jakości</PageSectionHeader>
+      <PageSectionHeader>
+        <Slide direction={'left'} duration={300} triggerOnce>
+          {t('Nasza polityka jakości')}
+        </Slide>
+      </PageSectionHeader>
       <Figure>
         <ImgWrapper>
           <GradientImg
@@ -91,9 +143,9 @@ const QualityPolicy = () => {
         </ImgWrapper>
         <Figcaption>
           <PageSectionHeaderGray>
-            Interesuje nas wyłącznie najwyższa jakość…
+            {headersData?.header ?? null}
           </PageSectionHeaderGray>
-          <SmallHeaderGray>Nie ma tu miejsca na kompromisy.</SmallHeaderGray>
+          <SmallHeaderGray>{headersData?.smallHeader ?? null}</SmallHeaderGray>
         </Figcaption>
       </Figure>
     </QualitySectionWrapper>

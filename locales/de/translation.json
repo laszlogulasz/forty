@@ -18,7 +18,8 @@
   "misja firmy": "Unsere Aufgabe",
   "historia firmy": "Unsere Geschichte",
   "SYSTEM ZARZĄDZANIA JAKOŚCIĄ ISO 9001": "Qualitätsmanagementsystem nach DIN EN ISO 9001",
-  "NASZA POLITYKA JAKOŚCI": "Datenschutz-Bestimmungen",
+  "system zarządzania jakością": "Qualitätsmanagementsystem nach DIN EN",
+  "nasza polityka jakości": "Datenschutz-Bestimmungen",
   "Ekologia": "Ökologie",
   "klienci": "Kunden",
   "Praca": "Karriere",
@@ -32,6 +33,7 @@
   "Uzyskaj informacje na temat naszych nowych rozwiązan i aktualnych produktach.": "Hier finden Sie Informationen über unsere neuen Lösungen und aktuellen Produkte.",
   "Chcę zapytać o:": "Ich möchte fragen:",
   "Twój adres email": "Deine Emailadresse",
+  "adres": "Adresse",
   "Przykładowa wycena": "Bewertung",
   "Firma / imię i nazwisko": "Firma / Name und Nachname",
   "Numer telefonu": "Telefonnummer",
@@ -42,5 +44,7 @@
   "napisz do nas": "Schreib uns",
   "wpisz poprwny adres email": "Geben Sie eine gültige E-mail-Adresse ein",
   "wpisz nazwę firmy lub imię i nazwisko": "Geben Sie Ihren Firmennamen oder Vor- und Nachnamen ein",
-  "wpisz poprawny numer telefonu": "Geben Sie eine gültige Telefonnummer ein"
+  "wpisz poprawny numer telefonu": "Geben Sie eine gültige Telefonnummer ein",
+  "brak tłumaczenia": "Keine Übersetzung hier 🤷‍♂️",
+  "Temat pytania": "Frage Betreff"
 }

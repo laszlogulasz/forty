@@ -18,7 +18,8 @@
   "misja firmy": "Our mission",
   "historia firmy": "Our history",
   "SYSTEM ZARZĄDZANIA JAKOŚCIĄ ISO 9001": "Quality management system ISO 9001",
-  "NASZA POLITYKA JAKOŚCI": "Privacy policy",
+  "system zarządzania jakością": "Quality management system",
+  "nasza polityka jakości": "Privacy policy",
   "Ekologia": "Ecology",
   "klienci": "Clients",
   "Praca": "Carrer",
@@ -32,6 +33,7 @@
   "Uzyskaj informacje na temat naszych nowych rozwiązan i aktualnych produktach.": "Get information about our new solutions and current products.",
   "Chcę zapytać o:": "I want to ask about:",
   "Twój adres email": "Your e-mail address",
+  "adres": "Address",
   "Przykładowa wycena": "Sample pricing",
   "Firma / imię i nazwisko": "Company / name and surname",
   "Numer telefonu": "Phone number",
@@ -42,5 +44,7 @@
   "napisz do nas": "Write to us",
   "wpisz poprwny adres email": "Enter the correct e-mail address",
   "wpisz nazwę firmy lub imię i nazwisko": "Enter your company name or your name",
-  "wpisz poprawny numer telefonu": "Enter a valid phone number"
+  "wpisz poprawny numer telefonu": "Enter a valid phone number",
+  "brak tłumaczenia": "no translation here 🤷‍♂️",
+  "Temat pytania": "Question subiect"
 }

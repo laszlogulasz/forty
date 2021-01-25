@@ -4,7 +4,7 @@ export const menuItemsList = [
     name: 'strona główna',
 
     submenu: [
-      { link: '/#industries', name: 'Dla jakich branż pracujemy' },
+      { link: '/#industries', name: 'dla jakich branż pracujemy' },
       { link: '/#brands', name: 'zaufali nam' },
     ],
   },

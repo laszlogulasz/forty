@@ -63,7 +63,7 @@ const Brands = ({ header }) => {
       }
     }
   `)
-  console.log(header)
+
   const { t } = useTranslation()
   const imgs = data.allWpMediaItem.edges
     ? data.allWpMediaItem.edges.map((el: any, i: number) => {

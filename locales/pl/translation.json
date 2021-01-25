@@ -18,7 +18,8 @@
   "misja firmy": "misja firmy",
   "historia firmy": "historia firmy",
   "SYSTEM ZARZĄDZANIA JAKOŚCIĄ ISO 9001": "SYSTEM ZARZĄDZANIA JAKOŚCIĄ ISO 9001",
-  "NASZA POLITYKA JAKOŚCI": "NASZA POLITYKA JAKOŚCI",
+  "system zarządzania jakością": "SYSTEM ZARZĄDZANIA JAKOŚCIĄ",
+  "nasza polityka jakości": "NASZA POLITYKA JAKOŚCI",
   "Ekologia": "Ekologia",
   "klienci": "Klienci",
   "Praca": "Praca",
@@ -32,6 +33,7 @@
   "Uzyskaj informacje na temat naszych nowych rozwiązan i aktualnych produktach.": "Uzyskaj informacje na temat naszych nowych rozwiązan i aktualnych produktach.",
   "Chcę zapytać o:": "Chcę zapytać o:",
   "Twój adres email": "Twój adres email",
+  "adres": "adres",
   "Przykładowa wycena": "Przykładowa wycena",
   "Firma / imię i nazwisko": "Firma / imię i nazwisko",
   "Numer telefonu": "Numer telefonu",
@@ -42,5 +44,7 @@
   "napisz do nas": "napisz do nas",
   "wpisz poprwny adres email": "wpisz poprwny adres email",
   "wpisz nazwę firmy lub imię i nazwisko": "wpisz nazwę firmy lub imię i nazwisko",
-  "wpisz poprawny numer telefonu": "wpisz poprawny numer telefonu"
+  "wpisz poprawny numer telefonu": "wpisz poprawny numer telefonu",
+  "brak tłumaczenia": "brak tłumaczenia",
+  "Temat pytania": "Temat pytania"
 }
