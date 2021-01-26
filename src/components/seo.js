@@ -11,7 +11,7 @@ import React from "react"
 import { Helmet } from "react-helmet"
 
 const SEO = ({ description, lang, meta, title }) => {
-  const { wp, wpUser } = useStaticQuery(
+  const { wp } = useStaticQuery(
     graphql`
       query {
         wp {
@@ -21,10 +21,6 @@ const SEO = ({ description, lang, meta, title }) => {
           }
         }
 
-        # if there's more than one user this would need to be filtered to the main user
-        wpUser {
-          twitter: name
-        }
       }
     `
   )
@@ -59,22 +55,6 @@ const SEO = ({ description, lang, meta, title }) => {
         {
           property: `og:type`,
           content: `website`,
-        },
-        {
-          name: `twitter:card`,
-          content: `summary`,
-        },
-        {
-          name: `twitter:creator`,
-          content: wpUser?.twitter || ``,
-        },
-        {
-          name: `twitter:title`,
-          content: title,
-        },
-        {
-          name: `twitter:description`,
-          content: metaDescription,
         },
       ].concat(meta)}
     />
