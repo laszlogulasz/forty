@@ -39,8 +39,7 @@ module.exports = {
       options: {
         // the only required plugin option for WordPress is the GraphQL url.
         url:
-          process.env.WPGRAPHQL_URL ||
-          `http://forty.krul.pl/graphql`,
+          process.env.WPGRAPHQL_URL,
       },
     },
 
