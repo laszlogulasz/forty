@@ -41,7 +41,7 @@ const SlideContent: React.FC = () => {
         Od 1995 roku <span>termoformujemy</span>
         <br /> tworzywa sztuczne
       </MainHeader>
-      <Motto>Tworzymy rozwiązania czyte na miarę.</Motto>
+      <Motto>Tworzymy rozwiązania szyte na miarę.</Motto>
       <TransparentButton
         onClick={e => {
           navigate('#contact')

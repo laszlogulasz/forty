@@ -126,7 +126,7 @@ const Industries = () => {
     {
       name: 'Motoryzacyjna',
       desc:
-        'Produkujemy różne palety transportowe dla dostawców części samochodowych. Nasze paletki biorą udział w łańcuchu dostaw dooczołowych producentów samochodów: Mercedes, Volkswagen, Toyota, Ford, Iveco, Chrysler, Ferrari, Maserati. Wytwarzamy też zatyczki technologiczne niezbędne przy produkcji i transporcie części samochodowych.',
+        'Produkujemy różne palety transportowe dla dostawców części samochodowych. Nasze paletki biorą udział w łańcuchu dostaw do czołowych producentów samochodów: Mercedes, Volkswagen, Toyota, Ford, Iveco, Chrysler, Ferrari, Maserati. Wytwarzamy też zatyczki technologiczne niezbędne przy produkcji i transporcie części samochodowych.',
       images: data.moto,
     },
     {

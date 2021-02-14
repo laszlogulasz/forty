@@ -76,18 +76,9 @@ const News = () => {
           kierownika Magazynu – Hubert, życzymy samych sukcesów w pracy.
         </SpecialityListItem>
         <SpecialityListItem>
-          <span>15.07.2020</span> – Witamy w naszych szeregach nowego
-          specjalistę ds. sprzedaży. Życzymy Tomkowi dobrych wyników i miłej
-          pracy.
-        </SpecialityListItem>
-        <SpecialityListItem>
-          <span>22.04.2020 </span>– Rozpoczynamy użytkowanie wózka bocznego
-          STILL
-        </SpecialityListItem>
-        <SpecialityListItem>
           <span>15.04.2020</span> – Z przyjemnością informujemy o tym, że
-          rozpoczęliśmy sprzedaż przyłbic ochronnych. Zapraszamy do
-          naszegosklepu internetowego: sklep.forty.com.pl
+          rozpoczęliśmy sprzedaż przyłbic ochronnych. Zapraszamy do naszego
+          sklepu internetowego: sklep.forty.com.pl
         </SpecialityListItem>
         <SpecialityListItem>
           <span>15.02.2020</span> – Witamy w naszych szeregach nowego

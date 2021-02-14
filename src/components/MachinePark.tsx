@@ -58,7 +58,7 @@ const MachinePark = () => {
           urządzenie CNC do obróbki wykańczającej Geiss.
         </SpecialityListItem>
         <SpecialityListItem>
-          Do produkcji średnio i małoseryjnej posidamy termoformierki SB74 i
+          Do produkcji średnio i małoseryjnej posiadamy termoformierki SB74 i
           SB53 w ciągu z prasami hydraulicznymi.
         </SpecialityListItem>
         <SpecialityListItem>

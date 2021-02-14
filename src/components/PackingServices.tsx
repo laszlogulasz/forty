@@ -102,7 +102,10 @@ const PackingServices = () => {
 
   const data = useStaticQuery(graphql`
     query {
-      contracts: allFile(filter: { dir: { regex: "/contract/" } }) {
+      contracts: allFile(
+        filter: { dir: { regex: "/contract/" } }
+        sort: { order: ASC, fields: name }
+      ) {
         edges {
           node {
             childImageSharp {
@@ -130,9 +133,9 @@ const PackingServices = () => {
   const packing = {
     desc: (
       <>
-        Usługi pakowania realizujemy na życzenie klienta, który ma produkt,
-        który chce spakować w opakowanie końcowe, przeznaczone na rynek.
-        Pomagamy w doborze i projektowaniu opakowania.{' '}
+        Usługi pakowania realizujemy na życzenie klienta, który chce spakować
+        swój produkt w opakowanie końcowe, przeznaczone na rynek. Pomagamy w
+        doborze i projektowaniu opakowania.{' '}
         <strong>
           Produkujemy opakowania końcowe i realizujemy usługę konfekcjonowania
           produktów przesłanych przez Klienta.{' '}
@@ -144,6 +147,7 @@ const PackingServices = () => {
     images: data.packing,
   }
   const services = servicesList.map((item: String, i) => {
+    console.log(data.contracts.edges[i].node.childImageSharp.fluid)
     return (
       <ContractBackgroundImage
         Tag="li"
@@ -169,11 +173,11 @@ const PackingServices = () => {
           </Slide>
         </PageSectionHeader>
         <Description invert={'row-reverse'} col={col}>
-          Usługi pakowania realizujemy na życzenie klienta, który ma produkt,
-          który chce spakować w opakowanie końcowe, przeznaczone na rynek.
-          Pomagamy w doborze i projektowaniu opakowania. Produkujemy opakowania
-          końcowe i realizujemy usługę konfekcjonowania produktów przesłanych
-          przez Klienta. Proponujemy pakowanie typu skin-blister, zgrzewane na
+          Usługi pakowania realizujemy na życzenie klienta, który chce spakować
+          swój produkt w opakowanie końcowe, przeznaczone na rynek. Pomagamy w
+          doborze i projektowaniu opakowania. Produkujemy opakowania końcowe i
+          realizujemy usługę konfekcjonowania produktów przesłanych przez
+          Klienta. Proponujemy pakowanie typu skin-blister, zgrzewane na
           maszynach HSP oraz pełny blister zgrzewane na maszynach GEAF.
         </Description>
       </GradientSectionWrapper>
